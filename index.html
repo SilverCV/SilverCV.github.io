@@ -174,14 +174,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-test-my-site" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-erode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/7525f478.html">test_my_site</a>
+      <a class="article-title" href="/jsblog/7525f478.html">图像腐蚀</a>
     </h1>
   
 
@@ -194,7 +194,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。</p>
+<p>在了解腐蚀之前我们先来了解一下结构元素</p>
+<p>结构元素的定义如下：</p>
+<p><strong>设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。</strong></p>
+<p>接下来我们看一下腐蚀的定义：</p>
+<p><strong>在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素</strong></p>
+<p>腐蚀的作用：</p>
+<ul>
+<li>边缘检测</li>
+<li>噪声过滤</li>
+<li>形态骨架提取</li>
+</ul>
+<p>其 数学表达式为</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst(x,y) = min src( x + x`,y+y`) 其中 （x`,y`）: element(x`,y`) != 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>原理：</strong></p>
+<p>对Z中的集合A和B，B对A进行腐蚀的整个过程如下：</p>
+<p>⑴ 用结构元素B，扫描图像A的每一个像素</p>
+<p>⑵ 用结构元素与其覆盖的二值图像做“与”操作</p>
+<p>⑶ 如果都为1，结果图像的该像素为1。否则为0</p>
+<p>腐蚀处理的结果是使原来的二值图像减小一圈</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat srcImage = cv::imread(&quot;32.jpg&quot;);			//read the file</span><br><span class="line">	if (srcImage.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		std::cerr &lt;&lt; &quot;the file does not exits!&quot; &lt;&lt; std::endl;</span><br><span class="line">		return -1;</span><br><span class="line">	&#125;</span><br><span class="line">	//get the structure element</span><br><span class="line">	cv::Mat StructElement = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(15, 15));</span><br><span class="line">	//defination the result</span><br><span class="line">	cv::Mat result;</span><br><span class="line">	//erode the image</span><br><span class="line">	cv::erode(srcImage, result, StructElement);</span><br><span class="line">	//show the image</span><br><span class="line">	cv::namedWindow(&quot;input&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::namedWindow(&quot;output&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::imshow(&quot;input&quot;,srcImage);</span><br><span class="line">	cv::imshow(&quot;output&quot;,result);</span><br><span class="line">	cv::waitKey(0);</span><br><span class="line">	cv::destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg" alt="img">input</p>
+<p><img src="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg" alt="img">output</p>
+
       
 
       
@@ -202,86 +229,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/jsblog/7525f478.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/4a17b156.html">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/4a17b156.html" class="archive-article-date">
-  	<time datetime="2020-09-05T12:57:48.284Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/4a17b156.html">展开全文 >></a>
         </p>
       
 
@@ -402,6 +365,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
