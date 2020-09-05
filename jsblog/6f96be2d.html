@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>TCP 连接与断开 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​             (1)  客户端：发送SYN报文请求连接 ，置发送序号为X (2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1）   客户端(主动)：发送请求FIN报文，发">
+  <meta name="description" content="(1) 客户端：发送SYN报文请求连接 ，置发送序号为X (2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1） 客户端(主动)：发送请求FIN报文，发送序号为u （2） 服务端（被动）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP 连接与断开">
 <meta property="og:url" content="http://example.com/jsblog/6f96be2d.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="​             (1)  客户端：发送SYN报文请求连接 ，置发送序号为X (2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1）   客户端(主动)：发送请求FIN报文，发">
+<meta property="og:description" content="(1) 客户端：发送SYN报文请求连接 ，置发送序号为X (2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1） 客户端(主动)：发送请求FIN报文，发送序号为u （2） 服务端（被动）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/JSL/Desktop/3.png">
-<meta property="og:image" content="c:/Users/JSL/Desktop/4.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-69a7e128d54c5d91eba89fda1d9ad296_720w.jpg">
 <meta property="article:published_time" content="2020-09-05T23:01:33.000Z">
-<meta property="article:modified_time" content="2020-09-05T23:09:49.299Z">
+<meta property="article:modified_time" content="2020-09-05T23:12:35.327Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/JSL/Desktop/3.png">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -210,20 +210,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​            <img src="C:\Users\JSL\Desktop\3.png" alt="3"></p>
-<p>(1)  客户端：发送SYN报文请求连接 ，置发送序号为X</p>
-<p>(2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
-<p>(3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
+        <p> <img src="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg" alt="img"></p>
+<p>(1) 客户端：发送SYN报文请求连接 ，置发送序号为X</p>
+<p>(2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
+<p>(3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
 <p>此时连接建立起来，客户端和服务器端可以发送数据。</p>
 <p>四次握手断开连接</p>
-<p><img src="C:\Users\JSL\Desktop\4.png"></p>
-<p>（1）   客户端(主动)：发送请求FIN报文，发送序号为u</p>
-<p>（2）   服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p>
-<p>（3）   服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p>
-<p>（4）   客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p>
+<p><img src="https://pic1.zhimg.com/80/v2-69a7e128d54c5d91eba89fda1d9ad296_720w.jpg" alt="img"></p>
+<p>（1） 客户端(主动)：发送请求FIN报文，发送序号为u</p>
+<p>（2） 服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p>
+<p>（3） 服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p>
+<p>（4） 客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p>
 <p>客户端最后等待2MSL是因为报文的生存时间为MSL，如果服务器端没有收到客户端发来的确认报文，那么服务端会重新发送一次FIN报文请求断开。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长</p>
-<p><strong>PS:</strong></p>
-<p>图片来源于百度图片，侵删</p>
+<p><strong>PS: 图片来源于百度图片，侵删！</strong></p>
 
       
 
