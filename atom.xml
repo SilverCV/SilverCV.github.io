@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-05T22:39:10.505Z</updated>
+  <updated>2020-09-05T23:04:12.368Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TCP 连接与断开</title>
+    <link href="http://example.com/jsblog/6f96be2d.html"/>
+    <id>http://example.com/jsblog/6f96be2d.html</id>
+    <published>2020-09-05T23:01:33.000Z</published>
+    <updated>2020-09-05T23:04:12.368Z</updated>
+    
+    <content type="html"><![CDATA[<p>​                   <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070236719.png" alt="image-20200906070236719">            </p><p>(1)  客户端：发送SYN报文请求连接 ，置发送序号为X</p><p>(2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p><p>(3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p><p>此时连接建立起来，客户端和服务器端可以发送数据。</p><p>四次握手断开连接</p><p> <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070248072.png" alt="image-20200906070248072"></p><p>（1）   客户端(主动)：发送请求FIN报文，发送序号为u</p><p>（2）   服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p><p>（3）   服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p><p>（4）   客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p><p>客户端最后等待2MSL是因为报文的生存时间为MSL，如果服务器端没有收到客户端发来的确认报文，那么服务端会重新发送一次FIN报文请求断开。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长</p><p><strong>PS:</strong></p><p>图片来源于百度图片，侵删</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;​                   &lt;img src=&quot;C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070236719.png&quot; alt=&quot;image-202009060702</summary>
+      
+    
+    
+    
+    
+    <category term="notes" scheme="http://example.com/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>像素操作</title>

@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>图像腐蚀 | 林木博客</title>
+  <title>TCP 连接与断开 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素 结构元素的定义如下： 设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。 接下来我们看一下腐蚀的定义： 在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素 腐蚀的作用：  边缘检测">
+  <meta name="description" content="​                                (1)  客户端：发送SYN报文请求连接 ，置发送序号为X (2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接   （1）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图像腐蚀">
-<meta property="og:url" content="http://example.com/jsblog/7525f478.html">
+<meta property="og:title" content="TCP 连接与断开">
+<meta property="og:url" content="http://example.com/jsblog/6f96be2d.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素 结构元素的定义如下： 设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。 接下来我们看一下腐蚀的定义： 在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素 腐蚀的作用：  边缘检测">
+<meta property="og:description" content="​                                (1)  客户端：发送SYN报文请求连接 ，置发送序号为X (2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接   （1）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg">
-<meta property="article:published_time" content="2020-09-05T12:59:10.000Z">
-<meta property="article:modified_time" content="2020-09-05T22:41:08.304Z">
+<meta property="og:image" content="c:/Users/JSL/AppData/Roaming/Typora/typora-user-images/image-20200906070236719.png">
+<meta property="og:image" content="c:/Users/JSL/AppData/Roaming/Typora/typora-user-images/image-20200906070248072.png">
+<meta property="article:published_time" content="2020-09-05T23:01:33.000Z">
+<meta property="article:modified_time" content="2020-09-05T23:04:12.368Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="OpenCV">
+<meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg">
+<meta name="twitter:image" content="c:/Users/JSL/AppData/Roaming/Typora/typora-user-images/image-20200906070236719.png">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -190,55 +190,40 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-erode" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-tcp" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      图像腐蚀
+      TCP 连接与断开
     </h1>
   
 
         
-        <a href="/jsblog/7525f478.html" class="archive-article-date">
-  	<time datetime="2020-09-05T12:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
+        <a href="/jsblog/6f96be2d.html" class="archive-article-date">
+  	<time datetime="2020-09-05T23:01:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。</p>
-<p>在了解腐蚀之前我们先来了解一下结构元素</p>
-<p>结构元素的定义如下：</p>
-<p><strong>设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。</strong></p>
-<p>接下来我们看一下腐蚀的定义：</p>
-<p><strong>在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素</strong></p>
-<p>腐蚀的作用：</p>
-<ul>
-<li>边缘检测</li>
-<li>噪声过滤</li>
-<li>形态骨架提取</li>
-</ul>
-<p>其 数学表达式为</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst(x,y) = min src( x + x`,y+y`) 其中 （x`,y`）: element(x`,y`) != 0</span><br></pre></td></tr></table></figure>
-
-<p><strong>原理：</strong></p>
-<p>对Z中的集合A和B，B对A进行腐蚀的整个过程如下：</p>
-<p>⑴ 用结构元素B，扫描图像A的每一个像素</p>
-<p>⑵ 用结构元素与其覆盖的二值图像做“与”操作</p>
-<p>⑶ 如果都为1，结果图像的该像素为1。否则为0</p>
-<p>腐蚀处理的结果是使原来的二值图像减小一圈</p>
-<p><strong>代码：</strong></p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat srcImage = cv::imread(&quot;32.jpg&quot;);			//read the file</span><br><span class="line">	if (srcImage.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		std::cerr &lt;&lt; &quot;the file does not exits!&quot; &lt;&lt; std::endl;</span><br><span class="line">		return -1;</span><br><span class="line">	&#125;</span><br><span class="line">	//get the structure element</span><br><span class="line">	cv::Mat StructElement = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(15, 15));</span><br><span class="line">	//defination the result</span><br><span class="line">	cv::Mat result;</span><br><span class="line">	//erode the image</span><br><span class="line">	cv::erode(srcImage, result, StructElement);</span><br><span class="line">	//show the image</span><br><span class="line">	cv::namedWindow(&quot;input&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::namedWindow(&quot;output&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::imshow(&quot;input&quot;,srcImage);</span><br><span class="line">	cv::imshow(&quot;output&quot;,result);</span><br><span class="line">	cv::waitKey(0);</span><br><span class="line">	cv::destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>结果：</strong></p>
-<p><img src="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg" alt="img"></p>
-<p>​                                                                            input</p>
-<p><img src="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg" alt="img"></p>
-<p>​                                                                        output</p>
+        <p>​                   <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070236719.png" alt="image-20200906070236719">            </p>
+<p>(1)  客户端：发送SYN报文请求连接 ，置发送序号为X</p>
+<p>(2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
+<p>(3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
+<p>此时连接建立起来，客户端和服务器端可以发送数据。</p>
+<p>四次握手断开连接</p>
+<p> <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070248072.png" alt="image-20200906070248072"></p>
+<p>（1）   客户端(主动)：发送请求FIN报文，发送序号为u</p>
+<p>（2）   服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p>
+<p>（3）   服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p>
+<p>（4）   客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p>
+<p>客户端最后等待2MSL是因为报文的生存时间为MSL，如果服务器端没有收到客户端发来的确认报文，那么服务端会重新发送一次FIN报文请求断开。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长</p>
+<p><strong>PS:</strong></p>
+<p>图片来源于百度图片，侵删</p>
 
       
 
@@ -273,7 +258,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		
 		</ul>
@@ -329,7 +314,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/7525f478.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/6f96be2d.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -343,15 +328,11 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/561fe8cb.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          像素操作
-        
-      </div>
-    </a>
   
+    <a href="/jsblog/561fe8cb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">像素操作</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

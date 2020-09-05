@@ -57,7 +57,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+				<li><a href="/tags/notes/">随笔</a></li>
 	        
 				<li><a href="/tags/cpp/">C++</a></li>
 	        
@@ -161,7 +161,7 @@
 				
 					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 16.666666666666668%"><a href="/tags/notes/">随笔</a></li>
 		        
 					<li style="width: 16.666666666666668%"><a href="/tags/cpp/">C++</a></li>
 		        
@@ -185,6 +185,93 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-tcp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/6f96be2d.html">TCP 连接与断开</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/6f96be2d.html" class="archive-article-date">
+  	<time datetime="2020-09-05T23:01:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​                   <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070236719.png" alt="image-20200906070236719">            </p>
+<p>(1)  客户端：发送SYN报文请求连接 ，置发送序号为X</p>
+<p>(2)  服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
+<p>(3)  客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
+<p>此时连接建立起来，客户端和服务器端可以发送数据。</p>
+<p>四次握手断开连接</p>
+<p> <img src="C:\Users\JSL\AppData\Roaming\Typora\typora-user-images\image-20200906070248072.png" alt="image-20200906070248072"></p>
+<p>（1）   客户端(主动)：发送请求FIN报文，发送序号为u</p>
+<p>（2）   服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p>
+<p>（3）   服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p>
+<p>（4）   客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p>
+<p>客户端最后等待2MSL是因为报文的生存时间为MSL，如果服务器端没有收到客户端发来的确认报文，那么服务端会重新发送一次FIN报文请求断开。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长</p>
+<p><strong>PS:</strong></p>
+<p>图片来源于百度图片，侵删</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/6f96be2d.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-pixel-operator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -492,6 +579,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
               </li>
             
             <div class="clearfix"></div>
