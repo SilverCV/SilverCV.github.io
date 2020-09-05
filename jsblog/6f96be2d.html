@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>TCP 连接与断开 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="(1) 客户端：发送SYN报文请求连接 ，置发送序号为X (2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1） 客户端(主动)：发送请求FIN报文，发送序号为u （2） 服务端（被动）">
+  <meta name="description" content="本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP 连接与断开">
 <meta property="og:url" content="http://example.com/jsblog/6f96be2d.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="(1) 客户端：发送SYN报文请求连接 ，置发送序号为X (2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y (3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1 此时连接建立起来，客户端和服务器端可以发送数据。 四次握手断开连接  （1） 客户端(主动)：发送请求FIN报文，发送序号为u （2） 服务端（被动）">
+<meta property="og:description" content="本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-69a7e128d54c5d91eba89fda1d9ad296_720w.jpg">
 <meta property="article:published_time" content="2020-09-05T23:01:33.000Z">
-<meta property="article:modified_time" content="2020-09-05T23:12:35.327Z">
+<meta property="article:modified_time" content="2020-09-05T23:20:40.538Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p> <img src="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg" alt="img"></p>
+        <p> 本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。</p>
+<a id="more"></a>
+
+<p><img src="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg" alt="img"></p>
 <p>(1) 客户端：发送SYN报文请求连接 ，置发送序号为X</p>
 <p>(2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
 <p>(3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
