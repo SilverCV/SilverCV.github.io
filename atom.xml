@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-09-05T23:20:40.538Z</updated>
+  <updated>2020-09-07T12:19:32.186Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FileStorage</title>
+    <link href="http://example.com/jsblog/5c7f6c43.html"/>
+    <id>http://example.com/jsblog/5c7f6c43.html</id>
+    <published>2020-09-07T12:18:24.000Z</published>
+    <updated>2020-09-07T12:19:32.186Z</updated>
+    
+    <content type="html"><![CDATA[<p>OpenCV中可以使用FileStorage 对xml，yml等文本文件的读写。可扩展<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>，<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E5%87%86%E9%80%9A%E7%94%A8%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/6805073">标准通用标记语言</a>的子集，简称XML。是一种用于标记电子文件使其具有结构性的<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/5964436">标记语言</a>。YAML是一个可读性高，用来表达数据<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a>的格式。</p><p>首先看一下fileStorage的构造函数和析构函数：</p><p><strong>构造函数：</strong></p><p>FileStorage::FileStorage(const String&amp; filename,int flags,const String&amp; encoding= String());</p><p>filename: 文件名称</p><p>flags：文件的打开模式，主要有以下几种：</p><p>READ: 以读的形式打开</p><p>WRITE:以写的形式打开</p><p>APPEND:以追加的形式打开</p><p>MEMORY: 从source 中读取数据或者写入数据到缓存中（通过FileStorage::release返回）</p><p>FORMAT_MASK: 格式化数据的掩码</p><p>FORMAT_AUTO : 自动格式化数据</p><p>FORMAT_XML： 将文件按照xml方式读写</p><p>FORMAT_YAML: 将文件按照yaml方式读写</p><p>FORMAT_JSON 将文件按照JSON方式读写</p><p>enconding: 文件的编码格式</p><p><strong>析构函数：</strong></p><p>FileStorage::~FileStorage()</p><p><strong>几个重要的函数：</strong></p><p>FileStorage::release() ： 关闭文件</p><p>FileStorage::isOpened() ：判断文件是否打开</p><p>FileStorage::Open(const String&amp; filename,int flags,const String&amp; encoding= String()) 与构造函数一样，将文件按照指定的格式以及编码打开。</p><p>operator&gt;&gt; ： 重载运算符，将节点数据读入到某个变量中</p><p>operator&lt;&lt; : 将数据保存到某个节点中</p><p>operator[] : 取出某个节点的数据</p><p>以yaml文件为例</p><p>读写数据代码所示：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;opencv2/opencv.hpp&quot;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//写入数据</span></span><br><span class="line">    <span class="function">FileStorage <span class="title">fs</span><span class="params">(<span class="string">&quot;test.yml&quot;</span>,FileStorage::WRITE)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> fps = <span class="number">5</span>;</span><br><span class="line">    fs &lt;&lt; <span class="string">&quot;fps&quot;</span> &lt;&lt; fps;</span><br><span class="line">    Mat m = Mat::eye(<span class="number">2</span>,<span class="number">3</span>,CV_32F);</span><br><span class="line">    Mat m1 = Mat::eye(<span class="number">3</span>,<span class="number">2</span>,CV_32F);</span><br><span class="line">    Mat result = (m+<span class="number">1</span>).mul(m+<span class="number">3</span>);</span><br><span class="line">    fs &lt;&lt; <span class="string">&quot;result&quot;</span> &lt;&lt; result;</span><br><span class="line">    fs.release();</span><br><span class="line">    <span class="comment">//读出数据</span></span><br><span class="line">    <span class="function">FileStorage <span class="title">fs2</span><span class="params">(<span class="string">&quot;test.yml&quot;</span>,FileStorage::READ)</span></span>;</span><br><span class="line">    Mat r;</span><br><span class="line">    fs2[<span class="string">&quot;result&quot;</span>] &gt;&gt; r;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; r  &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    fs2.release();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>保存在test.yml的数据如下：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">%YAML:1.0</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">fps:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">result:</span> <span class="type">!!opencv</span><span class="string">-matrix</span></span><br><span class="line">   <span class="attr">rows:</span> <span class="number">2</span></span><br><span class="line">   <span class="attr">cols:</span> <span class="number">3</span></span><br><span class="line">   <span class="attr">dt:</span> <span class="string">f</span></span><br><span class="line">   <span class="attr">data:</span> [ <span class="number">8</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">8</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span> ]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;OpenCV中可以使用FileStorage 对xml，yml等文本文件的读写。可扩展&lt;a href=&quot;https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%</summary>
+      
+    
+    
+    
+    
+    <category term="OpenCV" scheme="http://example.com/tags/OpenCV/"/>
+    
+  </entry>
   
   <entry>
     <title>TCP 连接与断开</title>

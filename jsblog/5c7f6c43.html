@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>TCP 连接与断开 | 林木博客</title>
+  <title>FileStorage | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。">
+  <meta name="description" content="OpenCV中可以使用FileStorage 对xml，yml等文本文件的读写。可扩展标记语言，标准通用标记语言的子集，简称XML。是一种用于标记电子文件使其具有结构性的标记语言。YAML是一个可读性高，用来表达数据序列化的格式。 首先看一下fileStorage的构造函数和析构函数： 构造函数： FileStorage::FileStorage(const String&amp; filenam">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP 连接与断开">
-<meta property="og:url" content="http://example.com/jsblog/6f96be2d.html">
+<meta property="og:title" content="FileStorage">
+<meta property="og:url" content="http://example.com/jsblog/5c7f6c43.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。">
+<meta property="og:description" content="OpenCV中可以使用FileStorage 对xml，yml等文本文件的读写。可扩展标记语言，标准通用标记语言的子集，简称XML。是一种用于标记电子文件使其具有结构性的标记语言。YAML是一个可读性高，用来表达数据序列化的格式。 首先看一下fileStorage的构造函数和析构函数： 构造函数： FileStorage::FileStorage(const String&amp; filenam">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-69a7e128d54c5d91eba89fda1d9ad296_720w.jpg">
-<meta property="article:published_time" content="2020-09-05T23:01:33.000Z">
-<meta property="article:modified_time" content="2020-09-05T23:20:40.538Z">
+<meta property="article:published_time" content="2020-09-07T12:18:24.000Z">
+<meta property="article:modified_time" content="2020-09-07T12:19:32.186Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="notes">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -190,42 +187,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tcp" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-FileStorage" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      TCP 连接与断开
+      FileStorage
     </h1>
   
 
         
-        <a href="/jsblog/6f96be2d.html" class="archive-article-date">
-  	<time datetime="2020-09-05T23:01:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
+        <a href="/jsblog/5c7f6c43.html" class="archive-article-date">
+  	<time datetime="2020-09-07T12:18:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p> 本文主要是介绍TCP协议的连接与断开的过程以及自己对于这些过程的理解。</p>
-<a id="more"></a>
+        <p>OpenCV中可以使用FileStorage 对xml，yml等文本文件的读写。可扩展<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>，<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E5%87%86%E9%80%9A%E7%94%A8%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/6805073">标准通用标记语言</a>的子集，简称XML。是一种用于标记电子文件使其具有结构性的<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/5964436">标记语言</a>。YAML是一个可读性高，用来表达数据<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a>的格式。</p>
+<p>首先看一下fileStorage的构造函数和析构函数：</p>
+<p><strong>构造函数：</strong></p>
+<p>FileStorage::FileStorage(const String&amp; filename,int flags,const String&amp; encoding= String());</p>
+<p>filename: 文件名称</p>
+<p>flags：文件的打开模式，主要有以下几种：</p>
+<p>READ: 以读的形式打开</p>
+<p>WRITE:以写的形式打开</p>
+<p>APPEND:以追加的形式打开</p>
+<p>MEMORY: 从source 中读取数据或者写入数据到缓存中（通过FileStorage::release返回）</p>
+<p>FORMAT_MASK: 格式化数据的掩码</p>
+<p>FORMAT_AUTO : 自动格式化数据</p>
+<p>FORMAT_XML： 将文件按照xml方式读写</p>
+<p>FORMAT_YAML: 将文件按照yaml方式读写</p>
+<p>FORMAT_JSON 将文件按照JSON方式读写</p>
+<p>enconding: 文件的编码格式</p>
+<p><strong>析构函数：</strong></p>
+<p>FileStorage::~FileStorage()</p>
+<p><strong>几个重要的函数：</strong></p>
+<p>FileStorage::release() ： 关闭文件</p>
+<p>FileStorage::isOpened() ：判断文件是否打开</p>
+<p>FileStorage::Open(const String&amp; filename,int flags,const String&amp; encoding= String()) 与构造函数一样，将文件按照指定的格式以及编码打开。</p>
+<p>operator&gt;&gt; ： 重载运算符，将节点数据读入到某个变量中</p>
+<p>operator&lt;&lt; : 将数据保存到某个节点中</p>
+<p>operator[] : 取出某个节点的数据</p>
+<p>以yaml文件为例</p>
+<p>读写数据代码所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;opencv2/opencv.hpp&quot;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//写入数据</span></span><br><span class="line">    <span class="function">FileStorage <span class="title">fs</span><span class="params">(<span class="string">&quot;test.yml&quot;</span>,FileStorage::WRITE)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> fps = <span class="number">5</span>;</span><br><span class="line">    fs &lt;&lt; <span class="string">&quot;fps&quot;</span> &lt;&lt; fps;</span><br><span class="line">    Mat m = Mat::eye(<span class="number">2</span>,<span class="number">3</span>,CV_32F);</span><br><span class="line">    Mat m1 = Mat::eye(<span class="number">3</span>,<span class="number">2</span>,CV_32F);</span><br><span class="line">    Mat result = (m+<span class="number">1</span>).mul(m+<span class="number">3</span>);</span><br><span class="line">    fs &lt;&lt; <span class="string">&quot;result&quot;</span> &lt;&lt; result;</span><br><span class="line">    fs.release();</span><br><span class="line">    <span class="comment">//读出数据</span></span><br><span class="line">    <span class="function">FileStorage <span class="title">fs2</span><span class="params">(<span class="string">&quot;test.yml&quot;</span>,FileStorage::READ)</span></span>;</span><br><span class="line">    Mat r;</span><br><span class="line">    fs2[<span class="string">&quot;result&quot;</span>] &gt;&gt; r;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; r  &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    fs2.release();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://pic1.zhimg.com/80/v2-043ba89d07d63a8868f876a39b944205_720w.jpg" alt="img"></p>
-<p>(1) 客户端：发送SYN报文请求连接 ，置发送序号为X</p>
-<p>(2) 服务端：接收到客户端的请求连接报文，发送SYN-ACK报文给客户端，其中确认序号为X+1,发送序号为Y</p>
-<p>(3) 客户端：发送acK报文，并置发送序号为X+1，并置确认序号为Y+1</p>
-<p>此时连接建立起来，客户端和服务器端可以发送数据。</p>
-<p>四次握手断开连接</p>
-<p><img src="https://pic1.zhimg.com/80/v2-69a7e128d54c5d91eba89fda1d9ad296_720w.jpg" alt="img"></p>
-<p>（1） 客户端(主动)：发送请求FIN报文，发送序号为u</p>
-<p>（2） 服务端（被动）：发送ACK报文，序号为v,确认号为u+1;确认客户端断开，服务器不再接受该客户端发来的数据。这时候成为半关闭状态。</p>
-<p>（3） 服务端：等待Close-wait时间后，服务端做好了关闭的准备，向客户端发送一个关闭连接的FIN-ACK报文，确认号为u+1,序号为w</p>
-<p>（4） 客户端：发送ACK报文，确认号为w+1,序号为u+1，确认关闭连接.</p>
-<p>客户端最后等待2MSL是因为报文的生存时间为MSL，如果服务器端没有收到客户端发来的确认报文，那么服务端会重新发送一次FIN报文请求断开。2MSL即是服务器端发出为FIN报文和客户端发出的ACK确认报文所能保持有效的最大时长</p>
-<p><strong>PS: 图片来源于百度图片，侵删！</strong></p>
+<p>保存在test.yml的数据如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">%YAML:1.0</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">fps:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">result:</span> <span class="type">!!opencv</span><span class="string">-matrix</span></span><br><span class="line">   <span class="attr">rows:</span> <span class="number">2</span></span><br><span class="line">   <span class="attr">cols:</span> <span class="number">3</span></span><br><span class="line">   <span class="attr">dt:</span> <span class="string">f</span></span><br><span class="line">   <span class="attr">data:</span> [ <span class="number">8</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span>, <span class="number">8</span><span class="string">.</span>, <span class="number">3</span><span class="string">.</span> ]</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -260,7 +273,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
         		</li>
       		
 		</ul>
@@ -316,7 +329,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/6f96be2d.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/5c7f6c43.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,18 +343,9 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/5c7f6c43.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          FileStorage
-        
-      </div>
-    </a>
   
-  
-    <a href="/jsblog/561fe8cb.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">像素操作</div>
+    <a href="/jsblog/6f96be2d.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TCP 连接与断开</div>
       <i class="icon-circle-right"></i>
     </a>
   
