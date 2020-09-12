@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>图像腐蚀 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素 结构元素的定义如下： 设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。 接下来我们看一下腐蚀的定义： 在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素">
+  <meta name="description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像腐蚀">
 <meta property="og:url" content="http://example.com/jsblog/7525f478.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素 结构元素的定义如下： 设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。 接下来我们看一下腐蚀的定义： 在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素">
+<meta property="og:description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg">
 <meta property="article:published_time" content="2020-09-05T12:59:10.000Z">
-<meta property="article:modified_time" content="2020-09-05T23:18:32.233Z">
+<meta property="article:modified_time" content="2020-09-12T03:39:05.807Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
@@ -72,6 +72,8 @@
 				<li><a href="/tags/DataStructure/">数据结构</a></li>
 	        
 				<li><a href="/tags/patterns/">设计模式</a></li>
+	        
+				<li><a href="/tags/Java/">JAVA</a></li>
 	        
 			</ul>
 		</nav>
@@ -141,6 +143,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -165,17 +169,19 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
+					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/notes/">随笔</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/notes/">随笔</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/cpp/">C++</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/cpp/">C++</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/OpenCV/">OpenCV</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/OpenCV/">OpenCV</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/DataStructure/">数据结构</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/DataStructure/">数据结构</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/patterns/">设计模式</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/patterns/">设计模式</a></li>
+		        
+					<li style="width: 14.285714285714286%"><a href="/tags/Java/">JAVA</a></li>
 		        
 				</ul>
 			</nav>
@@ -212,12 +218,12 @@
       
         <p>首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。</p>
 <p>在了解腐蚀之前我们先来了解一下结构元素</p>
+<a id="more"></a>
+
 <p>结构元素的定义如下：</p>
 <p><strong>设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。</strong></p>
 <p>接下来我们看一下腐蚀的定义：</p>
 <p><strong>在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素</strong></p>
-<a id="more"></a>
-
 <p>腐蚀的作用：</p>
 <ul>
 <li>边缘检测</li>
@@ -478,6 +484,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cpp</a>
               </li>
              
               <li class="article-tag-list-item">

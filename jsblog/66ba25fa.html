@@ -6,28 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>色彩空间转换 | 林木博客</title>
+  <title>auto | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="首先来了解一下opencv提供的API">
+  <meta name="description" content="auto 类型推导。在c++98&#x2F;03 代表具有自动存储期的局部变量。在c++11中auto是一个类型指示符，用来提示编译器对此类型的变量做类型的自动推导。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="色彩空间转换">
-<meta property="og:url" content="http://example.com/jsblog/ba11d693.html">
+<meta property="og:title" content="auto">
+<meta property="og:url" content="http://example.com/jsblog/66ba25fa.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="首先来了解一下opencv提供的API">
+<meta property="og:description" content="auto 类型推导。在c++98&#x2F;03 代表具有自动存储期的局部变量。在c++11中auto是一个类型指示符，用来提示编译器对此类型的变量做类型的自动推导。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-9a7249d28bc077c0f9e319c111729e01_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-b24f95bb1d9b3d17d25f0352c66311f7_720w.jpg">
-<meta property="og:image" content="https://picb.zhimg.com/80/v2-d05ce28660f6234fdf23c84585eb4711_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e309901516618e0d6bf2cd26bfea5bec_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ff58ae8c80971db00acccff137000700_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-242710cf960ac30737476cb06757c228_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-79e39bf12d1fe6a3616c21ad80a5c0ba_720w.jpg">
-<meta property="article:published_time" content="2020-09-12T02:31:05.000Z">
-<meta property="article:modified_time" content="2020-09-12T03:28:10.098Z">
+<meta property="article:published_time" content="2020-09-12T03:17:12.000Z">
+<meta property="article:modified_time" content="2020-09-12T04:04:07.417Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="OpenCV">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-9a7249d28bc077c0f9e319c111729e01_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -201,83 +193,44 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Color-Convert" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-auto" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      色彩空间转换
+      auto
     </h1>
   
 
         
-        <a href="/jsblog/ba11d693.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+        <a href="/jsblog/66ba25fa.html" class="archive-article-date">
+  	<time datetime="2020-09-12T03:17:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先来了解一下opencv提供的API</p>
+        <p>auto 类型推导。在c++98/03 代表具有自动存储期的局部变量。在c++11中auto是一个类型指示符，用来提示编译器对此类型的变量做类型的自动推导。</p>
 <a id="more"></a>
 
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void cvtColor(InputArray src,OutputArray dst,int code,int dstCn=0);</span><br></pre></td></tr></table></figure>
+<p>auto推导的两条规则：</p>
+<p>(1）当不声明为指针或者引用时，auto的推导结果和初始化表达式将抛弃引用和cv限定符（const 和volatile限定符）。</p>
+<p>(2）当声明为指针或者引用时，auto推导的结果将保持初始化表达式的cv属性</p>
+<p>auto的限制：</p>
+<p>(1) 不能用于函数参数的类型推导</p>
+<p>(2) 不能用户非静态成员变量</p>
+<p>(3) 无法定义数组</p>
+<p>(4) 无法推导出模板参数</p>
+<p>auto使用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">double</span>&gt; testMap = &#123;&#123;<span class="number">1</span>, <span class="number">0.5</span>&#125;, &#123;<span class="number">2</span>, <span class="number">0.75</span>&#125;, &#123;<span class="number">3</span>, <span class="number">0.9</span>&#125;&#125;;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">double</span>&gt;::iterator it = testMap.begin();</span><br><span class="line">  <span class="keyword">for</span> (; it != testMap.end(); it++) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;key = &quot;</span> &lt;&lt; (*it).first &lt;&lt; <span class="string">&quot; value =&quot;</span> &lt;&lt; (*it).second</span><br><span class="line">              &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//使用auto</span></span><br><span class="line">  <span class="keyword">auto</span> itr = testMap.begin();</span><br><span class="line">  <span class="keyword">for</span> (; itr != testMap.end(); itr++) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;key = &quot;</span> &lt;&lt; (*itr).first &lt;&lt; <span class="string">&quot; value =&quot;</span> &lt;&lt; (*itr).second</span><br><span class="line">              &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>paraemters:</strong></p>
-<ul>
-<li>第一个参数：InputArray类型的src,表示输入的图像矩阵</li>
-<li>第二个参数：OutputArray类型的dst,表示输出的图像矩阵</li>
-<li>第三个参数：int类型的code,表示颜色转换标识符</li>
-<li>第四个参数目标图像的通道数，该参数为0时，目标图像根据源图像的通道数和具体操作自动决定</li>
-</ul>
-<p><strong>Note:</strong></p>
-<p>第三个参数要根据图像的载入类型进行选择。</p>
-<p>在BGR图像与XYZ图像之间的转换，此时的标识code便是</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2XYZ </span><br><span class="line">COLOR_RGB2XYZ </span><br><span class="line">COLOR_XYZ2BGR </span><br><span class="line">COLOR_XYZ2RGB</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">key = 1 value =0.5</span><br><span class="line">key = 2 value =0.75</span><br><span class="line">key = 3 value =0.9</span><br><span class="line">key = 1 value =0.5</span><br><span class="line">key = 2 value =0.75</span><br><span class="line">key = 3 value =0.9</span><br></pre></td></tr></table></figure>
 
-<h2 id="YCrCb颜色空间"><a href="#YCrCb颜色空间" class="headerlink" title="YCrCb颜色空间"></a><strong>YCrCb颜色空间</strong></h2><p>该颜色空间广泛的用于视频压缩和图像压缩方案，不能算是纯粹的颜色空间，因为它是BGR颜色空间的一种解码方式。 <strong>该颜色空间广泛的应用于MPEG和JPEG等视频和图像压缩方案。</strong></p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Y表示亮度 </span><br><span class="line">Cr : RGB空间R通道和Y差值 </span><br><span class="line">Cb: RGB空间B通道和Y差值</span><br></pre></td></tr></table></figure>
-
-<p>在BGR图像与YCrCb图像之间的转换，此时的标识code便是</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2YCrCb</span><br><span class="line">COLOR_RGB2YCrCb </span><br><span class="line">COLOR_YCrCb2BGR </span><br><span class="line">COLOR_YCrCb2RGB</span><br></pre></td></tr></table></figure>
-
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>HSV颜色空间属于面向色度的颜色坐标系的一种，这种颜色模型<strong>接近于人类颜色感知的仿真模型</strong>，而在其他颜色模型中，例如RGB，一副图像被视为3中基色的叠加。</p>
-<p>在BGR图像与YCrCb图像之间的转换，此时的标识code便是</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2HSV</span><br><span class="line">COLOR_RGB2HSV </span><br><span class="line">COLOR_HSV2BGR </span><br><span class="line">COLOR_HSV2RGB</span><br></pre></td></tr></table></figure>
-
-<p><strong>GARY色彩空间</strong></p>
-<p>gray图像色彩空间就是灰度图像。</p>
-<p>在BGR图像与gray图像之间的转换，此时的标识code便是</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2GRAY</span><br><span class="line">COLOR_RGB2GRAY</span><br><span class="line">COLOR_GRAY2RGB </span><br><span class="line">COLOR_GRAY2BGR</span><br></pre></td></tr></table></figure>
-
-<p><strong>HLS色彩空间</strong></p>
-<p>HLS颜色空间，三个分量分别是色相（H）、亮度（L）、饱和度（S），这三个取值范围是</p>
-<ul>
-<li>0 &lt;= H &lt;= 360</li>
-<li>0 &lt;= L &lt;= 1</li>
-<li>0 &lt;= S &lt;= 1</li>
-</ul>
-<p>BGR与HLS图像之间的转换code如下</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2HLS</span><br><span class="line">COLOR_RGB2HLS</span><br><span class="line">COLOR_HLS2RGB </span><br><span class="line">COLOR_HLS2BGR</span><br></pre></td></tr></table></figure>
-
-<p>YUV颜色模型中，U、V表示的是色度(Chrominance/Chroma)。YUV是欧洲电视系统所采用的颜色模型(属于PAL制式)，颜色被分为一个亮度信号和两个色差信号进行传输</p>
-<p>BGR与YUV图像之间的转换code如下:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2YUV</span><br><span class="line">COLOR_RGB2YUV</span><br><span class="line">COLOR_YUV2RGB </span><br><span class="line">COLOR_YUV2BGR</span><br></pre></td></tr></table></figure>
-
-<p>我们来看一个例子：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;opencv2/opencv.hpp&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">using namespace cv;</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat srcImage = imread(&quot;E:\\vs2015\\imgs\\66.jpg&quot;);</span><br><span class="line">	Mat hsvImage, YcrcbImage, HlsImage,grayImage,xyzImage,YuvImage;</span><br><span class="line">	cvtColor(srcImage, xyzImage, COLOR_BGR2XYZ); //转换到XYZ</span><br><span class="line">	cvtColor(srcImage,grayImage,COLOR_BGR2GRAY); //转换到灰度图像</span><br><span class="line">	cvtColor(srcImage, HlsImage, COLOR_BGR2HLS); //转换到HLS色彩空间</span><br><span class="line">	cvtColor(srcImage, YcrcbImage, COLOR_BGR2YCrCb); //转换到YCrCb色彩空间</span><br><span class="line">	cvtColor(srcImage, hsvImage, COLOR_BGR2HSV);  //转换到HSV色彩空间</span><br><span class="line">	cvtColor(srcImage, YuvImage, COLOR_BGR2YUV);</span><br><span class="line">	//将图片显示出来</span><br><span class="line">	imshow(&quot;input&quot;, srcImage);</span><br><span class="line">	imshow(&quot;YUV&quot;,YuvImage);</span><br><span class="line">	imshow(&quot;gray&quot;,grayImage);</span><br><span class="line">	imshow(&quot;hsv&quot;, hsvImage);</span><br><span class="line">	imshow(&quot;Ycrcb&quot;, YcrcbImage);</span><br><span class="line">	imshow(&quot;hls&quot;, HlsImage);</span><br><span class="line">	imshow(&quot;XYZ&quot;, xyzImage);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其结果如下：</p>
-<p><img src="https://pic2.zhimg.com/80/v2-9a7249d28bc077c0f9e319c111729e01_720w.jpg" alt="img"></p>
-<p><img src="https://pic3.zhimg.com/80/v2-b24f95bb1d9b3d17d25f0352c66311f7_720w.jpg" alt="img"></p>
-<p><img src="https://picb.zhimg.com/80/v2-d05ce28660f6234fdf23c84585eb4711_720w.jpg" alt="img"></p>
-<p><img src="https://pic3.zhimg.com/80/v2-e309901516618e0d6bf2cd26bfea5bec_720w.jpg" alt="img"></p>
-<p><img src="https://pic3.zhimg.com/80/v2-ff58ae8c80971db00acccff137000700_720w.jpg" alt="img"></p>
-<p><img src="https://pic2.zhimg.com/80/v2-242710cf960ac30737476cb06757c228_720w.jpg" alt="img"></p>
-<p><img src="https://pic4.zhimg.com/80/v2-79e39bf12d1fe6a3616c21ad80a5c0ba_720w.jpg" alt="img"></p>
+<p>当要使用的具体类型的名称过长时，可以使用auto进行推导简化代码。</p>
 
       
 
@@ -312,7 +265,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
         		</li>
       		
 		</ul>
@@ -368,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/ba11d693.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/66ba25fa.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -382,18 +335,9 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/96b8a012.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          读写图片
-        
-      </div>
-    </a>
   
-  
-    <a href="/jsblog/9a6917e7.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OpenCV for MinGW</div>
+    <a href="/jsblog/6e431fb1.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Decltype</div>
       <i class="icon-circle-right"></i>
     </a>
   
