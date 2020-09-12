@@ -6,17 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 林木博客</title>
+  <title>remap | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林木博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。图像的坐标映射也是图像的一种坐标变换。主要是对图像像素的变换。这种变换的关系可以下面公式表示: 图像的坐标映射也分为正映射和反映射。 正映射就是从原图像变换到目标图像。 反映射是将目标图像变换到原始图像。 在opencv 中实现坐标变换的函数是remap,函数原型如下： 1234567void cv::remap(InputArray sr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="remap">
+<meta property="og:url" content="http://example.com/jsblog/2524302a.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。图像的坐标映射也是图像的一种坐标变换。主要是对图像像素的变换。这种变换的关系可以下面公式表示: 图像的坐标映射也分为正映射和反映射。 正映射就是从原图像变换到目标图像。 反映射是将目标图像变换到原始图像。 在opencv 中实现坐标变换的函数是remap,函数原型如下： 1234567void cv::remap(InputArray sr">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-31b782e5798a601b90893958eeb517c0_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-11b0b479a7af64c487829c95ee3c625f_720w.jpg">
+<meta property="article:published_time" content="2020-09-12T10:16:49.000Z">
+<meta property="article:modified_time" content="2020-09-12T10:17:28.638Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-31b782e5798a601b90893958eeb517c0_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -190,36 +196,124 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-remap" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      remap
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/2524302a.html" class="archive-article-date">
+
+        
+        <a href="/jsblog/2524302a.html" class="archive-article-date">
   	<time datetime="2020-09-12T10:16:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/2524302a.html">remap</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。图像的坐标映射也是图像的一种坐标变换。主要是对图像像素的变换。这种变换的关系可以下面公式表示:</p>
+<p>图像的坐标映射也分为正映射和反映射。</p>
+<p>正映射就是从原图像变换到目标图像。</p>
+<p>反映射是将目标图像变换到原始图像。</p>
+<p>在opencv 中实现坐标变换的函数是remap,函数原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::remap</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">              OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">              InputArray map1,</span></span></span><br><span class="line"><span class="function"><span class="params">              InputArray map2,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> interpolation,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> borderMode = BORDER_CONSTANT,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">const</span> Scalar&amp; borderValue = Scalar())</span></span>;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+<p>参数：</p>
+<p>src : 原始图像；</p>
+<p>dst : 目标图像，大小和map1的大小相同，数据类型和src的数据类型一样；</p>
+<p>map1:表示（x,y）坐标点或者是x坐标，类型为CV_16SC2,CV_32FC1或者CV_32FC2；</p>
+<p>map2: 表示y坐标，类型是CV_16UC1, CV_32FC1，当map1是（x,y）坐标时，map2可以为空；</p>
+<p>Interpolation:表示插值算法，枚举类型主要。暂不支持INTER_AREA 插值算法。插值算法有一下几种：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INTER_NEAREST</td>
+<td>最近邻插值</td>
+</tr>
+<tr>
+<td>INTER_LINEAR</td>
+<td>双线性插值</td>
+</tr>
+<tr>
+<td>INTER_CUBIC</td>
+<td>双三次插值</td>
+</tr>
+<tr>
+<td>INTER_AREA</td>
+<td>利用像素面积关系重采样。这可能是图像抽取的首选方法，因为它可以得到无云纹的结果。但当图像被放大时，它类似于最近邻法。</td>
+</tr>
+<tr>
+<td>INTER_LANCZOS4</td>
+<td>8x8邻域上的Lanczos插值</td>
+</tr>
+<tr>
+<td>INTER_LINEAR_EXACT</td>
+<td>位精确双线性插值</td>
+</tr>
+<tr>
+<td>INTER_NEAREST_EXACT</td>
+<td>位最近邻插值算法。在PIL,scikit-image和Matlab中效果和最近邻插值算法一样</td>
+</tr>
+<tr>
+<td>INTER_MAX</td>
+<td>插值算法掩码</td>
+</tr>
+<tr>
+<td>WARP_FILL_OUTLIERS</td>
+<td>标志，填充目标图像。如果目标图像的一部分是异常值，那么他们被设置为0</td>
+</tr>
+<tr>
+<td>WARP_INVERSE_MAP</td>
+<td>标志，逆变换</td>
+</tr>
+</tbody></table>
+<p>borderMode: 边界插值类型；</p>
+<p>borderValue: 表示边界插值数据。</p>
+<p>代码示例如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::Mat srcImage = cv::imread(<span class="string">&quot;E:/CodeBlocks/data/butterfly.jpg&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (srcImage.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt; <span class="string">&quot;fail to load image &quot;</span> &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">xMapArray</span><span class="params">(srcImage.size(),CV_32FC1)</span></span>;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">yMapArray</span><span class="params">(srcImage.size(),CV_32FC1)</span></span>;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">dstImage</span><span class="params">(srcImage.size(),xMapArray.type())</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置变换x,y</span></span><br><span class="line">    <span class="keyword">int</span> rows = srcImage.rows;</span><br><span class="line">    <span class="keyword">int</span> cols = srcImage.cols;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;rows;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;cols;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            xMapArray.at&lt;<span class="keyword">float</span>&gt;(i,j) = cols - j;</span><br><span class="line">            yMapArray.at&lt;<span class="keyword">float</span>&gt;(i,j) = rows - i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//进行变换</span></span><br><span class="line">    cv::remap(srcImage,dstImage,xMapArray,yMapArray,cv::INTER_LINEAR,cv::BORDER_CONSTANT,cv::Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    cv::imshow(<span class="string">&quot;srcImage&quot;</span>,srcImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;remap&quot;</span>,dstImage);</span><br><span class="line">    cv::waitKey(<span class="number">0</span>);</span><br><span class="line">    cv::destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果展示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-31b782e5798a601b90893958eeb517c0_720w.jpg" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/v2-11b0b479a7af64c487829c95ee3c625f_720w.jpg" alt="img"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -231,364 +325,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/2524302a.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/a541262a.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/jsblog/a541262a.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Boot</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/a541262a.html">Spring Boot</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/66ba25fa.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:17:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/66ba25fa.html">auto</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/6e431fb1.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:15:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/6e431fb1.html">Decltype</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/d56b4289.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:09:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/d56b4289.html">Num and String</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/4bf2eac0.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/4bf2eac0.html">select</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/84bcfa45.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/84bcfa45.html">poll</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/1646cb2f.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/1646cb2f.html">getsockopt and setsockopt</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/2116d0b5.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/2116d0b5.html">OpenCV for Windows</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/96b8a012.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/96b8a012.html">读写图片</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -612,8 +447,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
