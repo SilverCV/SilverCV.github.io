@@ -6,35 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>OpenCV for Windows | 林木博客</title>
+  <title>图像腐蚀 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的配置是vs2015+opencv3.4.0。">
+  <meta name="description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV for Windows">
-<meta property="og:url" content="http://example.com/jsblog/2116d0b5.html">
+<meta property="og:title" content="图像腐蚀">
+<meta property="og:url" content="http://example.com/abbrlink.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="我的配置是vs2015+opencv3.4.0。">
+<meta property="og:description" content="首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。 在了解腐蚀之前我们先来了解一下结构元素">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-dec01822104fa1e0edc58bea8c506b78_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-d8e2412a9b2f5b4a39a4ca35402e35cc_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-2716ee22eb16b2bc7b6aec39e32472ad_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-b17d6291df112e3cf963f81545927747_720w.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f990d5b644dbce886cde0c9d83c7d6f6_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a55e65fa2b922270b83ef380a37365c4_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-8dd9f2c7e64db07b1967b0104c8f8340_720w.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/80/v2-55934bf0d09dff9b742f2788a9e1452e_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-817bd286ef6360b08cea8e23046bd7bb_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b58b2195ff3a74de0f816370e40330a2_720w.jpg">
-<meta property="og:image" content="https://picb.zhimg.com/v2-ff06c339780f23112c1cbbbb284158ff_ipico.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-c0257b899bd67be788689b6a0066dbd9_720w.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d485d17d55d51482e0684f142784d308_720w.jpg">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-153b395419d1671cd205ca3bd2eb0694_720w.jpg">
-<meta property="article:published_time" content="2020-09-12T03:00:29.000Z">
-<meta property="article:modified_time" content="2020-09-12T03:40:20.657Z">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg">
+<meta property="article:published_time" content="2020-09-05T12:59:10.000Z">
+<meta property="article:modified_time" content="2020-09-12T03:39:05.807Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-dec01822104fa1e0edc58bea8c506b78_720w.jpg">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -208,90 +196,57 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-OpenCV-for-Windows" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-erode" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      OpenCV for Windows
+      图像腐蚀
     </h1>
   
 
         
-        <a href="/jsblog/2116d0b5.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+        <a href="/abbrlink.html" class="archive-article-date">
+  	<time datetime="2020-09-05T12:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我的配置是vs2015+opencv3.4.0。</p>
+        <p>首先我们来了解一下什么是腐蚀，为什么要进行图像的腐蚀。</p>
+<p>在了解腐蚀之前我们先来了解一下结构元素</p>
 <a id="more"></a>
 
-<p>opencv3.4.0可以在</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Releases - OpenCV library 官方网站下载，当然你也可以在  </span><br><span class="line">OpenCV GitHub进行下载，如果在GitHub下载，在Windows上你需要自己编译，使用vs2015或者cmake进行编译</span><br></pre></td></tr></table></figure>
+<p>结构元素的定义如下：</p>
+<p><strong>设有两幅图象B，X。若X是被处理的对象，而B是用来处理X的，则称B为结构元素(structure element)，又被形象地称做刷子。结构元素通常都是一些比较小的图象。</strong></p>
+<p>接下来我们看一下腐蚀的定义：</p>
+<p><strong>在图像的形态学操作中腐蚀就是删除对象边界的某些点的像素</strong></p>
+<p>腐蚀的作用：</p>
+<ul>
+<li>边缘检测</li>
+<li>噪声过滤</li>
+<li>形态骨架提取</li>
+</ul>
+<p>其 数学表达式为</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst(x,y) = min src( x + x`,y+y`) 其中 （x`,y`）: element(x`,y`) != 0</span><br></pre></td></tr></table></figure>
 
-<p>使用cmake编译的时候首先打开cmd然后进入<strong>opencv安装目录下的源代码目录下，</strong>使用如下命令</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir build </span><br><span class="line">cmake .. -DCMAKE_INSTALL_PREFIX=D:/opencv</span><br></pre></td></tr></table></figure>
+<p><strong>原理：</strong></p>
+<p>对Z中的集合A和B，B对A进行腐蚀的整个过程如下：</p>
+<p>⑴ 用结构元素B，扫描图像A的每一个像素</p>
+<p>⑵ 用结构元素与其覆盖的二值图像做“与”操作</p>
+<p>⑶ 如果都为1，结果图像的该像素为1。否则为0</p>
+<p>腐蚀处理的结果是使原来的二值图像减小一圈</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat srcImage = cv::imread(&quot;32.jpg&quot;);			//read the file</span><br><span class="line">	if (srcImage.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		std::cerr &lt;&lt; &quot;the file does not exits!&quot; &lt;&lt; std::endl;</span><br><span class="line">		return -1;</span><br><span class="line">	&#125;</span><br><span class="line">	//get the structure element</span><br><span class="line">	cv::Mat StructElement = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(15, 15));</span><br><span class="line">	//defination the result</span><br><span class="line">	cv::Mat result;</span><br><span class="line">	//erode the image</span><br><span class="line">	cv::erode(srcImage, result, StructElement);</span><br><span class="line">	//show the image</span><br><span class="line">	cv::namedWindow(&quot;input&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::namedWindow(&quot;output&quot;,cv::WINDOW_AUTOSIZE);</span><br><span class="line">	cv::imshow(&quot;input&quot;,srcImage);</span><br><span class="line">	cv::imshow(&quot;output&quot;,result);</span><br><span class="line">	cv::waitKey(0);</span><br><span class="line">	cv::destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>”-DCMAKE_INSTALL_PREFIX=D:/opencv“ 设置其安装目录为D盘opencv目录。</p>
-<p>就拿我的配置环境来说：</p>
-<p>我先在官网下载opencv3.4.0.exe文件然后解压到D盘，首先要配置好环境变量，打开<strong>控制面板</strong>找到<strong>系统</strong>（或者系统与安全）</p>
-<p><img src="https://pic3.zhimg.com/80/v2-dec01822104fa1e0edc58bea8c506b78_720w.jpg" alt="img"></p>
-<p>点击高级系统设置，然后选择环境变量</p>
-<p><img src="https://pic2.zhimg.com/80/v2-d8e2412a9b2f5b4a39a4ca35402e35cc_720w.jpg" alt="img"></p>
-<p>点击环境变量，然后找到<strong>path变量</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-2716ee22eb16b2bc7b6aec39e32472ad_720w.jpg" alt="img"></p>
-<p>点击新建，然后将</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc14\bin</span><br><span class="line">D:\opencv\opencv\build\x64\vc15\bin</span><br></pre></td></tr></table></figure>
-
-<p>加入环境变量（我的opencv配置是64位的，所以在vs2015创建项目学习opencv的时候</p>
-<p><img src="https://pic3.zhimg.com/80/v2-b17d6291df112e3cf963f81545927747_720w.jpg" alt="img"></p>
-<p>一定要把x86改成x64还有就是一定把debug改成release才能运行，其他版本的opencv不一定要把debug改成release）</p>
-<p>添加好环境变量之后，就是修改vs2015的c++配置,首先新建一个<strong>win32控制台项目</strong>，然后</p>
-<p><img src="https://pic3.zhimg.com/80/v2-f990d5b644dbce886cde0c9d83c7d6f6_720w.jpg" alt="img"></p>
-<p>点击属性管理器，</p>
-<p><img src="https://pic1.zhimg.com/80/v2-a55e65fa2b922270b83ef380a37365c4_720w.jpg" alt="img"></p>
-<p>点击</p>
-<p><img src="https://pic1.zhimg.com/80/v2-8dd9f2c7e64db07b1967b0104c8f8340_720w.jpg" alt="img"></p>
-<p>进入属性设置</p>
-<p><img src="https://pic2.zhimg.com/80/v2-55934bf0d09dff9b742f2788a9e1452e_720w.jpg" alt="img"></p>
-<p>在包含目录将opencv解压目录下的build目录下的include添加进去，在链接器中选择输入</p>
-<p><img src="https://pic4.zhimg.com/80/v2-817bd286ef6360b08cea8e23046bd7bb_720w.jpg" alt="img"></p>
-<p>在输入中的附加依赖项将（在我的电脑上就是）</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc14\lib\opencv_world340.lib</span><br><span class="line">D:\opencv\opencv\build\x64\vc14\lib\opencv_world340d.lib  opencv_world340d.lib代表debug版本</span><br></pre></td></tr></table></figure>
-
-<p>或者是</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc15\lib\opencv_world340.lib</span><br><span class="line">D:\opencv\opencv\build\x64\vc15\lib\opencv_world340d.lib  opencv_world340d.lib代表debug版本</span><br></pre></td></tr></table></figure>
-
-<p>选择14还是15要看你的visual c++编译器版本。我们来测试一下</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;opencv2/opencv.hpp&gt;</span><br><span class="line">using namespace cv;</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat img = imread(&quot;D:\\opencv\\opencv\\sources\\samples\\data\\lena.jpg&quot;);</span><br><span class="line">	imshow(&quot;lena image&quot;,img);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyWindow(&quot;lena image&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://pic4.zhimg.com/80/v2-b58b2195ff3a74de0f816370e40330a2_720w.jpg" alt="img"></p>
-<p>当出现这张图片的时候就可以进行opencv的开发。其他版本的配置也与此类似</p>
-<p><strong>python:</strong></p>
-<p>首先在</p>
-<p><a href="https://link.zhihu.com/?target=https://www.python.org/">Welcome to Python.orgwww.python.org<img src="https://picb.zhimg.com/v2-ff06c339780f23112c1cbbbb284158ff_ipico.jpg" alt="图标"></a></p>
-<p>首先在</p>
-<p><a href="https://link.zhihu.com/?target=https://www.python.org/">https://www.python.org/</a></p>
-<p>官网上下载python3.5.4由于我的电脑是64位的所以我选择的是python3.5.4</p>
-<p><img src="https://pic3.zhimg.com/80/v2-c0257b899bd67be788689b6a0066dbd9_720w.jpg" alt="img"></p>
-<p>这个版本，在安装的时候要要把python添加进入环境变量，要不然就需要自己配置环境变量</p>
-<p>安装好之后打开cmd然后输入python,如果出现下图结果则安装完成。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-d485d17d55d51482e0684f142784d308_720w.jpg" alt="img"></p>
-<p>要安装opencv首先要安装numpy这个时候可以使用pip来进行安装opencv。安装命令如下：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy</span><br><span class="line">pip install opencv_python</span><br><span class="line">pip install opencv-contrib-python // opencv的扩展包，里边有一些图像处理的算法</span><br></pre></td></tr></table></figure>
-
-<p>我们看个例子：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import cv2 as cv</span><br><span class="line"></span><br><span class="line">img = cv.imread(&quot;imgs/2.jpg&quot;,cv.IMREAD_COLOR)</span><br><span class="line">cv.imshow(&quot;opencv_demo&quot;,img)</span><br><span class="line">cv.waitKey(0)</span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-
-<p>如果出现</p>
-<p><img src="https://pic1.zhimg.com/80/v2-153b395419d1671cd205ca3bd2eb0694_720w.jpg" alt="img"></p>
-<p>读入的图片表明python3.5.4+opencv环境已经配好啦</p>
-<p>接下来就可以进行我们的opencv的开发了</p>
+<p><strong>结果：</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-530ca54b72ac02361e5075f4115f75df_720w.jpg" alt="img"></p>
+<p>​                                                                            input</p>
+<p><img src="https://pic3.zhimg.com/80/v2-4c349f4595afb42a203213fab02c2e54_720w.jpg" alt="img"></p>
+<p>​                                                                        output</p>
 
       
 
@@ -382,7 +337,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/2116d0b5.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/abbrlink.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -396,20 +351,15 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/1646cb2f.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/abbrlink.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          getsockopt and setsockopt
+          像素操作
         
       </div>
     </a>
   
-  
-    <a href="/jsblog/96b8a012.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">读写图片</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
