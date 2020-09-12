@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 林木博客</title>
+  <title>读写图片 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林木博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="上一话我们已经把opencv的环境配置完成，那么我们接下来分析一下上一话的例子。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读写图片">
+<meta property="og:url" content="http://example.com/jsblog/96b8a012.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="上一话我们已经把opencv的环境配置完成，那么我们接下来分析一下上一话的例子。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-12T02:58:56.000Z">
+<meta property="article:modified_time" content="2020-09-12T03:00:14.172Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
@@ -184,74 +187,112 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-读写图片" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/2116d0b5.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/2116d0b5.html">OpenCV for Windows</a>
+    <h1 class="article-title" itemprop="name">
+      读写图片
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/96b8a012.html" class="archive-article-date">
+        
+        <a href="/jsblog/96b8a012.html" class="archive-article-date">
   	<time datetime="2020-09-12T02:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/96b8a012.html">读写图片</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一话我们已经把opencv的环境配置完成，那么我们接下来分析一下上一话的例子。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<p><strong>图像读入：imread</strong></p>
+<p>首先我们来看一下代码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;opencv2/opencv.hpp&gt;</span><br><span class="line">using namespace cv;</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat img = imread(&quot;D:\\opencv\\opencv\\sources\\samples\\data\\lena.jpg&quot;);</span><br><span class="line">	imshow(&quot;lena image&quot;,img);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyWindow(&quot;lena image&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个是使用c++来写的，而opencv就是机遇c++开发的，所以我们使用c++来对<strong>imread</strong>,<strong>imshow</strong>以及<strong>imwrite</strong>这三个API进行讲解。当然在使用c++调用opencv的API有两种方法，一种就是在前面引用opencv的命名空间，然后直接调用其API;二是使用域解析符（::）加上要调用的函数名称。在这个例子中我所使用的就是第一种方法。</p>
+<p>接下来我们看一下imread函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat cv::imread(const string&amp; filename,int flags&#x3D;MREAD_COLOR);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>**filename:**需要加载的文件</li>
+<li>**flags:**是指加载图片时的标识，指定图片的类型</li>
+</ul>
+<p>Mat类型是一个矩阵类型，如果imread对文件无法解码，就会返回一个NULL，空的矩阵。</p>
+<p>opencv支持的图片包含以下几种</p>
+<ul>
+<li>Windows bitmaps - *.bmp, *.dib (always supported)</li>
+<li>JPEG files - *.jpeg, <em>.jpg, *.jpe (see the *Notes</em> section)</li>
+<li>JPEG 2000 files - *.jp2 (see the <em>Notes</em> section)</li>
+<li>Portable Network Graphics - *.png (see the <em>Notes</em> section)</li>
+<li>WebP - *.webp (see the <em>Notes</em> section)</li>
+<li>Portable image format - *.pbm, *.pgm, *.ppm (always supported)</li>
+<li>Sun rasters - *.sr, *.ras (always supported)</li>
+<li>TIFF files - <em>.tiff, *.tif (see the *Notes</em> section)</li>
+</ul>
+<p><strong>NOTE：</strong></p>
+<p>imread这个函数读取图片是根据文件内容来读取，而不是根据文件的扩展名。</p>
+<p><strong>imread的flags有以下几种：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">IMREAD_UNCHANGED            = -1, //返回包含alpha通道的加载图像</span><br><span class="line">   IMREAD_GRAYSCALE            = 0,  //返回一个灰度图像</span><br><span class="line">   IMREAD_COLOR                = 1,  //返回一个BGR通道的图像</span><br><span class="line">   IMREAD_ANYDEPTH             = 2,  //当输入具有相应的深度时返回16位/ 32位图像，否则将其转换为8位。.</span><br><span class="line">   IMREAD_ANYCOLOR             = 4,  //则以任何可能的颜色格式读取图像。</span><br><span class="line">   IMREAD_LOAD_GDAL            = 8,  //使用GDAL的驱动加载图像。</span><br><span class="line">   IMREAD_REDUCED_GRAYSCALE_2  = 16, //将图像转换为单通道灰度图像，图像大小减少1/2。</span><br><span class="line">   IMREAD_REDUCED_COLOR_2      = 17, //转换图像的3通道BGR彩色图像和图像的大小减少1/2。</span><br><span class="line">   IMREAD_REDUCED_GRAYSCALE_4  = 32, //将图像转换为单通道灰度图像，图像大小减少1/4。</span><br><span class="line">   IMREAD_REDUCED_COLOR_4      = 33, //转换图像的3通道BGR彩色图像和图像的大小减少1/4。</span><br><span class="line">   IMREAD_REDUCED_GRAYSCALE_8  = 64, //将图像转换为单通道灰度图像，图像大小减少1/8。</span><br><span class="line">   IMREAD_REDUCED_COLOR_8      = 65, //转换图像的3通道BGR色彩图像和图像大小减少1/8。</span><br><span class="line">   IMREAD_IGNORE_ORIENTATION   = 128 //不旋转图像根据EXIF的定位标志。</span><br></pre></td></tr></table></figure>
+
+<p><strong>图像的显示：imshow</strong></p>
+<p>imshow主要用于显示图像，将加载到内存中的图像显示出来</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void imshow(const string&amp; winname,InputArray mat);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>第一个参数: const string&amp;类型的winname,将要显示的窗口标识名称</li>
+<li>第二个参数:InputArray类型的mat，需要显示的图像</li>
+</ul>
+<p><strong>图像的保存：imwrite</strong></p>
+<p>虽然在例子中没有使用imwrite但是有必要说明一下imwrite这个函数的使用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool imwrite(const string&amp; filename,InputArray img,</span><br><span class="line">                             const vector&lt;int&gt;&amp; params=vector&lt;int&gt;());</span><br></pre></td></tr></table></figure>
+
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>第一个参数：const string&amp;类型的filename，要保存的文件名，要带上后缀例如”123.jpg”.</li>
+<li>第二个参数：InputArray类型的img，一般填入一个Mat类型的图像数据</li>
+<li>第三个参数：const std::vector&amp; params表示为特定格式保存的参数编码，它有一个默认值std::vector&lt; int &gt;()，所以一般情况下不用写。如果要填写，则有以下几个方面需要了解：</li>
+</ul>
+<ol>
+<li>对于JPEG格式的图片，这个参数表示从0-100的图片质量（CV_IMWRITE_JPEG_QUALITY）,默认值是95.</li>
+<li>对于PNG格式的图片，这个参数表示压缩级别（CV_IMWRITE_PNG_COMPRESSION）从0-9.较高的值意味着更小的尺寸和更长的压缩时间而默认值是3.</li>
+<li>对于PPM，PGM或PBM格式的图片，这个参数表示一个二进制格式标志（CV_IMWRITE_PXM_BINARY），取值为0或1，而默认值为1.</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -263,285 +304,115 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/96b8a012.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ba11d693.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/jsblog/2116d0b5.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          OpenCV for Windows
+        
+      </div>
+    </a>
+  
+  
+    <a href="/jsblog/ba11d693.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">色彩空间转换</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ba11d693.html">色彩空间转换</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/9a6917e7.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/9a6917e7.html">OpenCV for MinGW</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ac99a763.html" class="archive-article-date">
-  	<time datetime="2020-09-07T12:52:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ac99a763.html">Thread 入门</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/5c7f6c43.html" class="archive-article-date">
-  	<time datetime="2020-09-07T12:18:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/5c7f6c43.html">FileStorage</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/6f96be2d.html" class="archive-article-date">
-  	<time datetime="2020-09-05T23:01:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/6f96be2d.html">TCP 连接与断开</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/561fe8cb.html" class="archive-article-date">
-  	<time datetime="2020-09-05T22:38:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/561fe8cb.html">像素操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/7525f478.html" class="archive-article-date">
-  	<time datetime="2020-09-05T12:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/7525f478.html">图像腐蚀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -564,8 +435,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

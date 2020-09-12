@@ -186,6 +186,421 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-OpenCV-for-Windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/2116d0b5.html">OpenCV for Windows</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/2116d0b5.html" class="archive-article-date">
+  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我的配置是vs2015+opencv3.4.0。opencv3.4.0可以在</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Releases - OpenCV library 官方网站下载，当然你也可以在  </span><br><span class="line">OpenCV GitHub进行下载，如果在GitHub下载，在Windows上你需要自己编译，使用vs2015或者cmake进行编译</span><br></pre></td></tr></table></figure>
+
+<p>使用cmake编译的时候首先打开cmd然后进入<strong>opencv安装目录下的源代码目录下，</strong>使用如下命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir build </span><br><span class="line"> cmake .. -DCMAKE_INSTALL_PREFIX=D:/opencv</span><br></pre></td></tr></table></figure>
+
+<p>”-DCMAKE_INSTALL_PREFIX=D:/opencv“ 设置其安装目录为D盘opencv目录。</p>
+<p>就拿我的配置环境来说：</p>
+<p>我先在官网下载opencv3.4.0.exe文件然后解压到D盘，首先要配置好环境变量，打开<strong>控制面板</strong>找到<strong>系统</strong>（或者系统与安全）</p>
+<p><img src="https://pic3.zhimg.com/80/v2-dec01822104fa1e0edc58bea8c506b78_720w.jpg" alt="img"></p>
+<p>点击高级系统设置，然后选择环境变量</p>
+<p><img src="https://pic2.zhimg.com/80/v2-d8e2412a9b2f5b4a39a4ca35402e35cc_720w.jpg" alt="img"></p>
+<p>点击环境变量，然后找到<strong>path变量</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-2716ee22eb16b2bc7b6aec39e32472ad_720w.jpg" alt="img"></p>
+<p>点击新建，然后将</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc14\bin</span><br><span class="line">D:\opencv\opencv\build\x64\vc15\bin</span><br></pre></td></tr></table></figure>
+
+<p>加入环境变量（我的opencv配置是64位的，所以在vs2015创建项目学习opencv的时候</p>
+<p><img src="https://pic3.zhimg.com/80/v2-b17d6291df112e3cf963f81545927747_720w.jpg" alt="img"></p>
+<p>一定要把x86改成x64还有就是一定把debug改成release才能运行，其他版本的opencv不一定要把debug改成release）</p>
+<p>添加好环境变量之后，就是修改vs2015的c++配置,首先新建一个<strong>win32控制台项目</strong>，然后</p>
+<p><img src="https://pic3.zhimg.com/80/v2-f990d5b644dbce886cde0c9d83c7d6f6_720w.jpg" alt="img"></p>
+<p>点击属性管理器，</p>
+<p><img src="https://pic1.zhimg.com/80/v2-a55e65fa2b922270b83ef380a37365c4_720w.jpg" alt="img"></p>
+<p>点击</p>
+<p><img src="https://pic1.zhimg.com/80/v2-8dd9f2c7e64db07b1967b0104c8f8340_720w.jpg" alt="img"></p>
+<p>进入属性设置</p>
+<p><img src="https://pic2.zhimg.com/80/v2-55934bf0d09dff9b742f2788a9e1452e_720w.jpg" alt="img"></p>
+<p>在包含目录将opencv解压目录下的build目录下的include添加进去，在链接器中选择输入</p>
+<p><img src="https://pic4.zhimg.com/80/v2-817bd286ef6360b08cea8e23046bd7bb_720w.jpg" alt="img"></p>
+<p>在输入中的附加依赖项将（在我的电脑上就是）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc14\lib\opencv_world340.lib</span><br><span class="line">D:\opencv\opencv\build\x64\vc14\lib\opencv_world340d.lib  opencv_world340d.lib代表debug版本</span><br></pre></td></tr></table></figure>
+
+<p>或者是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\opencv\opencv\build\x64\vc15\lib\opencv_world340.lib</span><br><span class="line">D:\opencv\opencv\build\x64\vc15\lib\opencv_world340d.lib  opencv_world340d.lib代表debug版本</span><br></pre></td></tr></table></figure>
+
+<p>选择14还是15要看你的visual c++编译器版本。我们来测试一下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;opencv2/opencv.hpp&gt;</span><br><span class="line">using namespace cv;</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat img = imread(&quot;D:\\opencv\\opencv\\sources\\samples\\data\\lena.jpg&quot;);</span><br><span class="line">	imshow(&quot;lena image&quot;,img);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyWindow(&quot;lena image&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic4.zhimg.com/80/v2-b58b2195ff3a74de0f816370e40330a2_720w.jpg" alt="img"></p>
+<p>当出现这张图片的时候就可以进行opencv的开发。其他版本的配置也与此类似</p>
+<p><strong>python:</strong></p>
+<p>首先在</p>
+<p><a href="https://link.zhihu.com/?target=https://www.python.org/">Welcome to Python.orgwww.python.org<img src="https://picb.zhimg.com/v2-ff06c339780f23112c1cbbbb284158ff_ipico.jpg" alt="图标"></a></p>
+<p>首先在</p>
+<p><a href="https://link.zhihu.com/?target=https://www.python.org/">https://www.python.org/</a></p>
+<p>官网上下载python3.5.4由于我的电脑是64位的所以我选择的是python3.5.4</p>
+<p><img src="https://pic3.zhimg.com/80/v2-c0257b899bd67be788689b6a0066dbd9_720w.jpg" alt="img"></p>
+<p>这个版本，在安装的时候要要把python添加进入环境变量，要不然就需要自己配置环境变量</p>
+<p>安装好之后打开cmd然后输入python,如果出现下图结果则安装完成。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-d485d17d55d51482e0684f142784d308_720w.jpg" alt="img"></p>
+<p>要安装opencv首先要安装numpy这个时候可以使用pip来进行安装opencv。安装命令如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy</span><br><span class="line">pip install opencv_python</span><br><span class="line">pip install opencv-contrib-python // opencv的扩展包，里边有一些图像处理的算法</span><br></pre></td></tr></table></figure>
+
+<p>我们看个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import cv2 as cv</span><br><span class="line"></span><br><span class="line">img = cv.imread(&quot;imgs/2.jpg&quot;,cv.IMREAD_COLOR)</span><br><span class="line">cv.imshow(&quot;opencv_demo&quot;,img)</span><br><span class="line">cv.waitKey(0)</span><br><span class="line">cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<p>如果出现</p>
+<p><img src="https://pic1.zhimg.com/80/v2-153b395419d1671cd205ca3bd2eb0694_720w.jpg" alt="img"></p>
+<p>读入的图片表明python3.5.4+opencv环境已经配好啦</p>
+<p>接下来就可以进行我们的opencv的开发了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/2116d0b5.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-读写图片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/96b8a012.html">读写图片</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/96b8a012.html" class="archive-article-date">
+  	<time datetime="2020-09-12T02:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一话我们已经把opencv的环境配置完成，那么我们接下来分析一下上一话的例子。</p>
+        
+          <a class="article-more-a" href="/jsblog/96b8a012.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/96b8a012.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Color-Convert" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/ba11d693.html">色彩空间转换</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/ba11d693.html" class="archive-article-date">
+  	<time datetime="2020-09-12T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先来了解一下opencv提供的API</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void cvtColor(InputArray src,OutputArray dst,int code,int dstCn=0);</span><br></pre></td></tr></table></figure>
+
+<p><strong>paraemters:</strong></p>
+<ul>
+<li>第一个参数：InputArray类型的src,表示输入的图像矩阵</li>
+<li>第二个参数：OutputArray类型的dst,表示输出的图像矩阵</li>
+<li>第三个参数：int类型的code,表示颜色转换标识符</li>
+<li>第四个参数目标图像的通道数，该参数为0时，目标图像根据源图像的通道数和具体操作自动决定</li>
+</ul>
+<p><strong>Note:</strong></p>
+<p>第三个参数要根据图像的载入类型进行选择。</p>
+<p>在BGR图像与XYZ图像之间的转换，此时的标识code便是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2XYZ </span><br><span class="line">COLOR_RGB2XYZ </span><br><span class="line">COLOR_XYZ2BGR </span><br><span class="line">COLOR_XYZ2RGB</span><br></pre></td></tr></table></figure>
+
+<h2 id="YCrCb颜色空间"><a href="#YCrCb颜色空间" class="headerlink" title="YCrCb颜色空间"></a><strong>YCrCb颜色空间</strong></h2><p>该颜色空间广泛的用于视频压缩和图像压缩方案，不能算是纯粹的颜色空间，因为它是BGR颜色空间的一种解码方式。 <strong>该颜色空间广泛的应用于MPEG和JPEG等视频和图像压缩方案。</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Y表示亮度 </span><br><span class="line">Cr : RGB空间R通道和Y差值 </span><br><span class="line">Cb: RGB空间B通道和Y差值</span><br></pre></td></tr></table></figure>
+
+<p>在BGR图像与YCrCb图像之间的转换，此时的标识code便是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2YCrCb</span><br><span class="line">COLOR_RGB2YCrCb </span><br><span class="line">COLOR_YCrCb2BGR </span><br><span class="line">COLOR_YCrCb2RGB</span><br></pre></td></tr></table></figure>
+
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>HSV颜色空间属于面向色度的颜色坐标系的一种，这种颜色模型<strong>接近于人类颜色感知的仿真模型</strong>，而在其他颜色模型中，例如RGB，一副图像被视为3中基色的叠加。</p>
+<p>在BGR图像与YCrCb图像之间的转换，此时的标识code便是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2HSV</span><br><span class="line">COLOR_RGB2HSV </span><br><span class="line">COLOR_HSV2BGR </span><br><span class="line">COLOR_HSV2RGB</span><br></pre></td></tr></table></figure>
+
+<p><strong>GARY色彩空间</strong></p>
+<p>gray图像色彩空间就是灰度图像。</p>
+<p>在BGR图像与gray图像之间的转换，此时的标识code便是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2GRAY</span><br><span class="line">COLOR_RGB2GRAY</span><br><span class="line">COLOR_GRAY2RGB </span><br><span class="line">COLOR_GRAY2BGR</span><br></pre></td></tr></table></figure>
+
+<p><strong>HLS色彩空间</strong></p>
+<p>HLS颜色空间，三个分量分别是色相（H）、亮度（L）、饱和度（S），这三个取值范围是</p>
+<ul>
+<li>0 &lt;= H &lt;= 360</li>
+<li>0 &lt;= L &lt;= 1</li>
+<li>0 &lt;= S &lt;= 1</li>
+</ul>
+<p>BGR与HLS图像之间的转换code如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2HLS</span><br><span class="line">COLOR_RGB2HLS</span><br><span class="line">COLOR_HLS2RGB </span><br><span class="line">COLOR_HLS2BGR</span><br></pre></td></tr></table></figure>
+
+<p>YUV颜色模型中，U、V表示的是色度(Chrominance/Chroma)。YUV是欧洲电视系统所采用的颜色模型(属于PAL制式)，颜色被分为一个亮度信号和两个色差信号进行传输</p>
+<p>BGR与YUV图像之间的转换code如下:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COLOR_BGR2YUV</span><br><span class="line">COLOR_RGB2YUV</span><br><span class="line">COLOR_YUV2RGB </span><br><span class="line">COLOR_YUV2BGR</span><br></pre></td></tr></table></figure>
+
+<p>我们来看一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;opencv2/opencv.hpp&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">using namespace cv;</span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">	Mat srcImage = imread(&quot;E:\\vs2015\\imgs\\66.jpg&quot;);</span><br><span class="line">	Mat hsvImage, YcrcbImage, HlsImage,grayImage,xyzImage,YuvImage;</span><br><span class="line">	cvtColor(srcImage, xyzImage, COLOR_BGR2XYZ); //转换到XYZ</span><br><span class="line">	cvtColor(srcImage,grayImage,COLOR_BGR2GRAY); //转换到灰度图像</span><br><span class="line">	cvtColor(srcImage, HlsImage, COLOR_BGR2HLS); //转换到HLS色彩空间</span><br><span class="line">	cvtColor(srcImage, YcrcbImage, COLOR_BGR2YCrCb); //转换到YCrCb色彩空间</span><br><span class="line">	cvtColor(srcImage, hsvImage, COLOR_BGR2HSV);  //转换到HSV色彩空间</span><br><span class="line">	cvtColor(srcImage, YuvImage, COLOR_BGR2YUV);</span><br><span class="line">	//将图片显示出来</span><br><span class="line">	imshow(&quot;input&quot;, srcImage);</span><br><span class="line">	imshow(&quot;YUV&quot;,YuvImage);</span><br><span class="line">	imshow(&quot;gray&quot;,grayImage);</span><br><span class="line">	imshow(&quot;hsv&quot;, hsvImage);</span><br><span class="line">	imshow(&quot;Ycrcb&quot;, YcrcbImage);</span><br><span class="line">	imshow(&quot;hls&quot;, HlsImage);</span><br><span class="line">	imshow(&quot;XYZ&quot;, xyzImage);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	destroyAllWindows();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其结果如下：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-9a7249d28bc077c0f9e319c111729e01_720w.jpg" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-b24f95bb1d9b3d17d25f0352c66311f7_720w.jpg" alt="img"></p>
+<p><img src="https://picb.zhimg.com/80/v2-d05ce28660f6234fdf23c84585eb4711_720w.jpg" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-e309901516618e0d6bf2cd26bfea5bec_720w.jpg" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-ff58ae8c80971db00acccff137000700_720w.jpg" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-242710cf960ac30737476cb06757c228_720w.jpg" alt="img"></p>
+<p><img src="https://pic4.zhimg.com/80/v2-79e39bf12d1fe6a3616c21ad80a5c0ba_720w.jpg" alt="img"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/ba11d693.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-OpenCV-for-MinGW" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/9a6917e7.html">OpenCV for MinGW</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/9a6917e7.html" class="archive-article-date">
+  	<time datetime="2020-09-12T02:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为一个opencv的入门的小白来说，要学会如何如何去编译opencv。</p>
+<p>当然在windows使用mingw-w64编译opencv会遇到一些坑。 </p>
+        
+          <a class="article-more-a" href="/jsblog/9a6917e7.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/9a6917e7.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Thread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
