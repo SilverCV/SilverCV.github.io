@@ -212,76 +212,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。图像的坐标映射也是图像的一种坐标变换。主要是对图像像素的变换。这种变换的关系可以下面公式表示:</p>
-<p>图像的坐标映射也分为正映射和反映射。</p>
-<p>正映射就是从原图像变换到目标图像。</p>
-<p>反映射是将目标图像变换到原始图像。</p>
-<p>在opencv 中实现坐标变换的函数是remap,函数原型如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::remap</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">              OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">              InputArray map1,</span></span></span><br><span class="line"><span class="function"><span class="params">              InputArray map2,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> interpolation,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> borderMode = BORDER_CONSTANT,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">const</span> Scalar&amp; borderValue = Scalar())</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>参数：</p>
-<p>src : 原始图像；</p>
-<p>dst : 目标图像，大小和map1的大小相同，数据类型和src的数据类型一样；</p>
-<p>map1:表示（x,y）坐标点或者是x坐标，类型为CV_16SC2,CV_32FC1或者CV_32FC2；</p>
-<p>map2: 表示y坐标，类型是CV_16UC1, CV_32FC1，当map1是（x,y）坐标时，map2可以为空；</p>
-<p>Interpolation:表示插值算法，枚举类型主要。暂不支持INTER_AREA 插值算法。插值算法有一下几种：</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>INTER_NEAREST</td>
-<td>最近邻插值</td>
-</tr>
-<tr>
-<td>INTER_LINEAR</td>
-<td>双线性插值</td>
-</tr>
-<tr>
-<td>INTER_CUBIC</td>
-<td>双三次插值</td>
-</tr>
-<tr>
-<td>INTER_AREA</td>
-<td>利用像素面积关系重采样。这可能是图像抽取的首选方法，因为它可以得到无云纹的结果。但当图像被放大时，它类似于最近邻法。</td>
-</tr>
-<tr>
-<td>INTER_LANCZOS4</td>
-<td>8x8邻域上的Lanczos插值</td>
-</tr>
-<tr>
-<td>INTER_LINEAR_EXACT</td>
-<td>位精确双线性插值</td>
-</tr>
-<tr>
-<td>INTER_NEAREST_EXACT</td>
-<td>位最近邻插值算法。在PIL,scikit-image和Matlab中效果和最近邻插值算法一样</td>
-</tr>
-<tr>
-<td>INTER_MAX</td>
-<td>插值算法掩码</td>
-</tr>
-<tr>
-<td>WARP_FILL_OUTLIERS</td>
-<td>标志，填充目标图像。如果目标图像的一部分是异常值，那么他们被设置为0</td>
-</tr>
-<tr>
-<td>WARP_INVERSE_MAP</td>
-<td>标志，逆变换</td>
-</tr>
-</tbody></table>
-<p>borderMode: 边界插值类型；</p>
-<p>borderValue: 表示边界插值数据。</p>
-<p>代码示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::Mat srcImage = cv::imread(<span class="string">&quot;E:/CodeBlocks/data/butterfly.jpg&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (srcImage.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt; <span class="string">&quot;fail to load image &quot;</span> &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">xMapArray</span><span class="params">(srcImage.size(),CV_32FC1)</span></span>;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">yMapArray</span><span class="params">(srcImage.size(),CV_32FC1)</span></span>;</span><br><span class="line">    <span class="function">cv::Mat <span class="title">dstImage</span><span class="params">(srcImage.size(),xMapArray.type())</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置变换x,y</span></span><br><span class="line">    <span class="keyword">int</span> rows = srcImage.rows;</span><br><span class="line">    <span class="keyword">int</span> cols = srcImage.cols;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;rows;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;cols;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            xMapArray.at&lt;<span class="keyword">float</span>&gt;(i,j) = cols - j;</span><br><span class="line">            yMapArray.at&lt;<span class="keyword">float</span>&gt;(i,j) = rows - i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//进行变换</span></span><br><span class="line">    cv::remap(srcImage,dstImage,xMapArray,yMapArray,cv::INTER_LINEAR,cv::BORDER_CONSTANT,cv::Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    cv::imshow(<span class="string">&quot;srcImage&quot;</span>,srcImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;remap&quot;</span>,dstImage);</span><br><span class="line">    cv::waitKey(<span class="number">0</span>);</span><br><span class="line">    cv::destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果展示：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-31b782e5798a601b90893958eeb517c0_720w.jpg" alt="img"></p>
-<p><img src="https://pic1.zhimg.com/80/v2-11b0b479a7af64c487829c95ee3c625f_720w.jpg" alt="img"></p>
-
+        <p>图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。</p>
+        
+          <a class="article-more-a" href="/jsblog/2524302a.html#more">继续 >></a>
+        
       
 
       
