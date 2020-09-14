@@ -6,17 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>林木博客</title>
+  <title>仿射变换 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林木博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="图像的仿射变换是将图像的二维坐标从一个直角坐标系中变换到另外一个直角坐标系中的二维坐标的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿射变换">
+<meta property="og:url" content="http://example.com/jsblog/ff4ee780.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="图像的仿射变换是将图像的二维坐标从一个直角坐标系中变换到另外一个直角坐标系中的二维坐标的过程。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-81c3239ee1cf1317c4c4f95d89f45dbc_720w.png">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-2c6d07b030b2d87b9092bf1d43b51cdb_720w.png">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-91bc5a6285c820828fb8de61e126d057_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-1990168441045f086faf437fc007b764_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-dc8d53a22aae8fcaaea09a12c73716ad_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-05efd5703d3aa1783007722a9771996b_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-fbc4c860ce42defa58de5106154c867e_720w.png">
+<meta property="og:image" content="https://picb.zhimg.com/80/v2-464400236aeecac42e6e58473dde0a78_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c6bd1b2149c602dbbbbf373812ff5dca_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-722f53e6d3c192a9f16d52db131e7caa_720w.png">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-357dcb4e264811372436c2f3dfc2bf2c_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-e4b8598c7dd6c00d66bed4d94add7650_720w.jpg">
+<meta property="article:published_time" content="2020-09-14T12:58:36.000Z">
+<meta property="article:modified_time" content="2020-09-14T12:59:13.225Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-81c3239ee1cf1317c4c4f95d89f45dbc_720w.png">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -190,16 +206,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-仿射变换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-仿射变换" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ff4ee780.html">仿射变换</a>
+    <h1 class="article-title" itemprop="name">
+      仿射变换
     </h1>
   
 
@@ -212,12 +226,76 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>图像的仿射变换是将图像的二维坐标从一个直角坐标系中变换到另外一个直角坐标系中的二维坐标的过程。</p>
-        
-          <a class="article-more-a" href="/jsblog/ff4ee780.html#more">继续 >></a>
-        
+        <p>图像的仿射变换是将图像的二维坐标从一个直角坐标系中变换到另外一个直角坐标系中的二维坐标的过程。<a id="more"></a>图像的仿射变换是一种线性的变换，可以表示为矩阵相乘。仿射变换主要用来实现图像的缩放，平移，旋转以及翻转，剪切等几何操作。</p>
+<p>假设在空间中图像的原始坐标为（x,y）经过仿射变换后的目标坐标为（x’,y’），常见的变换形式有以下几种：</p>
+<p>缩放：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-81c3239ee1cf1317c4c4f95d89f45dbc_720w.png" alt="img"></p>
+<p>平移：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-2c6d07b030b2d87b9092bf1d43b51cdb_720w.png" alt="img"></p>
+<p>翻转：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-91bc5a6285c820828fb8de61e126d057_720w.png" alt="img"></p>
+<p>旋转：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-1990168441045f086faf437fc007b764_720w.jpg" alt="img"></p>
+<p>所有的仿射变换都是一种线性的变换，都可以使用矩阵的形式来表达，对于图像的平移变换都可以使用下面矩阵乘法的形式表示：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-dc8d53a22aae8fcaaea09a12c73716ad_720w.jpg" alt="img"></p>
+<p>在opencv中构造变换矩阵通常是构造成2x3的矩阵即：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-05efd5703d3aa1783007722a9771996b_720w.jpg" alt="img"></p>
+<p>对于平移操作构造的矩阵为：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-fbc4c860ce42defa58de5106154c867e_720w.png" alt="img"></p>
+<p>对于缩放而言，水平缩放因子为a,竖直缩放因子为b,则M矩阵为：</p>
+<p><img src="https://picb.zhimg.com/80/v2-464400236aeecac42e6e58473dde0a78_720w.png" alt="img"></p>
+<p>对于旋转而言，旋转角为θ时，则M矩阵为：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c6bd1b2149c602dbbbbf373812ff5dca_720w.jpg" alt="img"></p>
+<p>在看代码之前首先看一下warpAffine函数，函数原型如下：</p>
+<p>Cv::warpAffine(InputArray src,</p>
+<p>OutputArray dst,</p>
+<p>InputArray M,</p>
+<p>Size dsize,</p>
+<p>int flas =INTER_LINEAR,</p>
+<p>int borderMode = BORDER_CONSTANT,</p>
+<p>const Scalar&amp; borderValue = Scalar()</p>
+<p>);</p>
+<p>其使用的公式是</p>
+<p><img src="https://pic4.zhimg.com/80/v2-722f53e6d3c192a9f16d52db131e7caa_720w.png" alt="img"></p>
+<p>其参数：</p>
+<p>src : 输入图像</p>
+<p>dst : 输出图像，大小类型和src一样</p>
+<p>M ：2x3大小的变换矩阵</p>
+<p>dsize : 输出图像的大小</p>
+<p>flags : 插值算法标志，如果结合使用WARO_INVERSE_MAP，表示仿射变换逆运算即（dst-&gt;src）</p>
+<p>borderMode: 边界插值类型</p>
+<p>borderValue :表示边界插值数据。</p>
+<p>示例代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">sin</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cos</span>;</span><br><span class="line"><span class="comment">//使用CommandLineParser对输入的参数进行分析，获取输入的图片路径</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">GetFileName</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    argc : the size of argv[]</span></span><br><span class="line"><span class="comment">    argv : the parameters of comdline</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* key = &#123;</span><br><span class="line">    <span class="string">&quot;&#123;help h usage? || usage information&#125;&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;@picture || input picture&#125;&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">     <span class="function">cv::CommandLineParser <span class="title">parser</span><span class="params">(argc,argv,key)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (parser.has(<span class="string">&quot;help&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        parser.printMessage();</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果没有输入图片路径</span></span><br><span class="line">    <span class="keyword">if</span> (!parser.check())</span><br><span class="line">    &#123;</span><br><span class="line">        parser.printErrors();</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> fileName = parser.get&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> fileName;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">cv::Mat <span class="title">getRotationMatrix</span><span class="params">(cv::Point center,<span class="keyword">double</span> angle,<span class="keyword">double</span> scale)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    center : the center point of transform</span></span><br><span class="line"><span class="comment">    angle  : the angle of rotation</span></span><br><span class="line"><span class="comment">    scake  : the scale of zoom</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    angle *= CV_PI / <span class="number">180</span> ;<span class="comment">//angle to rad</span></span><br><span class="line">    <span class="keyword">double</span> alpha = scale * <span class="built_in">cos</span>(angle);</span><br><span class="line">    <span class="keyword">double</span> beta =  scale * <span class="built_in">sin</span>(angle);</span><br><span class="line"></span><br><span class="line">    <span class="function">cv::Mat <span class="title">Matrix</span><span class="params">(<span class="number">2</span>,<span class="number">3</span>,CV_64F)</span></span>;</span><br><span class="line">    <span class="keyword">double</span> *m = (<span class="keyword">double</span>*)Matrix.data;</span><br><span class="line">    m[<span class="number">0</span>] = alpha;</span><br><span class="line">    m[<span class="number">1</span>] = beta;</span><br><span class="line">    m[<span class="number">2</span>] = (<span class="number">1</span> - alpha) * center.x - beta * center.y;</span><br><span class="line">    m[<span class="number">3</span>] = -beta;</span><br><span class="line">    m[<span class="number">4</span>] = alpha;</span><br><span class="line">    m[<span class="number">5</span>] = beta * center.x + (<span class="number">1</span>-alpha) * center.y;</span><br><span class="line">    <span class="keyword">return</span> Matrix;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">string</span> ImageFilePath = GetFileName(argc,argv);</span><br><span class="line">    cv::Mat srcImage = cv::imread(ImageFilePath);</span><br><span class="line">    <span class="keyword">if</span> (srcImage.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;fail to load image&quot;</span> &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">cv::Point <span class="title">center</span><span class="params">(srcImage.rows/<span class="number">2</span>,srcImage.cols / <span class="number">2</span>)</span></span>;</span><br><span class="line">    cv::Mat Mask = getRotationMatrix(center,<span class="number">60</span>,<span class="number">1.0</span>);</span><br><span class="line">    <span class="function">cv::Mat <span class="title">dstImage</span><span class="params">(srcImage.size() ,srcImage.type())</span></span>;</span><br><span class="line">    cv::warpAffine(srcImage,dstImage,Mask,dstImage.size());</span><br><span class="line"></span><br><span class="line">    cv::imshow(<span class="string">&quot;srcImage&quot;</span>,srcImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;dst&quot;</span>,dstImage);</span><br><span class="line">    cv::waitKey(<span class="number">0</span>);</span><br><span class="line">    cv::destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入图像为：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-357dcb4e264811372436c2f3dfc2bf2c_720w.jpg" alt="img"></p>
+<p>输出图像为：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-e4b8598c7dd6c00d66bed4d94add7650_720w.jpg" alt="img"></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -237,16 +315,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ff4ee780.html">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/ff4ee780.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/jsblog/297c98f1.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rotation</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -266,696 +403,14 @@
 
 
 
-
-  
-    <article id="post-rotation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/297c98f1.html">rotation</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/297c98f1.html" class="archive-article-date">
-  	<time datetime="2020-09-13T13:53:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像旋转是指图像按照某一点转动一定的角度的过程，旋转过程中图像的原始大小并不改变。</p>
-        
-          <a class="article-more-a" href="/jsblog/297c98f1.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/297c98f1.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-reduction" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/b1e75468.html">reduction</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/b1e75468.html" class="archive-article-date">
-  	<time datetime="2020-09-13T06:38:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像缩放是指图像的尺寸变小或者变大的过程。</p>
-        
-          <a class="article-more-a" href="/jsblog/b1e75468.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/b1e75468.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-translation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/b469456f.html">translation</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/b469456f.html" class="archive-article-date">
-  	<time datetime="2020-09-13T01:09:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像的平移操作是将图像按照水平方向或者垂直方向平移。</p>
-        
-          <a class="article-more-a" href="/jsblog/b469456f.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/b469456f.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-remap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/2524302a.html">remap</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/2524302a.html" class="archive-article-date">
-  	<time datetime="2020-09-12T10:16:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像的坐标变换是通过原图像与目标图像之间建立一种变换关系。</p>
-        
-          <a class="article-more-a" href="/jsblog/2524302a.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/2524302a.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring-Boot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/a541262a.html">Spring Boot</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/a541262a.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-spring-boot注解"><a href="#1-spring-boot注解" class="headerlink" title="1.spring boot注解"></a>1.spring boot注解</h2><h2 id="1-1-SpringBootApplication"><a href="#1-1-SpringBootApplication" class="headerlink" title="1.1 @SpringBootApplication"></a>1.1 @SpringBootApplication</h2><p>是spring的启动类</p>
-        
-          <a class="article-more-a" href="/jsblog/a541262a.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/a541262a.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-auto" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/66ba25fa.html">auto</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/66ba25fa.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:17:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>auto 类型推导。在c++98/03 代表具有自动存储期的局部变量。在c++11中auto是一个类型指示符，用来提示编译器对此类型的变量做类型的自动推导。</p>
-        
-          <a class="article-more-a" href="/jsblog/66ba25fa.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/66ba25fa.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Decltype" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/6e431fb1.html">Decltype</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/6e431fb1.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:15:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>decltype : 获取表达式的类型。在编译时推导出一个表达式的类型，并且不会计算表达式的值</p>
-        
-          <a class="article-more-a" href="/jsblog/6e431fb1.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/6e431fb1.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Num-and-String" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/d56b4289.html">Num and String</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/d56b4289.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:09:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在使用C++进行字符串转换的时候总是忘记，以此记录一下系统函数。同时给出一个自己参考CJSon实现的一个转换函数</p>
-        
-          <a class="article-more-a" href="/jsblog/d56b4289.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/d56b4289.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-select" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/4bf2eac0.html">select</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/4bf2eac0.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用select函数实现I/O复用</p>
-        
-          <a class="article-more-a" href="/jsblog/4bf2eac0.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/4bf2eac0.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -978,8 +433,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
