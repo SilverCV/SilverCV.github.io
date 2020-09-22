@@ -6,17 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 林木博客</title>
+  <title>Hist | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林木博客">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="图像直方图包含图像的丰富的信息，反应了图像像素的概率分布情况。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hist">
+<meta property="og:url" content="http://example.com/jsblog/6b98c071.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="图像直方图包含图像的丰富的信息，反应了图像像素的概率分布情况。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=r_%7Bk%7D">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-b81167a1a249d4f2355588771accddc0_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=p(k)">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9189dcb38e96e65677f6acbadf60414b_720w.png">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=H(r_%7Bk%7D)=S_%7Bk%7D">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9b9695c19de8b1e38f4b8bb3b6fd592b_720w.jpg">
+<meta property="og:image" content="https://picb.zhimg.com/80/v2-7c4814becd4d7892e7d46c9e8f82bf2e_720w.jpg">
+<meta property="article:published_time" content="2020-09-22T14:13:06.000Z">
+<meta property="article:modified_time" content="2020-09-22T14:16:10.604Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.zhihu.com/equation?tex=r_%7Bk%7D">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
   
@@ -190,150 +201,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Hist" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hist
+    </h1>
+  
+
+        
+        <a href="/jsblog/6b98c071.html" class="archive-article-date">
+  	<time datetime="2020-09-22T14:13:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>图像直方图包含图像的丰富的信息，反应了图像像素的概率分布情况。<a id="more"></a>对于灰度图像f(x,y),</p>
+<p><img src="https://www.zhihu.com/equation?tex=r_%7Bk%7D" alt="[公式]"> 表示灰度级k出现的频率，则灰度级k像素点出现的概率为：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-b81167a1a249d4f2355588771accddc0_720w.jpg" alt="img"></p>
+<p>其中N是所有的灰度级数，r是图像中得所有像素数，对概率分布 <img src="https://www.zhihu.com/equation?tex=p(k)" alt="[公式]"> 进行累计求和便得到累计归一化直方图 ：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9189dcb38e96e65677f6acbadf60414b_720w.png" alt="img"></p>
+<p>灰度直方图用来描述各个灰度级像素个数出现的频率，灰度直方图的横坐标为灰度级数，从坐标则表示该灰度级出现的频率。对于灰度级范围在[0,N-1]的图像，直方图可表示为 <img src="https://www.zhihu.com/equation?tex=H(r_%7Bk%7D)=S_%7Bk%7D" alt="[公式]"> ,对于灰度图像，其256级灰度图像可以变换到0-255。opencv中提供了一个计算灰度级直方图的函数，函数原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）<span class="function"><span class="keyword">void</span> <span class="title">cv::calcHist</span><span class="params">(<span class="keyword">const</span> Mat *images,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">int</span> nimages,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">const</span> <span class="keyword">int</span>* channels,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray mask,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray hist,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">int</span> dims,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">const</span> <span class="keyword">int</span>* histSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">const</span> <span class="keyword">float</span>* ranges,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">bool</span> uniform = <span class="literal">true</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">bool</span> accumulate =<span class="literal">false</span>)</span></span></span><br><span class="line">2）void cv::calcHist(const Mat *images,</span><br><span class="line">                     <span class="keyword">int</span> nimages,</span><br><span class="line">                     <span class="keyword">const</span> <span class="keyword">int</span>* channels,</span><br><span class="line">                     InputArray mask,</span><br><span class="line">                     SparseMat&amp; hist,</span><br><span class="line">                     <span class="keyword">int</span> dims,</span><br><span class="line">                     <span class="keyword">const</span> <span class="keyword">int</span>* histSize,</span><br><span class="line">                     <span class="keyword">const</span> <span class="keyword">float</span>* ranges,</span><br><span class="line">                     <span class="keyword">bool</span> uniform = <span class="literal">true</span>,</span><br><span class="line">                     <span class="keyword">bool</span> accumulate =<span class="literal">false</span>)</span><br><span class="line"><span class="number">3</span>）<span class="keyword">void</span> cv::calcHist(InputArrayOfArrays Images,</span><br><span class="line">                     <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; channels,</span><br><span class="line">                     InputArray mask,</span><br><span class="line">                     OutputArray hist,</span><br><span class="line">                     <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; histSize,</span><br><span class="line">                     <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ranges,</span><br><span class="line">                     <span class="keyword">bool</span> accumulate = <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：<br>images : 表示图像列表，这些图像必须有相同的深度信息CV_8U,CV_16U或者CV_32F,并且这些图像的大小相同，这些图像可以有任意的通道数量。</p>
+<p>nimages : 表示输入源的图像个数；</p>
+<p>channels : 表示需要统计的图像通道索引</p>
+<p>mask:可选掩码，如果图像不为空，则此参数必须为8位且和图像大小相同，掩码中的非零元素标记需要在直方图中计算的数组元素；</p>
+<p>hist :输出计算得到的直方图，是一个密集或者稀疏矩阵；</p>
+<p>dims:输出的直方图的维度，灰度为1，彩色为3，在opencv中最大为32即CV_MAX_DIMS;</p>
+<p>histSize:直方图横坐标的区间数，支出直方图每一维大小的数组</p>
+<p>ranges:用于住处直方图中得每一个bin的上下界的浮动范围数组的数组，对于均匀直方图而言，该数组只有两个元素；</p>
+<p>uniform: 直方图是否均匀的标志；</p>
+<p>accumulate: 累计标志，用于标志是否清除开始计算时直方图累计的标志。</p>
+<p>示例代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">sin</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cos</span>;</span><br><span class="line"><span class="comment">//使用CommandLineParser对输入的参数进行分析，获取输入的图片路径</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">GetFileName</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    argc : the size of argv[]</span></span><br><span class="line"><span class="comment">    argv : the parameters of comdline</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* key = &#123;</span><br><span class="line">    <span class="string">&quot;&#123;help h usage? || usage information&#125;&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;@picture || input picture&#125;&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">     <span class="function">cv::CommandLineParser <span class="title">parser</span><span class="params">(argc,argv,key)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (parser.has(<span class="string">&quot;help&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        parser.printMessage();</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果没有输入图片路径</span></span><br><span class="line">    <span class="keyword">if</span> (!parser.check())</span><br><span class="line">    &#123;</span><br><span class="line">        parser.printErrors();</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> fileName = parser.get&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> fileName;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> fileName = GetFileName(argc,argv);</span><br><span class="line">    cv::Mat srcImage = cv::imread(fileName);</span><br><span class="line">    <span class="keyword">if</span> (!srcImage.data)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;fail to load image&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//处理图像</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; bgr_channels;</span><br><span class="line">    cv::split(srcImage,bgr_channels);</span><br><span class="line">    <span class="comment">//定义直方图参数</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> channels[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> histSize[<span class="number">1</span>] = &#123;<span class="number">256</span>&#125;;</span><br><span class="line">    <span class="keyword">float</span> preranges[<span class="number">2</span>] = &#123;<span class="number">0</span>,<span class="number">256</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">float</span> *ranges[<span class="number">1</span>] = &#123;preranges&#125;;</span><br><span class="line">    cv::MatND b_hist,g_hist,r_hist;</span><br><span class="line">    <span class="comment">//calchist</span></span><br><span class="line">    cv::calcHist(&amp;bgr_channels[<span class="number">0</span>],<span class="number">1</span>,channels,cv::Mat(),b_hist,<span class="number">1</span>,histSize,ranges,<span class="literal">true</span>,<span class="literal">false</span>);</span><br><span class="line">    cv::calcHist(&amp;bgr_channels[<span class="number">1</span>],<span class="number">1</span>,channels,cv::Mat(),g_hist,<span class="number">1</span>,histSize,ranges,<span class="literal">true</span>,<span class="literal">false</span>);</span><br><span class="line">    cv::calcHist(&amp;bgr_channels[<span class="number">2</span>],<span class="number">1</span>,channels,cv::Mat(),r_hist,<span class="number">1</span>,histSize,ranges,<span class="literal">true</span>,<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//画出直方图</span></span><br><span class="line">    <span class="keyword">int</span> hist_w = <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">int</span> hist_h = <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">int</span> nHistSize = <span class="number">256</span>;</span><br><span class="line">    <span class="comment">//ranges</span></span><br><span class="line">    <span class="keyword">int</span> bin_w = cvRound((<span class="keyword">double</span>)hist_w/nHistSize);</span><br><span class="line">    <span class="function">cv::Mat <span class="title">histImage</span><span class="params">(hist_w,hist_h,CV_8UC3,cv::Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</span></span>;</span><br><span class="line">    cv::normalize(b_hist,b_hist,<span class="number">0</span>,histImage.rows,cv::NORM_MINMAX,<span class="number">-1</span>,cv::Mat());</span><br><span class="line">    cv::normalize(g_hist,g_hist,<span class="number">0</span>,histImage.rows,cv::NORM_MINMAX,<span class="number">-1</span>,cv::Mat());</span><br><span class="line">    cv::normalize(r_hist,r_hist,<span class="number">0</span>,histImage.rows,cv::NORM_MINMAX,<span class="number">-1</span>,cv::Mat());</span><br><span class="line">    <span class="comment">//dims</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i &lt; nHistSize;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cv::line(histImage,cv::Point(bin_w*(i<span class="number">-1</span>),hist_h - cvRound(b_hist.at&lt;<span class="keyword">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                  cv::Point(bin_w*(i),hist_h - cvRound(b_hist.at&lt;<span class="keyword">float</span>&gt;(i))),</span><br><span class="line">                  cv::Scalar(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>),<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>);</span><br><span class="line">        cv::line(histImage,cv::Point(bin_w*(i<span class="number">-1</span>),hist_h - cvRound(g_hist.at&lt;<span class="keyword">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                  cv::Point(bin_w*(i),hist_h - cvRound(g_hist.at&lt;<span class="keyword">float</span>&gt;(i))),</span><br><span class="line">                  cv::Scalar(<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>),<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>);</span><br><span class="line">        cv::line(histImage,cv::Point(bin_w*(i<span class="number">-1</span>),hist_h - cvRound(r_hist.at&lt;<span class="keyword">float</span>&gt;(i<span class="number">-1</span>))),</span><br><span class="line">                  cv::Point(bin_w*(i),hist_h - cvRound(r_hist.at&lt;<span class="keyword">float</span>&gt;(i))),</span><br><span class="line">                  cv::Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>),<span class="number">2</span>,<span class="number">8</span>,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cv::imshow(<span class="string">&quot;hist&quot;</span>,histImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;srcImage&quot;</span>,srcImage);</span><br><span class="line">    cv::waitKey(<span class="number">0</span>);</span><br><span class="line">    cv::destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如图：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9b9695c19de8b1e38f4b8bb3b6fd592b_720w.jpg" alt="img"></p>
+<p><img src="https://picb.zhimg.com/80/v2-7c4814becd4d7892e7d46c9e8f82bf2e_720w.jpg" alt="img"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/4bf2eac0.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/4bf2eac0.html">select</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/84bcfa45.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/84bcfa45.html">poll</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/1646cb2f.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/1646cb2f.html">getsockopt and setsockopt</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/2116d0b5.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/2116d0b5.html">OpenCV for Windows</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -345,250 +285,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/6b98c071.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/96b8a012.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/jsblog/ff4ee780.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">仿射变换</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/96b8a012.html">读写图片</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ba11d693.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ba11d693.html">色彩空间转换</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/9a6917e7.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/9a6917e7.html">OpenCV for MinGW</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ac99a763.html" class="archive-article-date">
-  	<time datetime="2020-09-07T12:52:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ac99a763.html">Thread 入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/5c7f6c43.html" class="archive-article-date">
-  	<time datetime="2020-09-07T12:18:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/5c7f6c43.html">FileStorage</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/6f96be2d.html" class="archive-article-date">
-  	<time datetime="2020-09-05T23:01:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/6f96be2d.html">TCP 连接与断开</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -612,8 +407,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
