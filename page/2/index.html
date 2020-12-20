@@ -200,29 +200,29 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-AVStream结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-VideoWriter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/6a8738f7.html">AVStream结构体</a>
+      <a class="article-title" href="/jsblog/13cab75d.html">VideoWriter</a>
     </h1>
   
 
         
-        <a href="/jsblog/6a8738f7.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:08:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/13cab75d.html" class="archive-article-date">
+  	<time datetime="2020-12-20T05:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVStream是存储每一个视频/音频流信息的结构体。</p>
+        <p>OpenCV提供了写入视频的接口类VideoWriter,VideoWriter是向文件中以指定的编码格式将每一帧图片写入到视频中。</p>
         
-          <a class="article-more-a" href="/jsblog/6a8738f7.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/13cab75d.html#more">继续 >></a>
         
       
 
@@ -236,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
         		</li>
       		
 		</ul>
@@ -246,7 +246,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/6a8738f7.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/13cab75d.html">展开全文 >></a>
         </p>
       
 
@@ -276,31 +276,30 @@
 
 
   
-    <article id="post-AVCodecParameters结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-VideoCapture" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/9c3dc76b.html">AVCodecParameters结构体</a>
+      <a class="article-title" href="/jsblog/9d1603cf.html">VideoCapture</a>
     </h1>
   
 
         
-        <a href="/jsblog/9c3dc76b.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:07:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/9d1603cf.html" class="archive-article-date">
+  	<time datetime="2020-12-20T05:46:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVCodecParamteres结构体是将AVCodecContext中编解码器参数抽取出而形成的新的结构体，在新版本中的FFMPEG中，有些结构体中的AVCodecContext已经被弃用，取而代之的就是AVCodecParameters这个参数，该结构体定义在libavcodec/codec_par.h文件中，该结构体的定义如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AVCodecParameters</span> &#123;</span></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * General type of the encoded data.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">enum</span> AVMediaType codec_type;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Specific type of the encoded data (the codec used).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">enum</span> AVCodecID codec_id;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Additional information about the codec (corresponds to the AVI FOURCC).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">uint32_t</span> codec_tag;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Extra binary data needed for initializing the decoder, codec-dependent.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Must be allocated with av_malloc() and will be freed by</span></span><br><span class="line"><span class="comment"> * avcodec_parameters_free(). The allocated size of extradata must be at</span></span><br><span class="line"><span class="comment"> * least extradata_size + AV_INPUT_BUFFER_PADDING_SIZE, with the padding</span></span><br><span class="line"><span class="comment"> * bytes zeroed.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">uint8_t</span> *extradata;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Size of the extradata content in bytes.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> extradata_size;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * - video: the pixel format, the value corresponds to enum AVPixelFormat.</span></span><br><span class="line"><span class="comment"> * - audio: the sample format, the value corresponds to enum AVSampleFormat.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> format;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The average bitrate of the encoded data (in bits per second).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int64_t</span> bit_rate;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The number of bits per sample in the codedwords.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This is basically the bitrate per sample. It is mandatory for a bunch of</span></span><br><span class="line"><span class="comment"> * formats to actually decode them. It&#x27;s the number of bits for one sample in</span></span><br><span class="line"><span class="comment"> * the actual coded bitstream.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This could be for example 4 for ADPCM</span></span><br><span class="line"><span class="comment"> * For PCM formats this matches bits_per_raw_sample</span></span><br><span class="line"><span class="comment"> * Can be 0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> bits_per_coded_sample;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This is the number of valid bits in each output sample. If the</span></span><br><span class="line"><span class="comment"> * sample format has more bits, the least significant bits are additional</span></span><br><span class="line"><span class="comment"> * padding bits, which are always 0. Use right shifts to reduce the sample</span></span><br><span class="line"><span class="comment"> * to its actual size. For example, audio formats with 24 bit samples will</span></span><br><span class="line"><span class="comment"> * have bits_per_raw_sample set to 24, and format set to AV_SAMPLE_FMT_S32.</span></span><br><span class="line"><span class="comment"> * To get the original sample use &quot;(int32_t)sample &gt;&gt; 8&quot;.&quot;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * For ADPCM this might be 12 or 16 or similar</span></span><br><span class="line"><span class="comment"> * Can be 0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> bits_per_raw_sample;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Codec-specific bitstream restrictions that the stream conforms to.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">int</span> profile;</span><br><span class="line"> <span class="keyword">int</span> level;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Video only. The dimensions of the video frame in pixels.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> width;</span><br><span class="line"> <span class="keyword">int</span> height;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Video only. The aspect ratio (width / height) which a single pixel</span></span><br><span class="line"><span class="comment"> * should have when displayed.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * When the aspect ratio is unknown / undefined, the numerator should be</span></span><br><span class="line"><span class="comment"> * set to 0 (the denominator may have any value).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> AVRational sample_aspect_ratio;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Video only. The order of the fields in interlaced video.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">enum</span> AVFieldOrder field_order;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Video only. Additional colorspace characteristics.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">enum</span> AVColorRange color_range;</span><br><span class="line"> <span class="keyword">enum</span> AVColorPrimaries color_primaries;</span><br><span class="line"> <span class="keyword">enum</span> AVColorTransferCharacteristic color_trc;</span><br><span class="line"> <span class="keyword">enum</span> AVColorSpace color_space;</span><br><span class="line"> <span class="keyword">enum</span> AVChromaLocation chroma_location;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Video only. Number of delayed frames.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> video_delay;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The channel layout bitmask. May be 0 if the channel layout is</span></span><br><span class="line"><span class="comment"> * unknown or unspecified, otherwise the number of bits set must be equal to</span></span><br><span class="line"><span class="comment"> * the channels field.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">uint64_t</span> channel_layout;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The number of audio channels.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> channels;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The number of audio samples per second.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> sample_rate;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The number of bytes per coded audio frame, required by some</span></span><br><span class="line"><span class="comment"> * formats.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment"> * Corresponds to nBlockAlign in WAVEFORMATEX.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> block_align;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. Audio frame size, if known. Required by some formats to be static.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> frame_size;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The amount of padding (in samples) inserted by the encoder at</span></span><br><span class="line"><span class="comment"> * the beginning of the audio. I.e. this number of leading decoded samples</span></span><br><span class="line"><span class="comment"> * must be discarded by the caller to get the original audio without leading</span></span><br><span class="line"><span class="comment"> * padding.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> initial_padding;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. The amount of padding (in samples) appended by the encoder to</span></span><br><span class="line"><span class="comment"> * the end of the audio. I.e. this number of decoded samples must be</span></span><br><span class="line"><span class="comment"> * discarded by the caller from the end of the stream to get the original</span></span><br><span class="line"><span class="comment"> * audio without any trailing padding.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> trailing_padding;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Audio only. Number of samples to skip after a discontinuity.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">int</span> seek_preroll;</span><br><span class="line">&#125; AVCodecParameters;</span><br></pre></td></tr></table></figure>
-
-<p>因为AVCodecContext结构体包含的参数太多，AVCodecParameters将编码器的参数从AVCodecContext分离出来，AVCodecParameters结构体中部分重要的参数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> AVMediaType codec_type; 编解码器的类型 </span><br><span class="line"><span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">AVCodec</span> *<span class="title">codec</span>;</span> 编解码器,初始化后不可更改</span><br><span class="line"><span class="keyword">enum</span> AVCodecID codec_id; 编解码器的id</span><br><span class="line"><span class="keyword">int64_t</span> bit_rate; 平均比特率</span><br><span class="line"><span class="keyword">uint8_t</span> *extradata; <span class="keyword">int</span> extradata_size; 针对特定编码器包含的附加信息</span><br><span class="line">AVRational time_base; 根据该参数可以将pts转化为实践</span><br><span class="line"><span class="keyword">int</span> width, height; 每一帧的宽和高</span><br><span class="line"><span class="keyword">int</span> gop_size; 一组图片的数量，编码时用户设置，解码时不使用</span><br><span class="line"><span class="keyword">enum</span> AVPixelFormat pix_fmt; 像素格式，编码时用户设置，解码时可由用户指定，但是在分析数据会被覆盖用户的设置</span><br><span class="line"><span class="keyword">int</span> refs; 参考帧的数量</span><br><span class="line"><span class="keyword">enum</span> AVColorSpace colorspace; YUV色彩空间类型</span><br><span class="line"><span class="keyword">enum</span> AVColorRange color_range; MPEG JPEG YUV范围</span><br><span class="line"><span class="keyword">int</span> sample_rate; 采样率 仅音频</span><br><span class="line"><span class="keyword">int</span> channels; 声道数（音频）</span><br><span class="line"><span class="keyword">enum</span> AVSampleFormat sample_fmt; <span class="comment">//采样格式</span></span><br><span class="line"><span class="keyword">int</span> frame_size; 每个音频帧中每个声道的采样数量</span><br><span class="line"><span class="keyword">int</span> profile;配置类型</span><br><span class="line"><span class="keyword">int</span> level;级别</span><br></pre></td></tr></table></figure>
+        <p>OpenCV提供了操作视频的接口类VideoCapture</p>
+        
+          <a class="article-more-a" href="/jsblog/9d1603cf.html#more">继续 >></a>
+        
       
 
       
@@ -313,7 +312,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
         		</li>
       		
 		</ul>
@@ -323,7 +322,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/9c3dc76b.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/9d1603cf.html">展开全文 >></a>
         </p>
       
 
@@ -353,29 +352,29 @@
 
 
   
-    <article id="post-AVIOContext结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-av-seek-frame" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/33520746.html">AVIOContext结构体</a>
+      <a class="article-title" href="/jsblog/681275ed.html">av_seek_frame</a>
     </h1>
   
 
         
-        <a href="/jsblog/33520746.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:06:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/681275ed.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVIOContext是FFMPEG管理输入输出数据的结构体。</p>
+        <p>使用av_seek_frame截取视频，</p>
         
-          <a class="article-more-a" href="/jsblog/33520746.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/681275ed.html#more">继续 >></a>
         
       
 
@@ -399,7 +398,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/33520746.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/681275ed.html">展开全文 >></a>
         </p>
       
 
@@ -429,29 +428,29 @@
 
 
   
-    <article id="post-AVPacket结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-FFmpegPCM播转AAC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/7229756e.html">AVPacket结构体</a>
+      <a class="article-title" href="/jsblog/1c43d3bb.html">FFmpegPCM播转AAC</a>
     </h1>
   
 
         
-        <a href="/jsblog/7229756e.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:04:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/1c43d3bb.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:18:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVPacket是存储压缩编码数据相关信息的结构体。</p>
+        <p>要将PCM数据编码为AAC的格式，</p>
         
-          <a class="article-more-a" href="/jsblog/7229756e.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/1c43d3bb.html#more">继续 >></a>
         
       
 
@@ -475,7 +474,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/7229756e.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/1c43d3bb.html">展开全文 >></a>
         </p>
       
 
@@ -505,29 +504,29 @@
 
 
   
-    <article id="post-AVFrame结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-FFmpeg-SDL2播放视频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ed193d9d.html">AVFrame结构体</a>
+      <a class="article-title" href="/jsblog/e661981a.html">FFmpeg+SDL2播放视频</a>
     </h1>
   
 
         
-        <a href="/jsblog/ed193d9d.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:03:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/e661981a.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVFrame结构体是存储音视频原始数据（即未被编码的数据）的结构体。</p>
+        <p>从开始学习到现在自己制作使用SDL2播放视频，好像经历了一个月的时间，</p>
         
-          <a class="article-more-a" href="/jsblog/ed193d9d.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/e661981a.html#more">继续 >></a>
         
       
 
@@ -541,7 +540,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FFFMPEG</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
         		</li>
       		
 		</ul>
@@ -551,7 +550,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ed193d9d.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/e661981a.html">展开全文 >></a>
         </p>
       
 
@@ -581,29 +580,29 @@
 
 
   
-    <article id="post-AVCodec结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-FFmpeg播放视频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/b5ef7346.html">AVCodec结构体</a>
+      <a class="article-title" href="/jsblog/ca5cce0b.html">Qt+FFmpeg播放视频</a>
     </h1>
   
 
         
-        <a href="/jsblog/b5ef7346.html" class="archive-article-date">
-  	<time datetime="2020-12-20T04:02:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/ca5cce0b.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:16:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVCodec结构体是存储编解码器信息的结构体。</p>
+        <p>实践出真知。通过实践才能发现更多的问题。</p>
         
-          <a class="article-more-a" href="/jsblog/b5ef7346.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/ca5cce0b.html#more">继续 >></a>
         
       
 
@@ -627,7 +626,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/b5ef7346.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/ca5cce0b.html">展开全文 >></a>
         </p>
       
 
@@ -657,29 +656,29 @@
 
 
   
-    <article id="post-AVCodecContext结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-提取RGB数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/f65b7c6d.html">AVCodecContext结构体</a>
+      <a class="article-title" href="/jsblog/ba4deb51.html">提取RGB数据</a>
     </h1>
   
 
         
-        <a href="/jsblog/f65b7c6d.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:59:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/ba4deb51.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVCondecContext 是FFmpeg使用过程中比较重要的结构体</p>
+        <p>学习需要一步一步来，前几天在网上找了一个demo学习了如何在Qt中使用FFMPEG将视频数据解码出来并播放，</p>
         
-          <a class="article-more-a" href="/jsblog/f65b7c6d.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/ba4deb51.html#more">继续 >></a>
         
       
 
@@ -703,7 +702,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/f65b7c6d.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/ba4deb51.html">展开全文 >></a>
         </p>
       
 
@@ -733,29 +732,29 @@
 
 
   
-    <article id="post-AVFormatContext结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-格式转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/4a837348.html">AVFormatContext结构体</a>
+      <a class="article-title" href="/jsblog/380b57e8.html">格式转换</a>
     </h1>
   
 
         
-        <a href="/jsblog/4a837348.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:58:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/380b57e8.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:14:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>AVFormatContext 描述了一个媒体文件或者媒体流的构成和基本信息</p>
+        <p>学习了一部分ffmpeg的知识，但是没有目标的学习似乎好像学不到什么东西。</p>
         
-          <a class="article-more-a" href="/jsblog/4a837348.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/380b57e8.html#more">继续 >></a>
         
       
 
@@ -779,7 +778,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/4a837348.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/380b57e8.html">展开全文 >></a>
         </p>
       
 
@@ -809,29 +808,29 @@
 
 
   
-    <article id="post-FFMPEG结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-从MV中提取音频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ca777205.html">FFMPEG结构体</a>
+      <a class="article-title" href="/jsblog/8ef2442b.html">从MV中提取音频</a>
     </h1>
   
 
         
-        <a href="/jsblog/ca777205.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/8ef2442b.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:13:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>FFMPEG中最关键的结构体，主要用于解协议，解封装，解码以及存数据。</p>
+        <p>看过了FFMPEG中的一些结构体，可能对于怎么使用这些结构体写代码有些遗忘，尤其是如何处理音视频。</p>
         
-          <a class="article-more-a" href="/jsblog/ca777205.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/8ef2442b.html#more">继续 >></a>
         
       
 
@@ -855,7 +854,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ca777205.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/8ef2442b.html">展开全文 >></a>
         </p>
       
 
@@ -885,29 +884,29 @@
 
 
   
-    <article id="post-解码视频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ffprobe的用法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/3836e290.html">解码视频</a>
+      <a class="article-title" href="/jsblog/6a6c7041.html">ffprobe的用法</a>
     </h1>
   
 
         
-        <a href="/jsblog/3836e290.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:50:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/6a6c7041.html" class="archive-article-date">
+  	<time datetime="2020-12-20T04:12:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>解码视频和解码音频的算法步骤差不多，在这里还是参考雷神的博客</p>
+        <p>ffprobe是ffmpeg中一个查看多媒体文件信息的模块。</p>
         
-          <a class="article-more-a" href="/jsblog/3836e290.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/6a6c7041.html#more">继续 >></a>
         
       
 
@@ -931,7 +930,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/3836e290.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/6a6c7041.html">展开全文 >></a>
         </p>
       
 
@@ -963,7 +962,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+      <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
     </nav>
   
 
