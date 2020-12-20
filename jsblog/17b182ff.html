@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Python之函数 | 林木博客</title>
+  <title>FFMPEG之libavfilter | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python中函数使用def定义的函数还有就是lambda 定义的函数。">
+  <meta name="description" content="FFMPEG除了具有编解码的能力之外，还包含一个强大的功能组件—滤镜avfilter。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python之函数">
-<meta property="og:url" content="http://example.com/jsblog/a17f435f.html">
+<meta property="og:title" content="FFMPEG之libavfilter">
+<meta property="og:url" content="http://example.com/jsblog/17b182ff.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Python中函数使用def定义的函数还有就是lambda 定义的函数。">
+<meta property="og:description" content="FFMPEG除了具有编解码的能力之外，还包含一个强大的功能组件—滤镜avfilter。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-20T06:01:14.000Z">
-<meta property="article:modified_time" content="2020-12-20T06:07:44.332Z">
+<meta property="article:published_time" content="2020-12-20T06:28:40.000Z">
+<meta property="article:modified_time" content="2020-12-20T06:48:38.846Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="FFMPEG">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
@@ -201,50 +201,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Python之函数" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-FFMPEG之libavfilter" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Python之函数
+      FFMPEG之libavfilter
     </h1>
   
 
         
-        <a href="/jsblog/a17f435f.html" class="archive-article-date">
-  	<time datetime="2020-12-20T06:01:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/17b182ff.html" class="archive-article-date">
+  	<time datetime="2020-12-20T06:28:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Python中函数使用def定义的函数还有就是lambda 定义的函数。<a id="more"></a></p>
-<p>使用def关键字声明的函数，返回使用return关键字，如果到达函数仍然没有遇到return语句，就会自动返回None.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; None</span><br><span class="line">def bind_var():</span><br><span class="line"> a &#x3D; []</span><br><span class="line"> for i in range(5):</span><br><span class="line"> a.append(i)</span><br><span class="line">print(a)</span><br><span class="line">print(bind_var())</span><br></pre></td></tr></table></figure>
+        <p>FFMPEG除了具有编解码的能力之外，还包含一个强大的功能组件—滤镜avfilter。<a id="more"></a>avfilter经常用于多媒体的处理与编辑。在使用滤镜处理音视频的特效之前，首先需要了解一下Filter的基本格式。</p>
+<p>FFMPEG中的滤镜参数的排列方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[输入流或者标记名]滤镜参数[临时变量名]；[输入流或者标记名]滤镜参数[临时变量名]...</span><br></pre></td></tr></table></figure>
 
-<p>函数有两种连接变量的方式：全局变量，本地变量。在使用全局变量的时候，在使用关键字global表示这个变量是个全局变量，如果不使用global会被默认为本地变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; None</span><br><span class="line">def bind_vvar():</span><br><span class="line"> global a</span><br><span class="line"> a &#x3D; []</span><br><span class="line">bind_vvar()</span><br></pre></td></tr></table></figure>
-
-<p>print(a)在python可以返回多个值，也就是相当于一个元组，在C++中有tuple的类型，可供来返回多个值，而在python中我们可以直接返回多个值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def f():</span><br><span class="line"> a &#x3D; 5</span><br><span class="line"> b &#x3D; 7;c&#x3D;8</span><br><span class="line"> return a,b,c</span><br><span class="line">a,b,c &#x3D; f()</span><br><span class="line">print(a,b,c)</span><br></pre></td></tr></table></figure>
-
-<p>在Python中每一个函数都是一个对象，可以将函数作为一个参数传递到其他的函数中，相当于一种回调的使用。lambda是一种匿名函数，在c++中也有lambda函数，在Python定义匿名函数可以直接使用lambda关键字。匿名函数没有一个显示的__name__属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp_val &#x3D; lambda x : x*x</span><br><span class="line">print(exp_val(10))</span><br></pre></td></tr></table></figure>
-
-<p>了解到一个新的词语，柯里化函数：部分参数应用，它是通过部分参数应用的方式从已有的函数产生新的函数，内建的functools可以使用pratial函数简化处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line">def add_numbers(x,y):</span><br><span class="line"> return x+y</span><br><span class="line">add_five &#x3D; partial(add_numbers,5)</span><br><span class="line">print(add_five(10))</span><br></pre></td></tr></table></figure>
-
-<p>这与C++ 的bind函数很像，可以对函数使用占位符并确定某些位置的参数，形成一个新的函数对象。Python中通过一致的方式遍历序列这也就是迭代器模式。迭代器在Python中是一种用在上下文中向Python解释器生成对象的对象。生成器是构造新的可遍历序列的一种简洁的方式，如果需要创建生成器需要使用yield关键字，即将return换成yield关键字即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def squares(n &#x3D; 10):</span><br><span class="line"> for i in range(1,n+1):</span><br><span class="line"> yield i**2</span><br><span class="line">gen &#x3D; squares()</span><br><span class="line">print(gen)</span><br><span class="line">print(list(gen))</span><br></pre></td></tr></table></figure>
-
-<p>生成器表达式可以很方便的创建生成器，生成器表达式与列表的推导式很相似，只需要将列表推导式的中括号换成小括号就行。生成器表达式也可以代替列表推导式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gen &#x3D; (x**2 for x in range(1,11))</span><br><span class="line">print(gen)</span><br><span class="line">print(list(gen))</span><br><span class="line">mapping &#x3D; dict((x,x**2) for x in range(1,11))</span><br><span class="line">print(mapping)</span><br></pre></td></tr></table></figure>
-
-<p>itertools模块是适用于大多数数据集合算法的生成器，可以查看相应的文档来学习</p>
-<p>错误和异常处理使用try/except捕获和处理异常</p>
+<p>在设置一些滤镜的时候经常会使用到根据时间轴进行的操作，也就不可避免的要使用到FFMPEG中的Filter的时间内置变量。接下来看一下Filter内置的时间变量，下表是Filter内置的时间变量：</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>t</td>
+<td>时间戳以秒表示，如果输入的时间位置，则是NAN</td>
+</tr>
+<tr>
+<td>n</td>
+<td>输入帧的顺序编号，从0开始</td>
+</tr>
+<tr>
+<td>pos</td>
+<td>输入帧的位置，如果未知就是NAN</td>
+</tr>
+<tr>
+<td>w</td>
+<td>视频帧的宽度</td>
+</tr>
+<tr>
+<td>h</td>
+<td>视频帧的高度</td>
+</tr>
+</tbody></table>
 
       
 
@@ -279,7 +288,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
         		</li>
       		
 		</ul>
@@ -335,7 +344,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/a17f435f.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/17b182ff.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -349,18 +358,9 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/35b35764.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Python之字符串
-        
-      </div>
-    </a>
   
-  
-    <a href="/jsblog/31f3b408.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python之文件操作</div>
+    <a href="/jsblog/84150675.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python之tuple</div>
       <i class="icon-circle-right"></i>
     </a>
   
