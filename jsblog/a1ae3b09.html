@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020/12 | 林木博客</title>
+  <title>正则表达式文法 | 林木博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林木博客">
-<meta property="og:url" content="http://example.com/archives/2020/12/page/7/index.html">
+  <meta name="description" content="好久之前就想学一下正则表达式，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式文法">
+<meta property="og:url" content="http://example.com/jsblog/a1ae3b09.html">
 <meta property="og:site_name" content="林木博客">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="好久之前就想学一下正则表达式，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-20T11:07:04.000Z">
+<meta property="article:modified_time" content="2020-12-20T11:08:40.576Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林木博客" type="application/atom+xml">
@@ -198,405 +201,373 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-正则表达式文法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正则表达式文法
+    </h1>
+  
+
+        
+        <a href="/jsblog/a1ae3b09.html" class="archive-article-date">
+  	<time datetime="2020-12-20T11:07:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>好久之前就想学一下正则表达式，<a id="more"></a>虽然之前有过使用python写爬虫使用正则表达式的经历，但工作中不是使用的python,所以就忘记了好多正则表达式，现在回想起来还是需要看一下的毕竟正则表达式是那么的强大，那么的好用。首先来看一些特殊的表达式以及它们的意义：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>‘\n’以外所有的字符</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>…字符中任何一个</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>非…字符中的任意一个</td>
+</tr>
+<tr>
+<td>[[:charclass:]]</td>
+<td>指定字符类charclass中的一个（见下表）</td>
+</tr>
+<tr>
+<td>\n,\t,\f,\r,\v</td>
+<td>一个newline,tabulator,form feed,carriage return或vertical tab</td>
+</tr>
+<tr>
+<td>\xhh,\uhhh</td>
+<td>一个十六进制字符或Unicode字符</td>
+</tr>
+<tr>
+<td>\d,\D,\s,\S,\w,\W</td>
+<td>某字符类内的一个字符shortcut（见下表）</td>
+</tr>
+<tr>
+<td>*</td>
+<td>前一个字符或者group，任意次数</td>
+</tr>
+<tr>
+<td>?</td>
+<td>前一个字符或者group，可有可无</td>
+</tr>
+<tr>
+<td>+</td>
+<td>前一个字符或者group,至少一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>前一个字符或者group, n次</td>
+</tr>
+<tr>
+<td>{m,n}</td>
+<td>前一个字符或者group,至少m次,最多n次</td>
+</tr>
+<tr>
+<td>…|…</td>
+<td>在 | 之前或者之后的pattern</td>
+</tr>
+<tr>
+<td>(…)</td>
+<td>设定分组</td>
+</tr>
+<tr>
+<td>\1,\2,\3,…</td>
+<td>第n个 group</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>一个正字词的边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>一个负字词的边界</td>
+</tr>
+<tr>
+<td>^</td>
+<td>一行的起点</td>
+</tr>
+<tr>
+<td>$</td>
+<td>一行的终点</td>
+</tr>
+</tbody></table>
+<p>下表是正则表达式中的字符类：</p>
+<table>
+<thead>
+<tr>
+<th>字符类</th>
+<th>缩写</th>
+<th>转义字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[[:alnum:]]</td>
+<td></td>
+<td></td>
+<td>一个字母或者数字</td>
+</tr>
+<tr>
+<td>[[:alpha:]]</td>
+<td></td>
+<td></td>
+<td>一个字母</td>
+</tr>
+<tr>
+<td>[[:blank:]]</td>
+<td></td>
+<td></td>
+<td>一个space或tab</td>
+</tr>
+<tr>
+<td>[[:cntrl:]]</td>
+<td></td>
+<td></td>
+<td>一个控制字符</td>
+</tr>
+<tr>
+<td>[[:digit:]]</td>
+<td>[[:d:]]</td>
+<td>\d</td>
+<td>一个数字</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>\D</td>
+<td>一个非数字</td>
+</tr>
+<tr>
+<td>[[:graph:]]</td>
+<td></td>
+<td></td>
+<td>可打印非空白字符</td>
+</tr>
+<tr>
+<td>[[:lower:]]</td>
+<td></td>
+<td></td>
+<td>小写数字</td>
+</tr>
+<tr>
+<td>[[:print:]]</td>
+<td></td>
+<td></td>
+<td>可打印字符包括空白字符</td>
+</tr>
+<tr>
+<td>[[:punct:]]</td>
+<td></td>
+<td></td>
+<td>一个标点符合字符</td>
+</tr>
+<tr>
+<td>[[:space:]]</td>
+<td>[[:s:]]</td>
+<td>\s</td>
+<td>一个空白字符</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>\S</td>
+<td>一个非空白字符</td>
+</tr>
+<tr>
+<td>[[:upper:]]</td>
+<td></td>
+<td></td>
+<td>一个大写字母</td>
+</tr>
+<tr>
+<td>[[:xdigit:]]</td>
+<td></td>
+<td></td>
+<td>一个十六进制数字</td>
+</tr>
+<tr>
+<td></td>
+<td>[[:w:]]</td>
+<td>\w</td>
+<td>一个字母、数字或者下划线</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>\W</td>
+<td>非字母、数字或下划线</td>
+</tr>
+</tbody></table>
+<p>使用正则表达式主要用来查找和替换string中的字符。使用正则表达式可以完成以下工作：</p>
+<p>Match : 用输入来对比某个正则表达式</p>
+<p>Search : 查找与patter匹配的正则表达式</p>
+<p>Tokenize : 将语法切分，取得词汇单元</p>
+<p>Replace : 替换第一个或者所有与pattern匹配的。</p>
+<p>现在就看看正则表达式匹配和查找接口。</p>
+<p>实例代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;regex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">bool</span>)&gt; out = [](<span class="keyword">bool</span> b)&#123;<span class="built_in">cout</span> &lt;&lt; (b? <span class="string">&quot;found&quot;</span> : <span class="string">&quot;not found&quot;</span>) &lt;&lt; <span class="built_in">endl</span>;&#125;;</span><br><span class="line">    <span class="comment">//match</span></span><br><span class="line">    <span class="built_in">string</span> text = <span class="string">&quot;&lt;tag&gt;value&lt;/tag&gt;&quot;</span>;</span><br><span class="line">    <span class="function">regex <span class="title">reg</span><span class="params">(<span class="string">&quot;&lt;.*&gt;.*&lt;/.*&gt;&quot;</span>)</span></span>;</span><br><span class="line">    <span class="keyword">bool</span> found = regex_match(text,reg);</span><br><span class="line">    out(found);</span><br><span class="line">    <span class="comment">//match</span></span><br><span class="line">    <span class="function">regex <span class="title">reg1</span><span class="params">(<span class="string">&quot;&lt;(.*)&gt;.*&lt;/\\1&gt;&quot;</span>)</span></span>;</span><br><span class="line">    found =  regex_match(text,reg1);</span><br><span class="line">    out(found);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//use grep</span></span><br><span class="line">    <span class="function">regex <span class="title">reg2</span><span class="params">(<span class="string">R&quot;(&lt;\(.*\)&gt;.*&lt;/\1&gt;)&quot;</span>,regex_constants::grep)</span></span>;</span><br><span class="line">    found = regex_match(text,reg2);</span><br><span class="line">    out(found);</span><br><span class="line">    <span class="comment">//use c-style</span></span><br><span class="line">    found = regex_match(<span class="string">&quot;&lt;tag&gt;value&lt;/tag&gt;&quot;</span>,regex(<span class="string">&quot;&lt;(.*)&gt;.*&lt;/\\1&gt;&quot;</span>));</span><br><span class="line">    out(found);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// fail to match but can search</span></span><br><span class="line">    text = <span class="string">&quot;XML tag: &lt;tag&gt;value&lt;/tag&gt;&quot;</span>;</span><br><span class="line">    found = regex_match(text,regex(<span class="string">&quot;&lt;(.*)&gt;.*&lt;/\\1&gt;&quot;</span>));</span><br><span class="line">    out(found);</span><br><span class="line"></span><br><span class="line">    found = regex_match(text,regex(<span class="string">&quot;.*&lt;(.*)&gt;.*&lt;/\\1&gt;.*&quot;</span>));</span><br><span class="line">    out(found);</span><br><span class="line"></span><br><span class="line">    found = regex_search(text,regex(<span class="string">&quot;&lt;(.*)&gt;.*&lt;/\\1&gt;&quot;</span>));</span><br><span class="line">    out(found);</span><br><span class="line"></span><br><span class="line">    found = regex_search(text,regex(<span class="string">&quot;.*&lt;(.*)&gt;.*&lt;/\\1&gt;.*&quot;</span>));</span><br><span class="line">    out(found);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/7bf8ae3c.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:04:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/7bf8ae3c.html">职责链模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/a1ae3b09.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/9055d217.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:03:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/jsblog/c72502a3.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          正则表达式迭代器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/jsblog/8d30cb7a.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Numpy之ndarray</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/9055d217.html">迭代器模式</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/df879792.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:02:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/df879792.html">组合模式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/c3176455.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:02:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/c3176455.html">备忘录模式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/8acb1976.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:01:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/8acb1976.html">状态模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/d036071c.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/d036071c.html">中介者模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/f5c535ea.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:51:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/f5c535ea.html">适配器模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/7b510e10.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:50:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/7b510e10.html">代理模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/f7de8aa8.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:50:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/f7de8aa8.html">外观模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/e19da94a.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/e19da94a.html">享元模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/12/page/6/">上一页</a><a class="page-number" href="/archives/2020/12/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/12/page/5/">5</a><a class="page-number" href="/archives/2020/12/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/archives/2020/12/page/8/">8</a><a class="page-number" href="/archives/2020/12/page/9/">9</a><a class="extend next" rel="next" href="/archives/2020/12/page/8/">下一页</a>
-    </nav>
   
 
 
@@ -620,8 +591,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
