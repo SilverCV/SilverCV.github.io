@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>备忘录模式 | 林森</title>
+  <title>并发问题 | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="意图:在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。">
+  <meta name="description" content="使用多线程总会伴随 数据的并发访问。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="备忘录模式">
-<meta property="og:url" content="http://example.com/jsblog/c3176455.html">
+<meta property="og:title" content="并发问题">
+<meta property="og:url" content="http://example.com/jsblog/84c7d6fb.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="意图:在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。">
+<meta property="og:description" content="使用多线程总会伴随 数据的并发访问。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-dde04045396c19999a2d35d8182507d8_720w.jpg">
-<meta property="article:published_time" content="2020-12-20T03:02:27.000Z">
-<meta property="article:modified_time" content="2020-12-21T11:54:38.148Z">
+<meta property="article:published_time" content="2020-12-21T11:38:24.000Z">
+<meta property="article:modified_time" content="2020-12-21T12:33:02.881Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="patterns">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-dde04045396c19999a2d35d8182507d8_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林森" type="application/atom+xml">
   
@@ -203,60 +201,73 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-备忘录模式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-并发问题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      备忘录模式
+      并发问题
     </h1>
   
 
         
-        <a href="/jsblog/c3176455.html" class="archive-article-date">
-  	<time datetime="2020-12-20T03:02:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/84c7d6fb.html" class="archive-article-date">
+  	<time datetime="2020-12-21T11:38:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>意图</strong>:在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。<a id="more"></a></p>
-<p><strong>动机</strong>: 在软件构建过程中，某些对象的状态在转换过程中，可能由于某种需要，要求程序能够回溯到对象之前处于某个点时的状态，如果使用一些共有接口来让其他对象得到对象的状态，便会暴露对象的细节实现。</p>
-<p><strong>适用性</strong>:</p>
-<ol>
-<li><p>必须保存一个对象在某个时刻的状态，这样以后需要时它才能恢复到先前的状态</p>
-</li>
-<li><p>如果一个接口让其他对象直接得到这些状态，将会暴露对象的实现细节并破坏对象的封装性。</p>
-</li>
-</ol>
-<p><strong>结构：</strong></p>
-<p><img src="https://pic1.zhimg.com/80/v2-dde04045396c19999a2d35d8182507d8_720w.jpg" alt="img"></p>
-<p><strong>参与者</strong>：</p>
-<p>Memento:备忘录存储原发器对象的内部状态，原发器根据需要决定备忘录存储袁发强的哪些内部状态；防止原发器以外的对象访问备忘录。备忘录实际上有两个接口，管理者（Caretaker）只能看到备忘录的窄接口即它只能将备忘录传递给其他对象；想法原发器可以看到一个宽接口，允许它访问返回到先前状态所需要的数据。理想情况下式只允许生成本备忘录的那个原发器访问本备忘录的内部状态。</p>
-<p>Originator: 原发器创建一个备忘录，用以记录当前时刻它的内部状态；使用备忘录恢复内部状态</p>
-<p>Caretaker: 负责保存好备忘录，不能对备忘录的内容进行操作修改</p>
-<p><strong>协作</strong>：</p>
-<p>管理者向原发器请求一个备忘录，保留一段时间后，将其送回到原发器</p>
-<p>备忘录是被动的，只有创建备忘录的原发器会对它的状态进行赋值和检索</p>
-<p><strong>效果</strong>：</p>
-<ol>
-<li><p>保持封装边界</p>
-</li>
-<li><p>简化了原发器</p>
-</li>
-<li><p>使用备忘录的代价很高</p>
-</li>
-<li><p>定义窄接口和宽接口</p>
-</li>
-<li><p>维护备忘录的潜在代价</p>
-</li>
-</ol>
-<p><strong>实现：</strong></p>
-<p>代码示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Memento</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Memento()&#123;&#125;</span><br><span class="line">  Memento(<span class="built_in">std</span>::<span class="built_in">string</span> <span class="keyword">const</span>&amp; _state):_State(_state)&#123;&#125;</span><br><span class="line">  ~Memento()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; <span class="title">GetState</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _State;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">SetState</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> <span class="keyword">const</span>&amp; state)</span></span>&#123;</span><br><span class="line">    _State = state;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> _State;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Originator</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Originator()&#123;&#125;</span><br><span class="line">  ~Originator()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">ChangeState</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> <span class="keyword">const</span>&amp; state)</span></span>&#123;</span><br><span class="line">    _state = state;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">SetMemento</span><span class="params">(Memento <span class="keyword">const</span>&amp; m)</span></span>&#123;</span><br><span class="line">    _state = m.GetState();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function">Memento <span class="title">CreateMemento</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Memento(_state);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;current state is :&quot;</span> &lt;&lt; _state &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> _state;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Memento mem;</span><br><span class="line">  Originator originator;</span><br><span class="line">  originator.ChangeState(<span class="string">&quot;state 1&quot;</span>);</span><br><span class="line">  originator.Output();</span><br><span class="line">  mem = originator.CreateMemento();</span><br><span class="line">  originator.ChangeState(<span class="string">&quot;state 2&quot;</span>);</span><br><span class="line">  originator.Output();</span><br><span class="line">  originator.SetMemento(mem);</span><br><span class="line">  originator.Output();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>使用多线程总会伴随 数据的并发访问。<a id="more"></a>多个线程彼此毫无关系地运行几乎是很罕见的。线程可能提供数据给其他线程处理，或是准备好必要的先决条件用以启动其他线程。当多个线程同时运行的时候一定要注意当多个线程并发处理相同的数据而不同步化，那么唯一安全的情况就是所有线程只读取数据而不修改数据。</p>
+<p>所谓相同的数据是使用相同的内存区，如果在不同的内存区那么就不会引发数据竞争的问题，读写也就不会出问题。在C++11中定义的数据竞争是指不同线程中的两个互相冲突的动作，其中至少一个动作不是atomic，而且无一个动作发生在另外一个动作之前。Data race会导致程序不可预期的行为。使用多线程的时候要特别注意平台相关性。</p>
+<p>在什么情况下会出现问题呢？</p>
+<p>1.未同步化的数据访问 ：并行运行的两个线程渡河写同一个数据，不知道哪条语句先执行</p>
+<p>2.写一半的数据：某个线程正在读数据，另一个线程改动它，于是读取数据的线程可能只读一半</p>
+<p>3.重新安装的语句： 语句和操作可能被重新安排次序，也许对每个单一线程正确，但是多线程的组合就破坏了预期的行为。</p>
+<p><strong>Unsynchronized data Access(未同步化的数据访问)</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (!v.empty())</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; v.back() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果此段代码被多个线程共享，那么有可能在调用if非空后成功，而其他线程操作之后将v中元素清空，那么此段函数导致不可预期的行为。</p>
+<p>注意：C++标准库提供的函数不支持“写或读”动作与另外一个”写“动作（同一个数据）并发执行。但是并发处理同意容器内的不同元素是可以的（除vector<bool>外）不同的线程可以并发读写同一容器内的元素。并发处理string stream,file stream,或stream buffer会导致不可预期的行为。</bool></p>
+<p><strong>Half-Written Data(写到一半的数据)</strong></p>
+<p>如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>某个线程写入：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>某个线程读取：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; x;</span><br></pre></td></tr></table></figure>
+
+<p>程序的输出可能有以下情况：</p>
+<p>x = 0 ： 如果在第一线程执行之前</p>
+<p>x=-1 ： 如果写入线程已完成</p>
+<p>任何其他值： 如果 读取线程在写入线程中进行读取。</p>
+<p><strong>Reordered Statement(重排语句)</strong></p>
+<p>假设有两个变量，一个是bool readyFlag,另外一个是int data。在一个线程中表示提供数据：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> data;</span><br><span class="line"><span class="keyword">bool</span> readFlag = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p> 在生成者线程中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = <span class="number">100</span>;</span><br><span class="line">readFlag = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+<p>消费者线程中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!readFlag)&#123;&#125;</span><br><span class="line">foo(data);</span><br></pre></td></tr></table></figure>
+
+<p>一般而言是先执行生成者线程产生数据，然后执行消费者线程处理数据。但是编译器或者硬件可能重排语句指令,从而在生成者为完成数据产生之前调用foo(data)语句，而不是执行while循环，对于单一线程则不会出席这种问题。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo(data);</span><br><span class="line"><span class="keyword">while</span>(!readFlag)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就有可能造成不可预期的行为。</p>
+<p><strong>如何解决？</strong></p>
+<p>首先要保证代码的原子性（atomicity），即不可分割性，同时也要保证具体指定语句的次序(Order)。</p>
+<p>1.使用future和promise，它们都保证atomicity和order,这就意味着不会同时发生读和写</p>
+<p>2.使用mutex和lock来处理critical section和protected zone。获得锁即保证只有一方可以读或者写。但是如果锁使用的不当，会造成死锁。</p>
+<p>3.可以使用condition_variable，有效的令某线程等待若干“被另外一个线程控制的判断式”为true。有利于处理多线程直接的次序关系。</p>
+<p>4.可以使用atomic data type确保每次对便利或对象的访问操作都是不可分割的。</p>
+<p>5.可以使用atomic data type的底层接口，允许放宽atomic语句的次序或针对内存访问使用manual barrier或fence.</p>
+
       
 
       
@@ -290,7 +301,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
         		</li>
       		
 		</ul>
@@ -346,7 +357,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/c3176455.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/84c7d6fb.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -360,18 +371,9 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/df879792.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          组合模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/jsblog/8acb1976.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">状态模式</div>
+    <a href="/jsblog/f4423a86.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python多线程</div>
       <i class="icon-circle-right"></i>
     </a>
   

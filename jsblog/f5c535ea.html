@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-a3d068dd105a02614ff5048734225668_720w.jpg">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-7cdae5c6cce55af5cd4ebdba807d4901_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T02:51:24.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.606Z">
+<meta property="article:modified_time" content="2020-12-21T11:50:36.198Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -227,9 +227,14 @@
         <p><strong>意图</strong>:将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的哪些类可以一起工作。<a id="more"></a></p>
 <p><strong>动机</strong>:在软件系统中，由于应用环境的变化，常常需要将“一些现存的对象”放在新的环境中应用，但是新环境要求的接口时这些现在对象所不满足的。</p>
 <p><strong>适用性</strong>:</p>
-<p>\1. 你想使用一个已存在的类，而它的接口不符合你的需求</p>
-<p>\2. 你想创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类协同工作</p>
-<p>\3. （仅仅适用于对象适配器）你想使用一些已经存在的子类，但是不可能对每一个都进行子类化以匹配它们的接口。对象适配器可以适配它的父类接口。</p>
+<ol>
+<li><p>你想使用一个已存在的类，而它的接口不符合你的需求</p>
+</li>
+<li><p>你想创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类协同工作</p>
+</li>
+<li><p>（仅仅适用于对象适配器）你想使用一些已经存在的子类，但是不可能对每一个都进行子类化以匹配它们的接口。对象适配器可以适配它的父类接口。</p>
+</li>
+</ol>
 <p><strong>结构：</strong></p>
 <p><strong>类适配器：</strong></p>
 <p><img src="https://pic1.zhimg.com/80/v2-a3d068dd105a02614ff5048734225668_720w.jpg" alt="img"></p>
@@ -243,11 +248,18 @@
 <p><strong>协作</strong>：</p>
 <p>Client在Adapter实例上调用一些操作。接着适配器调用Adapter的操作实现请求。</p>
 <p><strong>效果</strong>：</p>
-<p>\1. 用一个具体的Adapter类对Adaptee和Target进行适配。结果是当我们想要匹配一个类以及他的子类的时候，类Adapter将不能胜任工作。</p>
-<p>\2. 使得Adapter可以重新定义Adaptee的部分行为，因为Adapter是Adaptee的子类</p>
-<p>\3. 仅仅引入一个对象，并不需要额外的指针以间接得到Adaptee</p>
-<p>\4. 允许一个Adapter与多个Adaptee-Adaptee本身以及它的所有子类同时工作，Adapter也可以一次给所有的Adaptee添加功能。</p>
-<p>\5. 使得重定义Adaptee的行为比较困难。</p>
+<ol>
+<li><p>用一个具体的Adapter类对Adaptee和Target进行适配。结果是当我们想要匹配一个类以及他的子类的时候，类Adapter将不能胜任工作。</p>
+</li>
+<li><p>使得Adapter可以重新定义Adaptee的部分行为，因为Adapter是Adaptee的子类</p>
+</li>
+<li><p>仅仅引入一个对象，并不需要额外的指针以间接得到Adaptee</p>
+</li>
+<li><p>允许一个Adapter与多个Adaptee-Adaptee本身以及它的所有子类同时工作，Adapter也可以一次给所有的Adaptee添加功能。</p>
+</li>
+<li><p>使得重定义Adaptee的行为比较困难。</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ITarget</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~ITarget()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  ITarget()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">OldInterface</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;exec &quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> :</span> <span class="keyword">public</span>  ITarget&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Adapter(Adaptee *_p)&#123;</span><br><span class="line">    _adaptee = _p;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _adaptee-&gt;OldInterface();</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Adaptee *_adaptee;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Adaptee *_p = <span class="keyword">new</span> Adaptee;</span><br><span class="line">  ITarget *target = <span class="keyword">new</span> Adapter(_p);</span><br><span class="line">  target-&gt;Process();</span><br><span class="line">  <span class="keyword">delete</span> _p;</span><br><span class="line">  <span class="keyword">delete</span> target;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

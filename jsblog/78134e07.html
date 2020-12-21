@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-ee255c6ce8ccf504123ebe6658d23560_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T03:05:26.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.587Z">
+<meta property="article:modified_time" content="2020-12-21T11:50:27.782Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -227,11 +227,18 @@
 <p><strong>动机</strong>:</p>
 <p>在软件构建过程中，“行为请求者”与“行为实现者”通常呈现出一种“紧耦合”。但在某些场合——比如需要对行为进行“记录、撤销/重做、事务”等处理，这种无法抵御变化的紧耦合是不合适的。</p>
 <p><strong>适用性</strong>:</p>
-<p>\1. 抽象出待执行的动作以参数化某对象；</p>
-<p>\2. 在不同的时刻指定、排列和执行请求；</p>
-<p>\3. 支持取消操作</p>
-<p>\4. 支持修改日志，这样当系统崩溃时，这些修改可以重做一遍</p>
-<p>\5. 用构建在原语操作上的高层操作构造一个系统。</p>
+<ol>
+<li><p>抽象出待执行的动作以参数化某对象；</p>
+</li>
+<li><p>在不同的时刻指定、排列和执行请求；</p>
+</li>
+<li><p>支持取消操作</p>
+</li>
+<li><p>支持修改日志，这样当系统崩溃时，这些修改可以重做一遍</p>
+</li>
+<li><p>用构建在原语操作上的高层操作构造一个系统。</p>
+</li>
+</ol>
 <p><strong>结构：</strong></p>
 <p><img src="https://pic1.zhimg.com/80/v2-ee255c6ce8ccf504123ebe6658d23560_720w.jpg" alt="img"></p>
 <p><strong>参与者</strong>：</p>
@@ -246,10 +253,16 @@
 <p>该Invoker通过调用Command对象的Execute操作来提交一个请求</p>
 <p>ConcreteCommand对象调用它的Receiver的一些操作以执行该请求</p>
 <p><strong>效果</strong>：</p>
-<p>\1. Command模式将调用操作的对象与指导如何实现该操作的对象解耦。</p>
-<p>\2. Command是头等的对象</p>
-<p>\3. 可将多个命令装配成一个组合命令</p>
-<p>\4. 增加新的Command很容易，因为这无须改变已有的类</p>
+<ol>
+<li><p>Command模式将调用操作的对象与指导如何实现该操作的对象解耦。</p>
+</li>
+<li><p>Command是头等的对象</p>
+</li>
+<li><p>可将多个命令装配成一个组合命令</p>
+</li>
+<li><p>增加新的Command很容易，因为这无须改变已有的类</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Command</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~Command()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Execute</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  Command()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> :</span> <span class="keyword">public</span> Command&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ConcreteCommand()&#123;&#125;</span><br><span class="line">  ConcreteCommand(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; name):_name(name)&#123;&#125;</span><br><span class="line">  ~ConcreteCommand()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; _name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> _name;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Invoker</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Invoker()&#123;&#125;</span><br><span class="line">  ~Invoker()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">addCommand</span><span class="params">(Command *c)</span></span>&#123;</span><br><span class="line">    _commnads.emplace_back(c);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Run</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> c : _commnads) &#123;</span><br><span class="line">      c-&gt;Execute();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Command*&gt; _commnads;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Receiver</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Receiver()&#123;&#125;</span><br><span class="line">  Receiver(Invoker <span class="keyword">const</span>&amp; ivk):_invoker(ivk)&#123;&#125;</span><br><span class="line">  ~Receiver()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Action</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _invoker.Run();</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Invoker _invoker;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function">ConcreteCommand <span class="title">open</span><span class="params">(<span class="string">&quot;open&quot;</span>)</span></span>;</span><br><span class="line">  <span class="function">ConcreteCommand <span class="title">close</span><span class="params">(<span class="string">&quot;close&quot;</span>)</span></span>;</span><br><span class="line">  Invoker invoker;</span><br><span class="line">  invoker.addCommand(&amp;open);</span><br><span class="line">  invoker.addCommand(&amp;close);</span><br><span class="line">  <span class="function">Receiver <span class="title">receiver</span><span class="params">(invoker)</span></span>;</span><br><span class="line">  receiver.Action();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

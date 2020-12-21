@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-fcf8ea4d4a7bc8f75f416b23f9cea8a0_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T02:48:23.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.585Z">
+<meta property="article:modified_time" content="2020-12-21T11:53:45.482Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -233,9 +233,14 @@
 <p><strong>协作</strong>：</p>
 <p>客户只能通过Singleton的Instance操作访问一个singleton的实例</p>
 <p><strong>效果：</strong></p>
-<p>\1. 对唯一实例的受控访问</p>
-<p>\2. 缩小命名空间</p>
-<p>\3. 允许对操作和表示的精化</p>
+<ol>
+<li><p>对唯一实例的受控访问</p>
+</li>
+<li><p>缩小命名空间</p>
+</li>
+<li><p>允许对操作和表示的精化</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Run</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;test &quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  Singleton()&#123;&#125;</span><br><span class="line">  ~Singleton()&#123;&#125;</span><br><span class="line">  <span class="keyword">static</span> Singleton *_instance;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton *Singleton::_instance = <span class="number">0</span>;</span><br><span class="line"><span class="function">Singleton* <span class="title">Singleton::getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (_instance == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">    _instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>  _instance;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Singleton *instance = Singleton::getInstance();</span><br><span class="line">  instance-&gt;Run();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

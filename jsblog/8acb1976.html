@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-75fff74badb5f03d9385d9fa547de483_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T03:01:44.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.594Z">
+<meta property="article:modified_time" content="2020-12-21T11:51:20.039Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -226,8 +226,12 @@
         <p><strong>意图</strong>:允许一个对象在其内部状态时改变它的行为，对象看起来似乎修改了它的类  <a id="more"></a></p>
 <p><strong>动机</strong>: 在软件构建过程中，某些对象的状态如果改变，其行为也会随之而发生变化，比如文档处于只读状态，其支持的行为和读写状态支持的行为就可能完全不同。</p>
 <p><strong>适用性</strong>:</p>
-<p>\1. 一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。</p>
-<p>\2. 一个操作中含有庞大的多分支条件语句，且这些分支依赖于该对象的状态。</p>
+<ol>
+<li><p>一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为。</p>
+</li>
+<li><p>一个操作中含有庞大的多分支条件语句，且这些分支依赖于该对象的状态。</p>
+</li>
+</ol>
 <p><strong>结构：</strong></p>
 <p><img src="https://pic4.zhimg.com/80/v2-75fff74badb5f03d9385d9fa547de483_720w.jpg" alt="img"></p>
 <p><strong>参与者</strong>：</p>
@@ -240,9 +244,14 @@
 <p>Context是客户使用的主要接口。客户可用状态对象来配置一个Context,一旦一个Context配置完毕，它的客户不再需要直接与状态对象打交道</p>
 <p>Context或ConcreteContext子类都可决定哪个状态是另外一个的后继者，以及是在何种状态下进行状态转换。</p>
 <p><strong>效果</strong>：</p>
-<p>\1. 将与特定状态相关的行为局部化，并且将不同的状态分割开来</p>
-<p>\2. 使状态转换显式化</p>
-<p>\3. State对象可被共享</p>
+<ol>
+<li><p>将与特定状态相关的行为局部化，并且将不同的状态分割开来</p>
+</li>
+<li><p>使状态转换显式化</p>
+</li>
+<li><p>State对象可被共享</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IState</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Handle</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">SetState</span><span class="params">(IState *s)</span></span>&#123;</span><br><span class="line">    _state = s;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Request</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _state-&gt;Handle();</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  IState *_state;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlyState</span> :</span> <span class="keyword">public</span> IState&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Handle</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; in flying &quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunState</span> :</span> <span class="keyword">public</span> IState&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Handle</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; in running &quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Context c;</span><br><span class="line">  IState *fly = <span class="keyword">new</span> FlyState;</span><br><span class="line">  IState *Run = <span class="keyword">new</span> RunState;</span><br><span class="line">  c.SetState(fly);</span><br><span class="line">  c.Request();</span><br><span class="line">  c.SetState(Run);</span><br><span class="line">  c.Request();</span><br><span class="line">  <span class="keyword">delete</span> Run;</span><br><span class="line">  <span class="keyword">delete</span> fly;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

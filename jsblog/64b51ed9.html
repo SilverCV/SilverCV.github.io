@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-26e3a744d80999525fa167a56b9b5612_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T03:06:27.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.604Z">
+<meta property="article:modified_time" content="2020-12-21T11:53:10.924Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -226,9 +226,14 @@
         <p><strong>意图</strong>:表示一个作用于某对象结构中的各元素的操作，它使你可以在不改变各元素类的前提下定义作用于这些元素的操作。<a id="more"></a></p>
 <p><strong>动机</strong>:在软件构建过程中，由于需求的改变，某些类层次结构中常常需要增加新的行为（方法），如果直接在基类中做这样的更改，将会给子类代理很繁重的变更负担，甚至破坏原有设计。</p>
 <p><strong>适用性</strong>:</p>
-<p>\1. 一个对象结构含有很多类对象，它们有不同的接口，而你想对这些对象实施一些依赖于具体类的操作</p>
-<p>\2. 需要对一个对象结构中的对象进行很多不同而且不相关的操作，而你想避免让这些操作“污染“这些类对象。</p>
-<p>\3. 定义对象结构的类很少改变，但经常需要在此结构上定义新的操作。</p>
+<ol>
+<li><p>一个对象结构含有很多类对象，它们有不同的接口，而你想对这些对象实施一些依赖于具体类的操作</p>
+</li>
+<li><p>需要对一个对象结构中的对象进行很多不同而且不相关的操作，而你想避免让这些操作“污染“这些类对象。</p>
+</li>
+<li><p>定义对象结构的类很少改变，但经常需要在此结构上定义新的操作。</p>
+</li>
+</ol>
 <p><strong>结构：</strong></p>
 <p><img src="https://pic3.zhimg.com/80/v2-26e3a744d80999525fa167a56b9b5612_720w.jpg" alt="img"></p>
 <p><strong>参与者</strong>：</p>
@@ -241,12 +246,20 @@
 <p>一个使用Visitor模式的客户必须创建一个ConcreteVisitor对象，然后遍历该对象结构，并用该访问者访问每一个元素</p>
 <p>当一个元素被访问时，它调用对应于它的类的Visitor操作。</p>
 <p><strong>效果</strong>：</p>
-<p>\1. 访问者模式使得易于增加新的操作</p>
-<p>\2. 访问者集中相关的操作而分离无关的操作</p>
-<p>\3. 增加新的ConcreteElement类很困难</p>
-<p>\4. 通过该类层次进行访问</p>
-<p>\5. 累积状态</p>
-<p>\6. 破坏封装</p>
+<ol>
+<li><p>访问者模式使得易于增加新的操作</p>
+</li>
+<li><p>访问者集中相关的操作而分离无关的操作</p>
+</li>
+<li><p>增加新的ConcreteElement类很困难</p>
+</li>
+<li><p>通过该类层次进行访问</p>
+</li>
+<li><p>累积状态</p>
+</li>
+<li><p>破坏封装</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Element</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Visitor</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~Visitor()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">visitElementA</span><span class="params">(Element *e)</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">visitElementB</span><span class="params">(Element *e)</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Element</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~Element()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Accept</span><span class="params">(Visitor&amp; visitor)</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteElementA</span> :</span> <span class="keyword">public</span> Element&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Accept</span><span class="params">(Visitor&amp; visitor)</span></span>&#123;</span><br><span class="line">    visitor.visitElementA(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteElementB</span>:</span> <span class="keyword">public</span> Element&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Accept</span><span class="params">(Visitor&amp; visitor)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">    visitor.visitElementB(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitorA</span> :</span> <span class="keyword">public</span> Visitor&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">visitElementA</span><span class="params">(Element *e)</span>  </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;visitor A process element A&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">visitElementB</span><span class="params">(Element *e)</span>  </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;visitor A process element B&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitorB</span> :</span> <span class="keyword">public</span> Visitor&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">visitElementA</span><span class="params">(Element *e)</span>  </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;visitor B process element A&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">visitElementB</span><span class="params">(Element *e)</span>  </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;visitor B process element B&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">  ConcreteElementA a;</span><br><span class="line">  VisitorA va;</span><br><span class="line">  a.Accept(va);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-813bc34021bacb43d78284a7f9b21f32_720w.jpg">
 <meta property="article:published_time" content="2020-12-20T02:46:58.000Z">
-<meta property="article:modified_time" content="2020-12-20T03:09:07.586Z">
+<meta property="article:modified_time" content="2020-12-21T11:49:08.186Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="patterns">
 <meta name="twitter:card" content="summary">
@@ -234,11 +234,18 @@
 <p>Client : 让一个原型克隆自身从而创建新的对象</p>
 <p><strong>协作：</strong>客户请求一个原型克隆自身</p>
 <p><strong>效果：</strong></p>
-<p>\1. 可以运行时增加和删除产品</p>
-<p>\2. 改变值以指定新对象</p>
-<p>\3. 改变结构可以指定新的对象</p>
-<p>\4. 减少子类的构造</p>
-<p>\5. 用类动态配置应用</p>
+<ol>
+<li><p>可以运行时增加和删除产品</p>
+</li>
+<li><p>改变值以指定新对象</p>
+</li>
+<li><p>改变结构可以指定新的对象</p>
+</li>
+<li><p>减少子类的构造</p>
+</li>
+<li><p>用类动态配置应用</p>
+</li>
+</ol>
 <p><strong>实现：</strong></p>
 <p>代码示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Prototype</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> Prototype* <span class="title">Clone</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Run</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> :</span> <span class="keyword">public</span> Prototype&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ConcretePrototype()&#123;&#125;</span><br><span class="line">  ConcretePrototype(<span class="keyword">const</span> ConcretePrototype&amp; rhs)&#123;&#125;</span><br><span class="line">  ~ConcretePrototype()&#123;&#125;</span><br><span class="line">  <span class="function">Prototype* <span class="title">Clone</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ConcretePrototype(*<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Run</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; test &quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  Client()&#123;</span><br><span class="line">    _prototype = <span class="keyword">new</span> ConcretePrototype;</span><br><span class="line">  &#125;</span><br><span class="line">~Client()&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Prototype* p2 = _prototype-&gt;Clone();</span><br><span class="line">    p2-&gt;Run();</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">Prototype *_prototype;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Client c;</span><br><span class="line">  c.Test();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
