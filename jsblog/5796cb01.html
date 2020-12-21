@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>林森</title>
+  <title>Python之Pool | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林森">
-<meta property="og:url" content="http://example.com/page/11/index.html">
+  <meta name="description" content="上一次学到了如何使用multithreading中的Process创建多个进程，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python之Pool">
+<meta property="og:url" content="http://example.com/jsblog/5796cb01.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="上一次学到了如何使用multithreading中的Process创建多个进程，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-21T12:46:06.000Z">
+<meta property="article:modified_time" content="2020-12-21T14:02:13.115Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林森" type="application/atom+xml">
@@ -198,34 +201,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Decltype" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Python之Pool" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/6e431fb1.html">Decltype</a>
+    <h1 class="article-title" itemprop="name">
+      Python之Pool
     </h1>
   
 
         
-        <a href="/jsblog/6e431fb1.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:15:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+        <a href="/jsblog/5796cb01.html" class="archive-article-date">
+  	<time datetime="2020-12-21T12:46:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>decltype : 获取表达式的类型。在编译时推导出一个表达式的类型，并且不会计算表达式的值</p>
-        
-          <a class="article-more-a" href="/jsblog/6e431fb1.html#more">继续 >></a>
-        
+        <p>上一次学到了如何使用multithreading中的Process创建多个进程，<a id="more"></a>现在来看一下如何使用multithreading模块中的Pool类即Pool进程池创建进程。</p>
+<p>首先来看一下Pool类的常用方法：</p>
+<p>apply_async(func[,args[,kwds]]):使用非阻塞方式调用func，并行执行，args为传递给func的函数，kwds表示传递给func的关键字参数列表。</p>
+<p>apply(func[,args[,kwds]]) : 使用阻塞方式调用func</p>
+<p>close() : 关闭Pool，使其不再接受新的任务</p>
+<p>terminate() : 不管任务是否完成，立即终止</p>
+<p>join() : 主进程阻塞，等待子进程的推出，必须在close()或者terminate之后使用</p>
+<p>所谓的阻塞就是指必须在某一任务完成之后才能继续执行这一任务，也就是I/O事件导致线程挂起，需要等待I/O事件完成之后才能进行任务调度来执行这个任务。</p>
+<p>示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">import</span> os,time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">task</span>(<span class="params">name</span>):</span></span><br><span class="line">    print(<span class="string">&quot;子进程 %s 执行 %s&quot;</span>%(os.getpid(),name))</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    print(<span class="string">&quot;父进程：%s&quot;</span>%os.getppid())</span><br><span class="line">    p = Pool(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):          <span class="comment">#创建子进程</span></span><br><span class="line">        p.apply_async(task,args=(i,))</span><br><span class="line">    print(<span class="string">&quot;等待子进程结束...&quot;</span>)</span><br><span class="line">    p.close() <span class="comment">#关闭进程池</span></span><br><span class="line">    p.join()</span><br><span class="line">    print(<span class="string">&quot;所有子进程结束&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>在某些程序中需要进程之间的相互通信，那么如何才能实现进程间的相互通信呢？</p>
+<p>Python中multiprocessing模块包装了底层的机制，提供了Queue、Pipes管道等多种方式来交换数据。队列是一种数据结构，先进先出的数据结构。进程之间有时需要通信，操作系统提供了很多机制实现进程间的通信，可以使用multiprocessing模块的Queue实现多进程之间的数据结构。</p>
+<p>Queue对象常用的函数如下：</p>
+<p>Queue.qsize() :返回当前队列包含的消息数量</p>
+<p>Queue.empty() : 如果队列为空，返回True，反之返回False</p>
+<p>Queue.full() :如果队列满了True否则返回False</p>
+<p>Queue.get([block[,timeout]]): 获取队列中的消息，然后将其从队列中移除，block默认值为True.如果block使用默认值，且没有设置timeout,消息队列为空则会被阻塞，直到从消息队列中读到消息位置，如果设置了timeout，就会等待timeout秒，若还为空则会抛出Queue.Empty异常;如果block为False,消息队列为空则立刻抛出Queue.Empty</p>
+<p>Queue.get_nowait() :相当于Queue.get(False)</p>
+<p>Queue.put(item,[block[,timeout]]):将item消息写入队列，block默认为True;如果block使用默认值，且没有设置timeout,消息无法写入则会被阻塞，直到从消息队列中有空间写入，如果设置了timeout，就会等待timeout秒，若还没有空间则会抛出Queue.Full异常;如果block为False,消息队列为空则立刻抛出Queue.Full异常</p>
+<p>Queue.put_nowait(item) : 相当于Queue.put(item,False)</p>
+<p>下面是一个利用multiprocessing.Process可以创建多进程，使用multiprocessing.Queue可以实现队列的操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process,Queue</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#向队列中写入数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_task</span>(<span class="params">q</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> q.full():</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">            message = <span class="string">&quot;message : &quot;</span> + str(i)</span><br><span class="line">            q.put(message)</span><br><span class="line">            print(<span class="string">&quot;写入：%s&quot;</span>%message)</span><br><span class="line"><span class="comment">#读取队列中的数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_task</span>(<span class="params">q</span>):</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> q.empty():</span><br><span class="line">        print(<span class="string">&quot;读取： %s&quot;</span>%q.get(<span class="literal">True</span>,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    q = Queue() <span class="comment">#创建队列</span></span><br><span class="line">    pw = Process(target=write_task,args=(q,)) <span class="comment">#写入数据进程</span></span><br><span class="line">    pr = Process(target=read_task,args=(q,)) <span class="comment">#读取数据进程</span></span><br><span class="line">    pw.start()  <span class="comment">#启动写入进程</span></span><br><span class="line">    pr.start() <span class="comment">#启动读取进程</span></span><br><span class="line">    pw.join() <span class="comment">#等待pw结束</span></span><br><span class="line">    pr.join() <span class="comment">#等pr结束</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -236,7 +277,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -245,16 +286,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/6e431fb1.html">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/5796cb01.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/jsblog/c2d79a1f.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Numpy之dtype
+        
+      </div>
+    </a>
+  
+  
+    <a href="/jsblog/84c7d6fb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">并发问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -274,697 +383,14 @@
 
 
 
-
-  
-    <article id="post-Num-and-String" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/d56b4289.html">Num and String</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/d56b4289.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:09:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在使用C++进行字符串转换的时候总是忘记，以此记录一下系统函数。同时给出一个自己参考CJSon实现的一个转换函数</p>
-        
-          <a class="article-more-a" href="/jsblog/d56b4289.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/d56b4289.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-select" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/4bf2eac0.html">select</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/4bf2eac0.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用select函数实现I/O复用</p>
-        
-          <a class="article-more-a" href="/jsblog/4bf2eac0.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/4bf2eac0.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-poll" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/84bcfa45.html">poll</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/84bcfa45.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用poll函数实现I/O复用. poll允许工作在任何描述符中，poll提供的功能与select函数类似。</p>
-        
-          <a class="article-more-a" href="/jsblog/84bcfa45.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/84bcfa45.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-getsockopt-and-setsockopt" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/1646cb2f.html">getsockopt and setsockopt</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/1646cb2f.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:04:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>了解一下 getsockopt 和 setsockopt</p>
-        
-          <a class="article-more-a" href="/jsblog/1646cb2f.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/1646cb2f.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-OpenCV-for-Windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/2116d0b5.html">OpenCV for Windows</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/2116d0b5.html" class="archive-article-date">
-  	<time datetime="2020-09-12T03:00:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我的配置是vs2015+opencv3.4.0。</p>
-        
-          <a class="article-more-a" href="/jsblog/2116d0b5.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/2116d0b5.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-读写图片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/96b8a012.html">读写图片</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/96b8a012.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一话我们已经把opencv的环境配置完成，那么我们接下来分析一下上一话的例子。</p>
-        
-          <a class="article-more-a" href="/jsblog/96b8a012.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/96b8a012.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Color-Convert" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ba11d693.html">色彩空间转换</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/ba11d693.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先来了解一下opencv提供的API</p>
-        
-          <a class="article-more-a" href="/jsblog/ba11d693.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ba11d693.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-OpenCV-for-MinGW" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/9a6917e7.html">OpenCV for MinGW</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/9a6917e7.html" class="archive-article-date">
-  	<time datetime="2020-09-12T02:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>作为一个opencv的入门的小白来说，要学会如何如何去编译opencv。</p>
-<p>当然在windows使用mingw-w64编译opencv会遇到一些坑。 </p>
-        
-          <a class="article-more-a" href="/jsblog/9a6917e7.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/9a6917e7.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Thread" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ac99a763.html">Thread 入门</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/ac99a763.html" class="archive-article-date">
-  	<time datetime="2020-09-07T12:52:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在c++11之前c++没有提供对并发编程提供语言级别的支持，而在c++11在增加了线程以及线程相关的类，很方便的支持并发编程，提高了代码的可移植性。</p>
-        
-          <a class="article-more-a" href="/jsblog/ac99a763.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ac99a763.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/">下一页</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -987,8 +413,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
