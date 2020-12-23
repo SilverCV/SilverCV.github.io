@@ -64,6 +64,8 @@
 	        
 				<li><a href="/tags/OpenCV/">OpenCV</a></li>
 	        
+				<li><a href="/tags/Qt/">Qt</a></li>
+	        
 				<li><a href="/tags/FFMPEG">FFMPEG</a></li>
 	        
 				<li><a href="/tags/patterns/">设计模式</a></li>
@@ -145,6 +147,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -169,21 +173,23 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 12.5%"><a href="/">主页</a></li>
+					<li style="width: 11.11111111111111%"><a href="/">主页</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/notes/">随笔</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/notes/">随笔</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/cpp/">c/c++</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/cpp/">c/c++</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/OpenCV/">OpenCV</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/OpenCV/">OpenCV</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/FFMPEG">FFMPEG</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/Qt/">Qt</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/patterns/">设计模式</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/FFMPEG">FFMPEG</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/Java/">JAVA</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/patterns/">设计模式</a></li>
 		        
-					<li style="width: 12.5%"><a href="/tags/Python/">Python</a></li>
+					<li style="width: 11.11111111111111%"><a href="/tags/Java/">JAVA</a></li>
+		        
+					<li style="width: 11.11111111111111%"><a href="/tags/Python/">Python</a></li>
 		        
 				</ul>
 			</nav>
@@ -200,29 +206,638 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-合成复用原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-AVCodecContext结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/b91a199d.html">合成复用原则</a>
+      <a class="article-title" href="/jsblog/f65b7c6d.html">AVCodecContext结构体</a>
     </h1>
   
 
         
-        <a href="/jsblog/b91a199d.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:33:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/f65b7c6d.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:59:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>类继承通常为“白箱复用”，对象组合则是“黑箱复用”。</p>
+        <p>AVCondecContext 是FFmpeg使用过程中比较重要的结构体</p>
         
-          <a class="article-more-a" href="/jsblog/b91a199d.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/f65b7c6d.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/f65b7c6d.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-AVFormatContext结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/4a837348.html">AVFormatContext结构体</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/4a837348.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:58:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>AVFormatContext 描述了一个媒体文件或者媒体流的构成和基本信息</p>
+        
+          <a class="article-more-a" href="/jsblog/4a837348.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/4a837348.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-FFMPEG结构体" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/ca777205.html">FFMPEG结构体</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/ca777205.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:54:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>FFMPEG中最关键的结构体，主要用于解协议，解封装，解码以及存数据。</p>
+        
+          <a class="article-more-a" href="/jsblog/ca777205.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/ca777205.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-解码视频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/3836e290.html">解码视频</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/3836e290.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:50:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>解码视频和解码音频的算法步骤差不多，在这里还是参考雷神的博客</p>
+        
+          <a class="article-more-a" href="/jsblog/3836e290.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/3836e290.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-解码音频" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/a5cecae1.html">解码音频</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/a5cecae1.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:49:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先学习一个小例子，参考雷神博客<a href="https://link.zhihu.com/?target=https://blog.csdn.net/leixiaohua1020/article/details/38979615">《最简单的基于FFMPEG + SDL的音频播放器ver2》</a>。</p>
+        
+          <a class="article-more-a" href="/jsblog/a5cecae1.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/a5cecae1.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-颜色模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/e903caac.html">颜色模型</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/e903caac.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:46:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>RGB色彩空间:</strong></p>
+<p>最典型、最常用的面向硬件设备的彩色模型是三原色模型，即RGB模型。</p>
+        
+          <a class="article-more-a" href="/jsblog/e903caac.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/e903caac.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-音视频基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/b34ae6e5.html">音视频基础知识</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/b34ae6e5.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:44:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在本文之前，已经参考官网或者是雷神的博客写了一个关于音频和一个关于视屏的小例子，但是总是感觉到无法入门。</p>
+        
+          <a class="article-more-a" href="/jsblog/b34ae6e5.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/b34ae6e5.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-音视频简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/b4ad825d.html">音视频简介</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/b4ad825d.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:41:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>视音频技术主要包含以下几点：封装技术，视频压缩编码技术以及音频压缩编码技术。如果考虑到网络传输的话，还包括流媒体协议技术。</p>
+        
+          <a class="article-more-a" href="/jsblog/b4ad825d.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFMPEG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/b4ad825d.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-设计模式总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/b580ef29.html">设计模式总结</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/b580ef29.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习完了设计模式，好像也忘记了设计模式但我记得一句话针对接口编程而不是针对实现编程。</p>
+        
+          <a class="article-more-a" href="/jsblog/b580ef29.html#more">继续 >></a>
         
       
 
@@ -246,7 +861,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/b91a199d.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/b580ef29.html">展开全文 >></a>
         </p>
       
 
@@ -276,29 +891,29 @@
 
 
   
-    <article id="post-迪米特法则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-解释器模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ebdadec7.html">迪米特法则</a>
+      <a class="article-title" href="/jsblog/30cf0cd2.html">解释器模式</a>
     </h1>
   
 
         
-        <a href="/jsblog/ebdadec7.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:32:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/30cf0cd2.html" class="archive-article-date">
+  	<time datetime="2020-12-20T03:07:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>只与你的直接朋友交谈，不跟“陌生人”说话（Talk only to your immediate friends and not to strangers）。</p>
+        <p><strong>意图</strong>:给定一个语言，定义它的文法表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。</p>
         
-          <a class="article-more-a" href="/jsblog/ebdadec7.html#more">继续 >></a>
+          <a class="article-more-a" href="/jsblog/30cf0cd2.html#more">继续 >></a>
         
       
 
@@ -322,616 +937,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ebdadec7.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-接口隔离原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/e0ec8882.html">接口隔离原则</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/e0ec8882.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:31:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>所谓的接口隔离原则就是指客户端不应该依赖它不需要的接口。一个类对另一个类的依赖应该建立在最小的接口上。使用多个专门的接口要比使用单一的总接口要好。</p>
-        
-          <a class="article-more-a" href="/jsblog/e0ec8882.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/e0ec8882.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-单一职责原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/46a1bcf2.html">单一职责原则</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/46a1bcf2.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:30:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>单一职责原则</strong>（SRP：Single responsibility principle）又称单一功能原则，面向对象五个基本原则（SOLID）之一。它规定一个类应该只有一个发生变化的原因。</p>
-        
-          <a class="article-more-a" href="/jsblog/46a1bcf2.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/46a1bcf2.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-开闭原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/f50731fc.html">开闭原则</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/f50731fc.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:26:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开闭原则指的是对扩展开发，对于修改关闭。对类模块是可以扩展的，但是不可修改的。</p>
-        
-          <a class="article-more-a" href="/jsblog/f50731fc.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/f50731fc.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-依赖倒转原则" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/d924c150.html">依赖倒转原则</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/d924c150.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:25:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>依赖倒置原则指的是高层模块（稳定）不应该依赖于底层模块（变化），二者都应该依赖于抽象（稳定）。抽象（稳定）不应该依赖于实现（变化），实现应该依赖于抽象（稳定）。它的中心思想就是面向接口编程而不是面向细节编程。</p>
-        
-          <a class="article-more-a" href="/jsblog/d924c150.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/d924c150.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-introPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/362df446.html">设计模式简介</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/362df446.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:23:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="依赖倒置原则（DIP）"><a href="#依赖倒置原则（DIP）" class="headerlink" title="依赖倒置原则（DIP）"></a>依赖倒置原则（DIP）</h3><p>高层模块（稳定）不应该依赖于底层模块（变化），二者都应该依赖于抽象（稳定）。</p>
-<p>抽象（稳定）不应该依赖于实现（变化），实现应该依赖于抽象（稳定）</p>
-        
-          <a class="article-more-a" href="/jsblog/362df446.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/362df446.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Effective" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/eda39db2.html">Effective</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/eda39db2.html" class="archive-article-date">
-  	<time datetime="2020-10-05T00:56:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Effective C++</p>
-        
-          <a class="article-more-a" href="/jsblog/eda39db2.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/eda39db2.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hist" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/6b98c071.html">Hist</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/6b98c071.html" class="archive-article-date">
-  	<time datetime="2020-09-22T14:13:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像直方图包含图像的丰富的信息，反应了图像像素的概率分布情况。</p>
-        
-          <a class="article-more-a" href="/jsblog/6b98c071.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/6b98c071.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-仿射变换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/ff4ee780.html">仿射变换</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/ff4ee780.html" class="archive-article-date">
-  	<time datetime="2020-09-14T12:58:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>图像的仿射变换是将图像的二维坐标从一个直角坐标系中变换到另外一个直角坐标系中的二维坐标的过程。</p>
-        
-          <a class="article-more-a" href="/jsblog/ff4ee780.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/ff4ee780.html">展开全文 >></a>
+          <a class="article-more-a" href="/jsblog/30cf0cd2.html">展开全文 >></a>
         </p>
       
 
@@ -963,7 +969,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/9/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/">下一页</a>
     </nav>
   
 
