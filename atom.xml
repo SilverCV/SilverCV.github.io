@@ -363,6 +363,25 @@
   </entry>
   
   <entry>
+    <title>C++之STL</title>
+    <link href="http://example.com/jsblog/dad3fc3.html"/>
+    <id>http://example.com/jsblog/dad3fc3.html</id>
+    <published>2020-12-23T12:40:38.000Z</published>
+    <updated>2020-12-23T13:05:50.453Z</updated>
+    
+    <content type="html"><![CDATA[<p>STL分为6大组件如下：<a id="more"></a></p><ol><li><p>容器（containers） : 所谓容器就是用来存放数据的东西，在STL中的容器就是各种数据结构，其中顺序容器有：array,vector,deque,forward_list,list;关联容器有：set,map,multiset,multimap;无序关联容器：unordered_set, unordered_map, unordered_multiset, unordered_multimap。从实现来看STL容器是一种class template</p></li><li><p>算法（algorithm）： 各种常用的算法如sort,search,copy,find…,从实现来看，STL算法是一种function template</p></li><li><p>迭代器（Iterator）: 是容器与算法之间的媒介，迭代器是一种将operator*,operator-&gt;,operator++,operator—等相关操作符重载的class template.所有的STL容器都有自己专属的迭代器，即只有容器的设计者才知道如何遍历所有的元素。</p></li><li><p>仿函数 （functors）: 行为类似函数，可作为算法的某种策略，从实现上看仿函数是一种重载了operator()的class或class template。一般函数指针可视为狭义的仿函数。</p></li><li><p>适配器（Adapters）: 运用的是适配器模式，用来修饰容器、仿函数或者迭代器的接口，使其能够协同工作。STL中提供了容器适配器，仿函数适配器以及迭代器适配器</p></li><li><p>空间分配器（allocators）：负责空间的配置与管理，从实现上来看，空间分配器是实现了一个动态空间配置、空间管理、空间释放的class template</p></li></ol><p>STL六大组件的交互关系：Container通过allocators获取数据储存空间，Algorithm通过Iterator存取Container中的数据，Functors可以帮助Algorithm完成不同的策略变化，Adapter可以修饰或套接Functor。如下图：</p><p><img src="https://pic2.zhimg.com/80/v2-9b6242ea62b7c9f4ae9be443a3a48019_720w.jpg" alt="img"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;STL分为6大组件如下：&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C之读写文件</title>
     <link href="http://example.com/jsblog/c3a9a9f.html"/>
     <id>http://example.com/jsblog/c3a9a9f.html</id>
@@ -373,25 +392,6 @@
     
     
     <summary type="html">&lt;p&gt;最近在看FFmpeg的有关知识，由于经常遇到文件读写，但是对于C语言的文件读写又有些忘记，于是便好好的记录一下C语言的文件读写，&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++之nullptr</title>
-    <link href="http://example.com/jsblog/1b4f334c.html"/>
-    <id>http://example.com/jsblog/1b4f334c.html</id>
-    <published>2020-12-23T12:39:06.000Z</published>
-    <updated>2020-12-23T12:58:40.391Z</updated>
-    
-    <content type="html"><![CDATA[<p>nullptr 的类型为 nullptr_t,nullptr 可以隐式的转换成任何类型的指针.<a id="more"></a> NULL 和 （void*）0 以及nullptr的定义都不相同，所以尽可能使用nullptr。例如：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;type_traits&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">char</span> *ch)</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;foo(char *) is called&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span>)</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;foo(int) is called&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">std</span>::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), <span class="keyword">decltype</span>(<span class="number">0</span>)&gt;::value) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NULL == 0&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">std</span>::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), <span class="keyword">decltype</span>((<span class="keyword">void</span> *)<span class="number">0</span>)&gt;::value) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NULL == (void*)0&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">std</span>::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), <span class="keyword">decltype</span>(<span class="literal">nullptr</span>)&gt;::value) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NULL == nullptr&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  foo(<span class="number">0</span>);</span><br><span class="line">  foo(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>输出为：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo(<span class="keyword">int</span>) is called</span><br><span class="line">foo(<span class="keyword">char</span> *) is called</span><br></pre></td></tr></table></figure><p>其中 关键字**<em>decltype**</em>是用来自动推导表达式的数据类型，而<strong>std::is_same</strong>能够判断两种类型是否相同</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;nullptr 的类型为 nullptr_t,nullptr 可以隐式的转换成任何类型的指针.&lt;/p&gt;</summary>
     
     
     
