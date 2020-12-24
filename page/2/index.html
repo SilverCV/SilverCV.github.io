@@ -212,6 +212,158 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C-之Stack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/137f4cdb.html">C++之Stack</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/137f4cdb.html" class="archive-article-date">
+  	<time datetime="2020-12-23T12:48:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C++中实现了一个stack位于头文件中<stack>中。</stack></p>
+        
+          <a class="article-more-a" href="/jsblog/137f4cdb.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/137f4cdb.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C-之可变参数模板" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jsblog/940291e0.html">C++之可变参数模板</a>
+    </h1>
+  
+
+        
+        <a href="/jsblog/940291e0.html" class="archive-article-date">
+  	<time datetime="2020-12-23T12:47:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从C++11开始，C++可以使用变长模板参数，能让函数接受任意数量的参.</p>
+        
+          <a class="article-more-a" href="/jsblog/940291e0.html#more">继续 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jsblog/940291e0.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C-之unordered容器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -232,325 +384,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>无序容器以一种随意顺序包含插入进去的所有元素。并以一种随机的次序访问他们。<!--mpre-->unordered_set和unordered_multiset存放的是特定类型的个别value,而unordered_map和unordered_multimap存放的元素都是key/value pair,其中key用来作为存放和查找特定元素的依据。unordered_set, unordered_multiset, unordered_map unordered_multimap的实现都是以hash table为底层数据结构。和map,set一样，unordered_set和unordered_map不允许有重复的元素，而unordered_multiset和unordered_multimap允许元素重复。unordered_set, unordered_multiset,位于头文件<unordered_set>,unordered_map unordered_multimap位于头文件<unordered_map>.</unordered_map></unordered_set></p>
-<p>unordered_set和unordered_multiset的元素类型，必须是可比较的。</p>
-<p>unordered_map和unordered_multimap是key/value类型的，对于其中的key、value的要求如下：</p>
-<ol>
-<li><p>key和value都必须可以复制和可以移动（movable）</p>
-</li>
-<li><p>key必须是可以等价准则比较的。</p>
-</li>
-</ol>
-<p>对于模板中的参数Hash用来定义hash函数，如果是自己定义的类型，就必须指定hash函数。</p>
-<p>对于无序容器的构造函数与set和map的构造函数类似，不过可以对于自己定义的类型，需要自己定义特殊的hash 函数。这个hash函数的要求是一个必须是个函数或者是一个function object它接受一个value作为参数，并返回一个std::size_t的value.</p>
-<p>无序容器的接口与set和map的接口差不多，但是相比于set和map而言，无序容器不支持双向迭代器，它的迭代器是一个单向的迭代器。</p>
-<p>构造函数，拷贝构造，拷贝赋值，析构函数</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Unordered c;</td>
-<td>默认构造函数，创建一个空的无序容器</td>
-</tr>
-<tr>
-<td>Unordered c(bnum)</td>
-<td>建立一个空的Unordered对象，内部至少使用bnum个bucket</td>
-</tr>
-<tr>
-<td>Unordered c(bnum,hf)</td>
-<td>建立一个空的Unordered对象，内部至少使用bnum个bucket,并以hf作为hash 函数</td>
-</tr>
-<tr>
-<td>Unordered c(bnum,hf,cmp)</td>
-<td>建立一个空的Unordered对象，内部至少使用bnum个bucket,并以hf作为hash 函数，并以cmp作为predicate用来鉴定value</td>
-</tr>
-<tr>
-<td>Unordered c(c2)</td>
-<td>copy constructor</td>
-</tr>
-<tr>
-<td>Unordered c = c2;</td>
-<td>copy constructor</td>
-</tr>
-<tr>
-<td>Unordered c(rv)</td>
-<td>move constructor.rv的所有资源被释放</td>
-</tr>
-<tr>
-<td>Unordered c = rv</td>
-<td>move constructor.rv的所有资源被释放</td>
-</tr>
-<tr>
-<td>Unordered c(beg,end)</td>
-<td>以区间[beg,end)内的元素为c的初值</td>
-</tr>
-<tr>
-<td>Unordered c(beg,end,bnum)</td>
-<td>以区间[beg,end)内的元素为c的初值，内部至少使用bnum个bucket</td>
-</tr>
-<tr>
-<td>Unordered c(beg,end,bnum,hf)</td>
-<td>以区间[beg,end)内的元素为c的初值，内部至少使用bnum个bucket，并以hf作为hash 函数</td>
-</tr>
-<tr>
-<td>Unordered c(beg,end,bnum,hf,cmp)</td>
-<td>以区间[beg,end)内的元素为c的初值，内部至少使用bnum个bucket，并以hf作为hash 函数并以cmp作为predicate用来鉴定value</td>
-</tr>
-<tr>
-<td>Unordered c(initlist)</td>
-<td>列表初始化</td>
-</tr>
-<tr>
-<td>Unordered c = initlist</td>
-<td>列表初始化</td>
-</tr>
-<tr>
-<td>c.~ Unordered ()</td>
-<td>析构函数</td>
-</tr>
-</tbody></table>
-<p>其中 Unordered的形式为以下几种：</p>
-<p>unordered_set<Elem> / unorderd_set&lt;Elem,Hash&gt; / unordered_set&lt;Elem,Hash,Cmp&gt;</Elem></p>
-<p>unordered_multiset<Elem> / unorderd_multiset&lt;Elem,Hash&gt; / unordered_multiset&lt;Elem,Hash,Cmp&gt;</Elem></p>
-<p>unordered_map<Elem> / unorderd_map&lt;Elem,Hash&gt; / unordered_map&lt;Elem,Hash,Cmp&gt;</Elem></p>
-<p>unordered_multimap<Elem> / unorderd_multimap&lt;Elem,Hash&gt; / unordered_multimap&lt;Elem,Hash,Cmp&gt;</Elem></p>
-<p><strong>无序容器的布局函数</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c.hash_function()</td>
-<td>返回hash函数</td>
-</tr>
-<tr>
-<td>c.key_eq()</td>
-<td>返回相等性判断式</td>
-</tr>
-<tr>
-<td>c.bucket_count()</td>
-<td>返回当前的bucket个数</td>
-</tr>
-<tr>
-<td>c.max_bucket_count()</td>
-<td>返回bucket的最大可能数量</td>
-</tr>
-<tr>
-<td>c.load_factor()</td>
-<td>返回当前的负载因子</td>
-</tr>
-<tr>
-<td>c.max_load_factor()</td>
-<td>返回当前的最大负载系数</td>
-</tr>
-<tr>
-<td>c,max_load_factor(val)</td>
-<td>设定当前的最大负载系数为val</td>
-</tr>
-<tr>
-<td>c.rehash(bnum)</td>
-<td>将容器重新计算hash，使其bucket至少为bnum</td>
-</tr>
-<tr>
-<td>c．reverse(num)</td>
-<td>将容器重新计算hash，使其至少可以容纳num个元素</td>
-</tr>
-</tbody></table>
-<p><strong>非更改操作：</strong></p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c.empty()</td>
-<td>容器是否为空</td>
-</tr>
-<tr>
-<td>c.size()</td>
-<td>目前的元素个数</td>
-</tr>
-<tr>
-<td>c.max_size()</td>
-<td>元素个数的最大可能量</td>
-</tr>
-<tr>
-<td>c1 == c2</td>
-<td>c1是否等于c2(每个元素调用 == )</td>
-</tr>
-<tr>
-<td>c1 != c2</td>
-<td>c1 是否 不等于 c2</td>
-</tr>
-</tbody></table>
-<p>查找函数：</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c.count(val)</td>
-<td>返回容器中key为val的个数</td>
-</tr>
-<tr>
-<td>c.find(val)</td>
-<td>返回容器中第一个元素为key为val的元素，找不到返回val</td>
-</tr>
-<tr>
-<td>c.equal_range(val)</td>
-<td>返回key为val可被插入的第一个位置和最后一个位置即key==val的元素区间</td>
-</tr>
-</tbody></table>
-<p>赋值操作：</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c = c1</td>
-<td>copy assignment，将c2元素赋值给c</td>
-</tr>
-<tr>
-<td>c = rv</td>
-<td>move assignment,</td>
-</tr>
-<tr>
-<td>c = initilist</td>
-<td>将初值列的元素赋值给c</td>
-</tr>
-<tr>
-<td>c1.swap(c2)</td>
-<td>交换c1和c2的元素</td>
-</tr>
-<tr>
-<td>swap(c1,c2)</td>
-<td>交换c1和c2的元素</td>
-</tr>
-</tbody></table>
-<p>迭代器：</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c.begin()</td>
-<td>返回一个 forward iterator指向第一元素</td>
-</tr>
-<tr>
-<td>c.end()</td>
-<td>返回一个 forward iterator指向末尾元素的下一位置</td>
-</tr>
-<tr>
-<td>c.cbegin()</td>
-<td>返回一个 const forward iterator指向第一元素</td>
-</tr>
-<tr>
-<td>c.cend()</td>
-<td>返回一个 const forward iterator指向末尾元素的下一位置</td>
-</tr>
-<tr>
-<td>c.rbegin()</td>
-<td>返回一个 reverse iterator指向反向迭代的第一元素</td>
-</tr>
-<tr>
-<td>c.rend()</td>
-<td>返回一个 reverse iterator指向反向迭代的末尾元素的下一位置</td>
-</tr>
-<tr>
-<td>c.crbegin()</td>
-<td>返回一个 const reverse iterator指向反向迭代的第一元素</td>
-</tr>
-<tr>
-<td>c.crend()</td>
-<td>返回一个const reverse iterator指向反向迭代的末尾元素的下一位置</td>
-</tr>
-</tbody></table>
-<p>元素操作：(下面的元素指的是 key/value pair)</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c.insert(val)</td>
-<td>插入val,并返回新元素的位置</td>
-</tr>
-<tr>
-<td>c.insert(pos,val)</td>
-<td>以pos为起点在[pos,end)中插入val，返回新元素的位置</td>
-</tr>
-<tr>
-<td>c.insert(beg,end)</td>
-<td>将区间[beg,end)内的元素插入到c中</td>
-</tr>
-<tr>
-<td>c.insert(initlist)</td>
-<td>将初值列的元素插入到c中</td>
-</tr>
-<tr>
-<td>c.emplace(args…)</td>
-<td>插入一个args元素的值，并返回新元素的位置</td>
-</tr>
-<tr>
-<td>c.emplace_hint(pos,args…)</td>
-<td>以pos为起点在[pos,end)中插入args，返回新元素的位置</td>
-</tr>
-<tr>
-<td>c.erase(val)</td>
-<td>移除与 val相等的所有元素，返回被移除的个数</td>
-</tr>
-<tr>
-<td>c.erase(pos)</td>
-<td>移除iterator位置pos上的元素，无返回值</td>
-</tr>
-<tr>
-<td>c.erase(beg,end)</td>
-<td>移除区间[beg,end)内的元素，无返回值</td>
-</tr>
-<tr>
-<td>c.clear()</td>
-<td>将容器清空</td>
-</tr>
-</tbody></table>
-<p>关联式操作：</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>c[key]</td>
-<td>如果key存在，则返回key元素的值，如果不存则插入一个key/value元素</td>
-</tr>
-<tr>
-<td>c.at(key)</td>
-<td>返回对应key/value中对应key的value</td>
-</tr>
-</tbody></table>
-<p>示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_set</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; ------------unordered_set----------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; coll = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">77</span>&#125;;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    coll.insert(&#123;<span class="number">-7</span>,<span class="number">17</span>,<span class="number">33</span>,<span class="number">-11</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">1</span>,<span class="number">13</span>&#125;);</span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (coll.find(<span class="number">19</span>) != coll.end())&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;19 is available&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();)&#123;</span><br><span class="line">        <span class="keyword">if</span> (*pos &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            pos = coll.erase(pos);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ++pos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_multiset</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; ------------unordered_multiset----------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt; coll = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">77</span>&#125;;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    coll.insert(&#123;<span class="number">-7</span>,<span class="number">17</span>,<span class="number">33</span>,<span class="number">-11</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">1</span>,<span class="number">13</span>&#125;);</span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (coll.find(<span class="number">19</span>) != coll.end())&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;19 is available&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();)&#123;</span><br><span class="line">        <span class="keyword">if</span> (*pos &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            pos = coll.erase(pos);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ++pos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    copy(coll.begin(),coll.end(),ostream_iterator&lt;<span class="keyword">int</span>&gt;(<span class="built_in">cout</span>,<span class="string">&quot; &quot;</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_map</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; ------------unordered_map----------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">double</span>&gt; coll;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;<span class="number">10</span> ; ++i) &#123;</span><br><span class="line">        coll[i] = <span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(i) / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();++pos)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;coll[&quot;</span> &lt;&lt;  pos-&gt;first &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; pos-&gt;second &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    coll.insert(&#123;<span class="number">100</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">101</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">102</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">103</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();)&#123;</span><br><span class="line">        <span class="keyword">if</span> (pos-&gt;first &gt; <span class="number">100</span>)&#123;</span><br><span class="line">            pos = coll.erase(pos);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ++pos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();++pos)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;coll[&quot;</span> &lt;&lt;  pos-&gt;first &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; pos-&gt;second &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test_multimap</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; ------------unordered_multimap----------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">double</span>&gt; coll;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;<span class="number">10</span> ; ++i) &#123;</span><br><span class="line">        coll.insert(&#123;i,<span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(i) / <span class="number">10</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();++pos)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;coll[&quot;</span> &lt;&lt;  pos-&gt;first &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; pos-&gt;second &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    coll.insert(&#123;<span class="number">100</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">100</span>,<span class="number">0.02</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">100</span>,<span class="number">0.03</span>&#125;);</span><br><span class="line">    coll.insert(&#123;<span class="number">103</span>,<span class="number">0.01</span>&#125;);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();)&#123;</span><br><span class="line">        <span class="keyword">if</span> (pos-&gt;first &gt; <span class="number">100</span>)&#123;</span><br><span class="line">            pos = coll.erase(pos);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ++pos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> pos = coll.begin();pos != coll.end();++pos)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;coll[&quot;</span> &lt;&lt;  pos-&gt;first &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; pos-&gt;second &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    test_multiset();</span><br><span class="line">    test_set();</span><br><span class="line">    test_map();</span><br><span class="line">    test_multimap();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>无序容器以一种随意顺序包含插入进去的所有元素。并以一种随机的次序访问他们。</p>
+        
+          <a class="article-more-a" href="/jsblog/8fa8fc90.html#more">继续 >></a>
+        
       
 
       
@@ -1135,158 +972,6 @@
 
 
   
-    <article id="post-C-之STL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/dad3fc3.html">C++之STL</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/dad3fc3.html" class="archive-article-date">
-  	<time datetime="2020-12-23T12:40:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>STL分为6大组件如下：</p>
-        
-          <a class="article-more-a" href="/jsblog/dad3fc3.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/dad3fc3.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C之读写文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jsblog/c3a9a9f.html">C之读写文件</a>
-    </h1>
-  
-
-        
-        <a href="/jsblog/c3a9a9f.html" class="archive-article-date">
-  	<time datetime="2020-12-23T12:39:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在看FFmpeg的有关知识，由于经常遇到文件读写，但是对于C语言的文件读写又有些忘记，于是便好好的记录一下C语言的文件读写，</p>
-        
-          <a class="article-more-a" href="/jsblog/c3a9a9f.html#more">继续 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jsblog/c3a9a9f.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
@@ -1413,6 +1098,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Qt</a>
               </li>
             
             <div class="clearfix"></div>

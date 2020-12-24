@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>C++之struct继承 | 林森</title>
+  <title>Qt基础 | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于工作中一些业务的需要，需要使用到struct 的继承，突然想到了class的继承。">
+  <meta name="description" content="Qt是一个跨平台的C++图形用户界面程序框架。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++之struct继承">
-<meta property="og:url" content="http://example.com/jsblog/15b6ea52.html">
+<meta property="og:title" content="Qt基础">
+<meta property="og:url" content="http://example.com/jsblog/759084aa.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="由于工作中一些业务的需要，需要使用到struct 的继承，突然想到了class的继承。">
+<meta property="og:description" content="Qt是一个跨平台的C++图形用户界面程序框架。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-f297b73371dc61c8aef3609f9f64a8e4_720w.jpg">
-<meta property="article:published_time" content="2020-12-23T12:36:43.000Z">
-<meta property="article:modified_time" content="2020-12-23T12:58:40.392Z">
+<meta property="article:published_time" content="2020-12-23T13:35:48.000Z">
+<meta property="article:modified_time" content="2020-12-23T14:08:16.395Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="Qt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-f297b73371dc61c8aef3609f9f64a8e4_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="林森" type="application/atom+xml">
   
@@ -215,32 +213,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-C-之struct继承" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Qt基础" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      C++之struct继承
+      Qt基础
     </h1>
   
 
         
-        <a href="/jsblog/15b6ea52.html" class="archive-article-date">
-  	<time datetime="2020-12-23T12:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
+        <a href="/jsblog/759084aa.html" class="archive-article-date">
+  	<time datetime="2020-12-23T13:35:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于工作中一些业务的需要，需要使用到struct 的继承，突然想到了class的继承。<a id="more"></a>C++中class的默认继承权限为private,于是便想到了struct的继承，平常也不怎么使用struct的继承。使用struct的时候，一般是将struct当做一条记录来使用，即用来保存数据且不包含一些函数。C++中struct的默认继承权限为public。</p>
-<p>代码示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Base</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Derived</span> :</span> Base &#123;</span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Derived d;</span><br><span class="line">	d.a = <span class="number">10</span>;</span><br><span class="line">	d.b = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; d.a &lt;&lt; <span class="string">&quot; b = &quot;</span> &lt;&lt; d.b &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-f297b73371dc61c8aef3609f9f64a8e4_720w.jpg" alt="img"></p>
+        <p>Qt是一个跨平台的C++图形用户界面程序框架。<a id="more"></a>它为应用程序开发者提供建立艺术级图形用户界面所需的所有功能。它是完全面向对象的，很容易扩展，并且允许真正的组件编程。</p>
+<p>在Qt程序开发过程中，除可以通过手写代码实现软件开发功能外，还可以通过Qt的GUI界面设计器进行界面的绘制与布局，该工具提供了Qt的基本可绘制窗口组件。在设计器中直接拖拽窗口部件，能够高效、快速地实现GUI界面的是设计，所见即所得。</p>
 
       
 
@@ -275,7 +269,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
         		</li>
       		
 		</ul>
@@ -331,7 +325,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/15b6ea52.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/759084aa.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -345,18 +339,18 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/48b59d9a.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/jsblog/3df66479.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          C++之结构化绑定
+          atomic
         
       </div>
     </a>
   
   
-    <a href="/jsblog/f9d07c5a.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">C++之const</div>
+    <a href="/jsblog/3afb3874.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">直方图匹配</div>
       <i class="icon-circle-right"></i>
     </a>
   
