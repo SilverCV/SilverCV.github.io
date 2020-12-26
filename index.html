@@ -232,13 +232,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。如果没有将数据进行处理，那么就不应该将数据输出。为了实现同步数据，第一个线程设置一个标志，用来表明数据已经处理完成，并且第二个线程在这个标志设置之前不能读取进行数据的处理。示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> g_data;</span><br><span class="line"><span class="function"><span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; <span class="title">readyFlag</span><span class="params">(<span class="literal">false</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ProcessData</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    g_data = x;</span><br><span class="line">    readyFlag.store(<span class="literal">true</span>,<span class="built_in">std</span>::memory_order_relaxed);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!readyFlag.load())&#123;</span><br><span class="line">        <span class="built_in">std</span>::this_thread::sleep_for(<span class="built_in">std</span>::chrono::milliseconds(<span class="number">200</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;x = &quot;</span> &lt;&lt; g_data &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>先把等待数据的低效循环一边，当非原子的读和写对同一数据结构进行无序访问时，将有可能导致未定义的行为发生。强制访问顺序是由atomic的类型的数据readyFlag变量进行操作完成的，这些操作通过“先行发生”和“同步发生”确定必要的顺序。</p>
-<p>所谓同步发生关系是指：只能在原子类型之间进行的操作。同步发生的基本思想：对数据进行适当标记的原子写操作，同步与对数据进行适当标记的原子读操作，读取的是在写之后的数据。如果线程A存储了一个值，并且线程B读取了这个值，线程A的存储操作和线程B的载入才足以呼吁事故同步关系。如上述代码。</p>
-<p>所谓的先行关系是指在一个程序中，基本的操作顺序是：它指定了某个操作去影响另一个操作。如果一个操作排在另外一个操作之后，那么这个操作就是先执行的。如果代码中操作A发生在操作B之前，那么A就先行与B发生。如果A操作在一个线程上，并且操作B线程同步，那么A就线程间先行与B。</p>
-
+        <p>假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。</p>
+        
+          <a class="article-more-a" href="/jsblog/ac8be0e6.html#more">继续 >></a>
+        
       
 
       

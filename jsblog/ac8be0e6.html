@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>同步操作 | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。如果没有将数据进行处理，那么就不应该将数据输出。为了实现同步数据，第一个线程设置一个标志，用来表明数据已经处理完成，并且第二个线程在这个标志设置之前不能读取进行数据的处理。示例如下： 123456789101112int g_data;std::atomic&lt;bool&gt; readyFlag(false);voi">
+  <meta name="description" content="假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="同步操作">
 <meta property="og:url" content="http://example.com/jsblog/ac8be0e6.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。如果没有将数据进行处理，那么就不应该将数据输出。为了实现同步数据，第一个线程设置一个标志，用来表明数据已经处理完成，并且第二个线程在这个标志设置之前不能读取进行数据的处理。示例如下： 123456789101112int g_data;std::atomic&lt;bool&gt; readyFlag(false);voi">
+<meta property="og:description" content="假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-26T07:56:26.000Z">
-<meta property="article:modified_time" content="2020-12-26T09:34:44.862Z">
+<meta property="article:modified_time" content="2020-12-26T10:32:50.768Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。如果没有将数据进行处理，那么就不应该将数据输出。为了实现同步数据，第一个线程设置一个标志，用来表明数据已经处理完成，并且第二个线程在这个标志设置之前不能读取进行数据的处理。示例如下：</p>
+        <p>假设有两个线程，一个用来进行数据的处理，另外一个线程用来将计算好的线程输出。<a id="more"></a>如果没有将数据进行处理，那么就不应该将数据输出。为了实现同步数据，第一个线程设置一个标志，用来表明数据已经处理完成，并且第二个线程在这个标志设置之前不能读取进行数据的处理。示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> g_data;</span><br><span class="line"><span class="function"><span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; <span class="title">readyFlag</span><span class="params">(<span class="literal">false</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ProcessData</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    g_data = x;</span><br><span class="line">    readyFlag.store(<span class="literal">true</span>,<span class="built_in">std</span>::memory_order_relaxed);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!readyFlag.load())&#123;</span><br><span class="line">        <span class="built_in">std</span>::this_thread::sleep_for(<span class="built_in">std</span>::chrono::milliseconds(<span class="number">200</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;x = &quot;</span> &lt;&lt; g_data &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>先把等待数据的低效循环一边，当非原子的读和写对同一数据结构进行无序访问时，将有可能导致未定义的行为发生。强制访问顺序是由atomic的类型的数据readyFlag变量进行操作完成的，这些操作通过“先行发生”和“同步发生”确定必要的顺序。</p>
