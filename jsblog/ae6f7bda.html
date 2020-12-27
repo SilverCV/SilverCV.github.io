@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>C++多线程之std::async | 林森</title>
+  <title>NumPy其他操作 | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不知道好久之前写过了thread入门这篇文章了，">
+  <meta name="description" content="NumPy可以在硬盘中将数据以二进制或者文本的形式进行存入硬盘和在硬盘中读取。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++多线程之std::async">
-<meta property="og:url" content="http://example.com/jsblog/110f3198.html">
+<meta property="og:title" content="NumPy其他操作">
+<meta property="og:url" content="http://example.com/jsblog/ae6f7bda.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="不知道好久之前写过了thread入门这篇文章了，">
+<meta property="og:description" content="NumPy可以在硬盘中将数据以二进制或者文本的形式进行存入硬盘和在硬盘中读取。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-20T07:06:39.000Z">
-<meta property="article:modified_time" content="2020-12-20T13:39:01.435Z">
+<meta property="article:published_time" content="2020-12-27T08:02:28.000Z">
+<meta property="article:modified_time" content="2020-12-27T08:36:33.574Z">
 <meta property="article:author" content="JSL">
-<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林森" type="application/atom+xml">
@@ -219,49 +219,132 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-async" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NumPy其他操作" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      C++多线程之std::async
+      NumPy其他操作
     </h1>
   
 
         
-        <a href="/jsblog/110f3198.html" class="archive-article-date">
-  	<time datetime="2020-12-20T07:06:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+        <a href="/jsblog/ae6f7bda.html" class="archive-article-date">
+  	<time datetime="2020-12-27T08:02:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>不知道好久之前写过了thread入门这篇文章了，<a id="more"></a>突然发现好多东西都是写了简单的入门并没有怎么深入的去写过了。就连socket编程也只是写到poll模型还没有学到epoll模型。现在又要重新把这些没有学的知识好好的补一下了。现在是继续学习多线程编程，虽然工作中没有用到，但我相信始终会用到的，可能理解的不会很深入吧，但是也还是要好好的学习一下。在那个thread入门那篇文章中，我好像没有说明线程与进程的关系，以及进程的几种状态。当然也没有说明线程的几种模型。当然这些知识可能在网上一搜就都能搜到，如果想要深入的了解学习，我还是比较建议去学习一下有关操作系统的知识。</p>
-<p>不说废话了，还是来看一下c++11中的有关线程的一些操作吧，当然一天一个知识点我就觉得非常不错了。但是每天还是要看看新的知识，不要让自己与外界隔离。这样才能紧跟时代的变化，做一个弄潮儿，虽然我不是。</p>
-<p>现在要学习的是std::async()和std::future()两个接口。首先去<a href="https://link.zhihu.com/?target=http://cppreference.com">http://cppreference.com</a>上看一下这个函数的介绍吧</p>
-<p>std::async 定位于头文件<future>其函数原型如下：</future></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Function</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">std</span>:</span>:<span class="built_in">future</span>&lt;<span class="built_in">std</span>::<span class="keyword">result_of_t</span>&lt;<span class="built_in">std</span>::<span class="keyword">decay_t</span>&lt;Function&gt;(<span class="built_in">std</span>::<span class="keyword">decay_t</span>&lt;Args&gt;...)&gt;&gt;</span><br><span class="line">async(Function&amp;&amp; f, Args&amp;&amp;... args); <span class="comment">//c++11 和c++17</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Function</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">std</span>:</span>:<span class="built_in">future</span>&lt;<span class="built_in">std</span>::<span class="keyword">invoke_result_t</span>&lt;<span class="built_in">std</span>::<span class="keyword">decay_t</span>&lt;Function&gt;, <span class="built_in">std</span>::<span class="keyword">decay_t</span>&lt;Args&gt;...&gt;&gt;</span><br><span class="line">async(Function&amp;&amp; f, Args&amp;&amp;... args); <span class="comment">//c++17 和c++20</span></span><br></pre></td></tr></table></figure>
+        <p>NumPy可以在硬盘中将数据以二进制或者文本的形式进行存入硬盘和在硬盘中读取。<a id="more"></a>主要是使用np.save和np.load对硬盘数据进行高效的存取。也可以使用np.savez将数组作为参数传递给函数，用于在未压缩文件中保存数组，不过对这种文件使用np.load函数得到的将是一个字典型的对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">arr = np.arange(<span class="number">10</span>)</span><br><span class="line">print(arr)</span><br><span class="line">np.save(<span class="string">&quot;test&quot;</span>,arr)</span><br><span class="line">arr1 = np.load(<span class="string">&quot;test.npy&quot;</span>)</span><br><span class="line">print(arr1)</span><br><span class="line"></span><br><span class="line">np.savez(<span class="string">&quot;test1&quot;</span>,a=arr,b=arr)</span><br><span class="line">arch = np.load(<span class="string">&quot;test1.npz&quot;</span>)</span><br><span class="line">print(arch[<span class="string">&#x27;b&#x27;</span>])</span><br></pre></td></tr></table></figure>
 
-<p>函数模板 <code>async</code> 异步地运行函数 <code>f</code> （潜在地在可能是线程池一部分的分离线程中），并返回最终将保有该函数调用结果的<a href="https://link.zhihu.com/?target=https://zh.cppreference.com/w/cpp/thread/future">std::future</a>。</p>
-<p>其参数说明：</p>
-<p>f : 要调用的可调用对象，可以使lambda对象</p>
-<p>args…:传递给f的参数</p>
-<p>policy : 发射的策略，是一个枚举，定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">launch</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  async = <span class="number">1</span>, <span class="comment">//异步求值</span></span><br><span class="line">  deferred = <span class="number">2</span> <span class="comment">//返回的future对象调用get时求值，非异步求值</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>NumPy的线性代数中所不同的是 * 表示矩阵的逐元素乘积，而不是矩阵的点积。因此numpy的ndarray对象以及numpy模块都提供了一个函数dot，用来计算点积。特殊符号@也可以作为中缀操作符，表示点积，numpy.linalg拥有一个矩阵分解的标准函数集。常用的numpy.linalg函数如下：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>diag</td>
+<td>将一个方阵的对角元素作为一维数组返回</td>
+</tr>
+<tr>
+<td>dot</td>
+<td>矩阵点乘</td>
+</tr>
+<tr>
+<td>trace</td>
+<td>求矩阵的迹</td>
+</tr>
+<tr>
+<td>det</td>
+<td>计算行列式</td>
+</tr>
+<tr>
+<td>eig</td>
+<td>计算特征值和特征向量</td>
+</tr>
+<tr>
+<td>inv</td>
+<td>计算方阵的逆矩阵</td>
+</tr>
+<tr>
+<td>pinv</td>
+<td>计算Moore-Penrose伪逆</td>
+</tr>
+<tr>
+<td>qr</td>
+<td>qr分解</td>
+</tr>
+<tr>
+<td>svd</td>
+<td>奇异值分解</td>
+</tr>
+<tr>
+<td>solve</td>
+<td>求解x的线性系统Ax=b,其中A是方阵</td>
+</tr>
+<tr>
+<td>lstsq</td>
+<td>计算Ax=b的最小二乘解</td>
+</tr>
+</tbody></table>
+<p>NumPy中的random模块弥补了Python内建的random模块的不足，可以高效的生成多种概率分布下的完整样本值数组。你可以通过numpy.random.seed更改NumPy的随机数种子。下表是numpy中的random模块中的部分函数列表:</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>seed</td>
+<td>指定随机种子</td>
+</tr>
+<tr>
+<td>permutation</td>
+<td>返回一个序列的随机排列，或者返回一个乱序的整数范围序列</td>
+</tr>
+<tr>
+<td>shuffle</td>
+<td>随机排列一个序列</td>
+</tr>
+<tr>
+<td>rand</td>
+<td>从均匀分布中抽取样本</td>
+</tr>
+<tr>
+<td>randint</td>
+<td>根据给定的由低到高的范围抽取整数</td>
+</tr>
+<tr>
+<td>randn</td>
+<td>从均值0方差1的正态分布中抽取样本</td>
+</tr>
+<tr>
+<td>binomial</td>
+<td>从二项分布中抽取样本</td>
+</tr>
+<tr>
+<td>normal</td>
+<td>从正态分布中抽取样本</td>
+</tr>
+<tr>
+<td>beta</td>
+<td>从beta分布中抽取样本</td>
+</tr>
+<tr>
+<td>chisquare</td>
+<td>从卡方分布中抽取样本</td>
+</tr>
+</tbody></table>
 
-<p>返回值为 std::future对象，返回的future有三种状态：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Status code for futures</span></span><br><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">future_status</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  ready,<span class="comment">//异步操作已经完成</span></span><br><span class="line">  timeout,<span class="comment">// 异步操作已经完成</span></span><br><span class="line">  deferred,<span class="comment">//异步操作还没开始</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>若运行策略等于 <a href="https://link.zhihu.com/?target=https://zh.cppreference.com/w/cpp/thread/launch">std::launch::async</a> 且实现无法开始新线程（该情况下，若运行策略为 async|deferred 或设置了额外位，则它将回退到 deferred 或实现定义的策略），则抛出以 <a href="https://link.zhihu.com/?target=https://zh.cppreference.com/w/cpp/error/errc">std::errc::resource_unavailable_try_again</a> 为错误条件的 <a href="https://link.zhihu.com/?target=https://zh.cppreference.com/w/cpp/error/system_error">std::system_error</a> ，或者若无法分配内部数据结构所用的内存，则为 <a href="https://link.zhihu.com/?target=https://zh.cppreference.com/w/cpp/memory/new/bad_alloc">std::bad_alloc</a> 。</p>
-<p>看过了async,来看一下future</p>
-<p>类模板 std::future 提供访问异步操作结果的机制：</p>
-<p>（通过 std::async 、 std::packaged_task 或 std::promise 创建的）异步操作能提供一个 std::future 对象给该异步操作的创建者。<br>然后，异步操作的创建者能用各种方法查询、等待或从 std::future 提取值。若异步操作仍未提供值，则这些方法可能阻塞。<br>异步操作准备好发送结果给创建者时，它能通过修改链接到创建者的 std::future 的共享状态（例如 std::promise::set_value ）进行。<br>注意， std::future 所引用的共享状态不与另一异步返回对象共享（与 std::shared_future 相反）。</p>
-<p>从官方介绍上复制了一些东西，还是来看一下实际的例子吧，毕竟实践出真知。</p>
-<p>代码示例如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;random&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DoSomethin</span><span class="params">(<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::default_random_engine  <span class="title">dre</span><span class="params">(c)</span></span>;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::uniform_int_distribution&lt;<span class="keyword">int</span>&gt; <span class="title">uid</span><span class="params">(<span class="number">10</span>,<span class="number">1000</span>)</span></span>;</span><br><span class="line">    <span class="comment">//循环</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; ++i) &#123;</span><br><span class="line">        <span class="built_in">std</span>::this_thread::sleep_for(<span class="built_in">std</span>::chrono::microseconds(uid(dre)));</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DoSomethin(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DoSomethin(<span class="string">&#x27;+&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//调用get或者wait时打印 .</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">future</span>&lt;<span class="keyword">int</span>&gt; result1 = <span class="built_in">std</span>::async(<span class="built_in">std</span>::launch::async,func1);</span><br><span class="line">    <span class="comment">//调用get或者wait时打印+号</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">future</span>&lt;<span class="keyword">int</span>&gt; result2 = <span class="built_in">std</span>::async(<span class="built_in">std</span>::launch::deferred,func2);</span><br><span class="line">    <span class="comment">//result2.wait();</span></span><br><span class="line">    <span class="keyword">int</span> res = result1.get() + result2.get();</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -295,7 +378,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -351,7 +434,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/110f3198.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/ae6f7bda.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -365,18 +448,9 @@
   
 <nav id="article-nav">
   
-    <a href="/jsblog/dd61c093.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          C++多线程packaged_task
-        
-      </div>
-    </a>
   
-  
-    <a href="/jsblog/32082a79.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">epoll</div>
+    <a href="/jsblog/b8c16c25.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于锁的并发程序设计</div>
       <i class="icon-circle-right"></i>
     </a>
   
