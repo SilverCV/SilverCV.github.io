@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | 林森</title>
+  <title>ratio | 林森</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Silver&#96;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="林森">
-<meta property="og:url" content="http://example.com/archives/page/14/index.html">
+  <meta name="description" content="类模板std::ratio代表一个比例，或者说是比率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ratio">
+<meta property="og:url" content="http://example.com/jsblog/fc60b87f.html">
 <meta property="og:site_name" content="林森">
-<meta property="og:description" content="Silver&#96;s blog">
+<meta property="og:description" content="类模板std::ratio代表一个比例，或者说是比率。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-30T11:49:20.000Z">
+<meta property="article:modified_time" content="2020-12-30T11:50:07.399Z">
 <meta property="article:author" content="JSL">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="林森" type="application/atom+xml">
@@ -216,405 +219,239 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ratio" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ratio
+    </h1>
+  
+
+        
+        <a href="/jsblog/fc60b87f.html" class="archive-article-date">
+  	<time datetime="2020-12-30T11:49:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-30</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>类模板std::ratio代表一个比例，或者说是比率。<a id="more"></a>类模板 <code>std::ratio</code> 及相关的模板提供编译时有理数算术支持。此模板的每个实例化都准确表示任一确定有理数，只要分子 <code>Num</code> 与分母 <code>Denom</code> 能表示为 std::intmax_t 类型的编译时常量。另外， <code>Denom</code> 不可为零且不可等于最负的值。约分分子和分母到最简。std::ratio的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">intmax_t</span> _Num, <span class="keyword">intmax_t</span> _Den = <span class="number">1</span>&gt;</span><br><span class="line">  struct ratio</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">static_assert</span>(_Den != <span class="number">0</span>, <span class="string">&quot;denominator cannot be zero&quot;</span>);</span><br><span class="line">    <span class="keyword">static_assert</span>(_Num &gt;= -__INTMAX_MAX__ &amp;&amp; _Den &gt;= -__INTMAX_MAX__,</span><br><span class="line">    <span class="string">&quot;out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Note: sign(N) * abs(N) == N</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">intmax_t</span> num =</span><br><span class="line">      _Num * __static_sign&lt;_Den&gt;::value / __static_gcd&lt;_Num, _Den&gt;::value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">intmax_t</span> den =</span><br><span class="line">      __static_abs&lt;_Den&gt;::value / __static_gcd&lt;_Num, _Den&gt;::value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">typedef</span> ratio&lt;num, den&gt; type;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中分母为_Dx，其不能为0 也不能小于最小的负值。<code>std::ratio</code> 是不同的类型，即使它们表示同一有理数（在约分后）。能经由其 <code>type</code> 成员约分 <code>ratio</code> 类型到最简分数： <code>std::ratio&lt;3, 6&gt;::type</code> 为 <code>std::ratio&lt;1, 2&gt;</code> 。示例代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ratio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;typeinfo&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintRatio</span><span class="params">(T <span class="keyword">const</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Num : &quot;</span> &lt;&lt; v.num &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Den : &quot;</span> &lt;&lt; v.den &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::ratio&lt;<span class="number">1</span>, <span class="number">5</span>&gt; test;</span><br><span class="line">	<span class="built_in">std</span>::ratio&lt;<span class="number">2</span>, <span class="number">10</span>&gt; test2;</span><br><span class="line">	PrintRatio(test2);</span><br><span class="line">	PrintRatio(test);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>STL还定义了一些类型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,       <span class="number">1000000000000000000</span>&gt; atto;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,          <span class="number">1000000000000000</span>&gt; femto;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,             <span class="number">1000000000000</span>&gt; pico;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,                <span class="number">1000000000</span>&gt; nano;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,                   <span class="number">1000000</span>&gt; micro;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,                      <span class="number">1000</span>&gt; milli;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,                       <span class="number">100</span>&gt; centi;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;<span class="number">1</span>,                        <span class="number">10</span>&gt; deci;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;                       <span class="number">10</span>, <span class="number">1</span>&gt; deca;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;                      <span class="number">100</span>, <span class="number">1</span>&gt; hecto;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;                     <span class="number">1000</span>, <span class="number">1</span>&gt; kilo;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;                  <span class="number">1000000</span>, <span class="number">1</span>&gt; mega;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;               <span class="number">1000000000</span>, <span class="number">1</span>&gt; giga;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;            <span class="number">1000000000000</span>, <span class="number">1</span>&gt; tera;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;         <span class="number">1000000000000000</span>, <span class="number">1</span>&gt; peta;</span><br><span class="line"><span class="keyword">typedef</span> ratio&lt;      <span class="number">1000000000000000000</span>, <span class="number">1</span>&gt; exa;</span><br></pre></td></tr></table></figure>
+
+<p>还有一些编译期之间的运算：</p>
+<table>
+<thead>
+<tr>
+<th>算术</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ratio_add(C++11)</td>
+<td>在编译时相加两个 <code>ratio</code> 对象 (别名模板)</td>
+</tr>
+<tr>
+<td>ratio_subtract(C++11)</td>
+<td>在编译时相减两个 <code>ratio</code> 对象 (别名模板)</td>
+</tr>
+<tr>
+<td>ratio_multiply(C++11)</td>
+<td>在编译时相乘两个 <code>ratio</code> 对象 (别名模板)</td>
+</tr>
+<tr>
+<td>ratio_divide(C++11)</td>
+<td>在编译时相除两个 <code>ratio</code> 对象 (别名模板)</td>
+</tr>
+<tr>
+<td>比较</td>
+<td></td>
+</tr>
+<tr>
+<td>ratio_equal(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的相等性 (类模板)</td>
+</tr>
+<tr>
+<td>ratio_not_equal(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的不相等性 (类模板)</td>
+</tr>
+<tr>
+<td>ratio_less(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的<em>小于</em>关系 (类模板)</td>
+</tr>
+<tr>
+<td>ratio_less_equal(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的<em>小于或等于</em>关系 (类模板)</td>
+</tr>
+<tr>
+<td>ratio_greater(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的<em>大于</em>关系 (类模板)</td>
+</tr>
+<tr>
+<td>ratio_greater_equa(C++11)</td>
+<td>在编译时比较两个 <code>ratio</code> 对象的<em>大于或等于</em>关系 (类模板)</td>
+</tr>
+</tbody></table>
+<p>示例程序如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ratio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;typeinfo&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintRatio</span><span class="params">(T <span class="keyword">const</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Num : &quot;</span> &lt;&lt; v.num &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Den : &quot;</span> &lt;&lt; v.den &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::ratio&lt;<span class="number">1</span>, <span class="number">5</span>&gt; test;</span><br><span class="line">	<span class="built_in">std</span>::ratio&lt;<span class="number">2</span>, <span class="number">10</span>&gt; test2;</span><br><span class="line">	<span class="built_in">std</span>::ratio&lt;<span class="number">2</span>, <span class="number">3</span>&gt; r;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	PrintRatio(test2);</span><br><span class="line">	PrintRatio(test);</span><br><span class="line">	<span class="built_in">std</span>::ratio_add&lt;<span class="keyword">decltype</span>(test), <span class="keyword">decltype</span>(test2)&gt; sum;</span><br><span class="line">	PrintRatio(sum);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">std</span>::ratio_divide&lt;<span class="keyword">decltype</span>(r), <span class="keyword">decltype</span>(test2)&gt; result;</span><br><span class="line">	PrintRatio(result);</span><br><span class="line">	<span class="built_in">std</span>::ratio_multiply&lt;<span class="keyword">decltype</span>(r), <span class="keyword">decltype</span>(test2)&gt; result1;</span><br><span class="line">	PrintRatio(result1);</span><br><span class="line">	<span class="built_in">std</span>::ratio_subtract&lt;<span class="keyword">decltype</span>(test), <span class="keyword">decltype</span>(test2)&gt; result2;</span><br><span class="line">	PrintRatio(result2);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt;<span class="built_in">std</span>::boolalpha &lt;&lt;<span class="built_in">std</span>::ratio_greater&lt;<span class="keyword">decltype</span>(r), <span class="keyword">decltype</span>(test2)&gt;::value &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/91ad9ce3.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:46:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/91ad9ce3.html">原型模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cpp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/jsblog/fc60b87f.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/9b7d6e62.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/jsblog/6c65e2d3.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          视图变换基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/jsblog/c3f2eaef.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">无锁的数据结构设计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/9b7d6e62.html">抽象工厂模式</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/48598499.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:45:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/48598499.html">工厂方法模式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/563268dc.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:44:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/563268dc.html">桥接模式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/a708a60d.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:43:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/a708a60d.html">装饰者模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/9a246216.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:36:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/9a246216.html">观察者模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/72e3b671.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:36:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/72e3b671.html">策略模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ecc6414b.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:35:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ecc6414b.html">模板方法模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/b91a199d.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:33:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/b91a199d.html">合成复用原则</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/jsblog/ebdadec7.html" class="archive-article-date">
-  	<time datetime="2020-12-20T02:32:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/jsblog/ebdadec7.html">迪米特法则</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">patterns</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/13/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/12/">12</a><a class="page-number" href="/archives/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/archives/page/15/">15</a><a class="page-number" href="/archives/page/16/">16</a><a class="page-number" href="/archives/page/17/">17</a><a class="extend next" rel="next" href="/archives/page/15/">下一页</a>
-    </nav>
   
 
 
@@ -638,8 +475,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
