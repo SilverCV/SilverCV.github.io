@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-02T12:25:46.150Z</updated>
+  <updated>2021-01-02T12:31:29.719Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/jsblog/4c654785.html"/>
     <id>http://example.com/jsblog/4c654785.html</id>
     <published>2021-01-02T05:08:59.000Z</published>
-    <updated>2021-01-02T12:25:46.150Z</updated>
+    <updated>2021-01-02T12:31:29.719Z</updated>
     
     <content type="html"><![CDATA[<p>使用OpenGL实现视图的变换和投影操作。<a id="more"></a>为了完成这个操作，它可能来自一个单独的函数也可能来自多个函数的组合。视图变换和投影操作应该分开。</p><p>定义场景的投影如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_PROJECTION);</span><br><span class="line">glLoadIdentity();</span><br><span class="line">gluPerspective(fovy,aspect,zNear,zFar);</span><br></pre></td></tr></table></figure><p>定义场景的视图如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_MODELVIEW);</span><br><span class="line">glLoadIdentity();</span><br></pre></td></tr></table></figure><p>定义视点，观察方向以及向上方向使用gluLookAt()函数:</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluLookAt(ex,ey,ez,lx,ly,lz,upx,upy,upz);</span><br></pre></td></tr></table></figure><p>glMatrixMode()用来选择操作模式，投影还是模型视图，然后在定义具体的操作前先调用glLoadIdentity()函数，该函数对紧接的操作初始化，最后调用具体的函数来设置投影或视图变换操作所需的信息，而不与过去的操作数据冲突。</p><p>定义窗口和视口：</p><p>通过函数定义窗口，这些函数对窗口的大小和位置进行初始化，然后创建窗口。在OpenGL中，创建窗口最简单的方法是使用GLUT工具包，这些函数通常在main()中调用：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glutInitWindowSize(width,height);</span><br><span class="line">glutInitWindowPosition(topleftX,topleftY);</span><br><span class="line">WindowHandle &#x3D; glutCreateWindow(titile);</span><br></pre></td></tr></table></figure><p>glutCreateWindow()函数返回的是整数值windowHandle,它是窗口的句柄，通过这个句柄可以对这个窗口进行操作，设置为活动窗口，使用glutSetWindow()函数：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glutSetWindow(windowHandle); <span class="comment">//设置windowHandle表示的窗口为活动窗口</span></span><br><span class="line">windowHandle = glutGetWindow();<span class="comment">//获取当前活动窗口的句柄</span></span><br></pre></td></tr></table></figure><p>视口通过glViewport函数定义，它指定了窗口中用来显示的左下角坐标和右上角坐标，如果视口比图像窗口小，可以在程序的我初始函数中调用；<br>glViewport(VPLowerLX,VPLowerLY,VPWidthX,VPHeightY),</p><p>可以看到创建属于同一窗口的用于显示两幅独立图像的视口。</p>]]></content>
     
@@ -40,7 +40,7 @@
     <link href="http://example.com/jsblog/cb0c4e9b.html"/>
     <id>http://example.com/jsblog/cb0c4e9b.html</id>
     <published>2021-01-01T12:20:19.000Z</published>
-    <updated>2021-01-01T12:58:02.452Z</updated>
+    <updated>2021-01-02T12:31:29.721Z</updated>
     
     <content type="html"><![CDATA[<p>定义观看模型的基本特性，一些其他因素也会影响图像的创建和显示。<a id="more"></a>下面来看一下隐藏面和双缓冲区技术。</p><p><strong>隐藏面</strong></p><p>世界上大多数东西是不透明的，所以我们只能看到最近的物体。然而对计算机产生图像来说却是个挑战，因为图形系统是按照人们指定的顺序来绘制物体。为了创建一幅“显示最近的物体”的图像，需要使用看到场景一些合适的工具。</p><p>在图像系统中可以使用场景中几何的深度信息来决定哪些物体是离的最近的，并且只绘制物体的前面部分，这个技术叫做深度缓冲。如果深度信息是基于场景中的z坐标，那么也称为z缓冲。在深度缓冲中每个像素都有一个值，他的尺寸和窗口是一样大的，并且它的颜色值是和已经测试的点中离的最近的颜色是一样的。深度值是通过对场景中物体的z值或者眼坐标中国视点到场景中点的距离计算得到的。它的值是经过视图变换后的值，每个顶点的Z值在投影变换中被保留。</p><p>当在几何流水线中处理多边形的时候，要保存深度值。在渲染多边形的时候，需要对每个顶点的深度值进行插值来得到每个像素的深度。对计算机来说，处理整数比较要比浮点数比较速度快，所以深度值一般保存为无符号整数，并且分布在视域体的近平面和远平面之间。最大正整数值表示远平面。当浮点深度值转换为整数的时候，会引起锯齿现象。它会导致视点相同的物体深度值不同。解决这个问题的办法是使近平面和远平面在包含显示物体的空间里尽可能得接近，里一个办法使避免在建模的时候使两个物体共面，这使得每一个整数深度单位表示更小的实数，使得连个实数表示同一个深度的可能性更小。</p><p>如果直接把z值直接从三维眼空间转化为深度值，值的分布空间并不是线性的。如果近距离和远距离的差别很大，那么z插值过程中的非线性会引起z缓冲的分布偏向近距离的物体，远处的物体更容易产生锯齿现象。使用w-bufffer的缓存即用1/z代替z存储，因为1/z插值更线性，对远距离物体效果更好。还可以使用画家算法来保证只显示场景中确实要显示的部分。</p><p><strong>双缓存</strong></p><p>缓存时用来存储计算结果的一块内存，在图形屏幕上用来存储像素值。如果只用一块缓存，那么它就是颜色缓存。当产生图像的时候，需要逐个像素的写入缓存。大部分图像API允许使用两个图像缓存来保存计算的结果，它们称为前缓存和后缓存。因为创建一幅图像需要一些时间，而显示一帧图像的速度很快。如果只用一个缓存时不足够，除非只需要创建一幅图像。大部分时候是把图像画到后缓存中，而不是前缓存中，当图像创建完成，把两个缓存进行交换，这样后缓存就变成了前缓存，就可以显示新的图像。这样能够让用户比较满意，如果使用单缓存，在切换图像的时候可能会存在闪烁感。</p>]]></content>
     
@@ -59,7 +59,7 @@
     <link href="http://example.com/jsblog/4ad3a775.html"/>
     <id>http://example.com/jsblog/4ad3a775.html</id>
     <published>2020-12-31T13:04:51.000Z</published>
-    <updated>2020-12-31T13:05:08.656Z</updated>
+    <updated>2021-01-02T12:31:29.720Z</updated>
     
     <content type="html"><![CDATA[<p>投影操作需要考虑视域体，即空间中经过投影后可以看到的区域。<a id="more"></a>事实上不管使用什么投影方法，在显示设备上观看到的图像已经限定了场景的上下和左右边界。这与空间的顶面，地面和左右侧面都是对应的。观看对象不包括离视点太近或太远的物体，这就相当于限定了观看区域的前后边界，分别用ZNEAR和ZFAR表示前后边界，其中0&lt;=ZNEAR&lt;=ZFAR。</p><p>视域体是包含所有三维空间中经过投影后可以看到的物体的空间。视域体是非常重要的，只有视域体中的物体才能显示，任何视域体外面的物体都将被去除，也就是在投影操作中不可见，不会被图形系统处理。任何物体如果部分在视域体中部分在外面，都会进行裁剪，只有视域体内的部分才能被看到。视域体的远近平面则限制了投影中可见的最近和最远空间。这抱在了图像中只出现想要显示的部分，防止出现眼睛后面或者过分远的物体。</p><p><strong>正交投影</strong></p><p>要定义正交投影，必须指定视域体的上下，左右和远近平面。每个平面按照下面的等式定义：</p><p>​                                    coordinate（坐标） = value（值）</p><p>每个平面用一个实数定义。改变坐标中的每一个值都会改变视域体在每个平面的大小。对于每个坐标的左边的值来说，减少值相当于增大视域体的空间，增大值相当于缩小视域体的空间。对于右边情况与坐标相反。减少值导致空间变小，增大值导致空间变大。</p><p><strong>透视投影</strong></p><p>透视投影比平行投影复杂。透视投影以Z轴为中心，它的大小取决于观察的范围（水平向上，用角度衡量）和高宽比（垂直方向）。高宽比是指观察空间的宽度和高度之比。如果投影的高宽比和窗口的高宽比是相等的，那么所看到的图像就准确地反映了模型。透视投影的另外一个参数是近平面和远平面，如果减少近平面的值，那么靠近视点的物体就不会被切除；同样如果增大远平面的值，那么远离视点的物体也不会被切除。</p><p>透视投影的视域体的远端比近端大，所以离得较远得物体投影到窗口上得时候缩小也比较多，它们占图形得比例也比较小。所以在屏幕上看到得也越小。透视画法包括一点透视，两点透视和三点透视。一点透视是两个坐标轴方向和观察面平行，另一个和它相交，物体只有沿着那个坐标轴移动，才能改变它的投影大小。这一组平行线在观察平面上相交的点称为灭点。两点透视是指一个坐标轴和观察面平行，另外两个和它相交，那么物体在两个坐标轴上的任意一个移动都会改变大小，同样它拥有两个灭点。三点透视就是坐标轴都和观察main相交，就会产生三个灭点。</p><p>透视投影的计算非常值观，它的变换可以用下面式子表示：<br>$$<br>\left[\begin{matrix}<br>x’ \ y’ \ 1<br>\end{matrix}\right]<br>=<br>\left[\begin{matrix}<br>1/z &amp; 0 &amp; 0 \<br>0 &amp; 1/z &amp; 0 \<br>0 &amp; 0 &amp; 1 \<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>x \ y \ 1<br>\end{matrix}\right]<br>$$<br>这个矩阵变换表示从三维空间到三维空间的变换，称为透视变换，因为矩阵元素的分母中含有变量，所以这个变换不是线性映射。当对对象的某些属性进行插值时必须进行透视校正。如果X’和Y’是变换过的值，并且Z值已知，那么就可以重新计算原先的X和Y。所以要在投影计算过程中应该保留深度值。在实际的操作中，可以先进行透视视域体的剪裁，然后再进行透视变换；或者先对整个场景进行透视变换，再进行平行投影，然后在变换后得空间上进行简单得裁剪。</p><p><strong>视域体裁剪</strong></p><p>在场景进行显示之前，要把在视域体外面得图像部分进行裁剪或者移除。对正交投影进行裁剪很简单，因为正交投影得包围平面通过坐标常量来定义：X=Xleft,X=Xright,Y=YBottom,Y=Ytop,Z=Znear,Z=Zfar。对于一直直线，如果直线在这个范围内，就保留，超出这个范围的部分就被丢弃。对透视投影的视域体进行剪裁要比较难一点，它要求对倾斜的包围平面进行剪裁。不过可以先进行透视变换，通过透视变换，把透视视域体的倾斜面变换成与Z轴平行，就和正交视域体一样，然后就可以进行正常的剪裁。</p>]]></content>
     
