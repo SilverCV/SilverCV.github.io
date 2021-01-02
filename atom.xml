@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-30T13:52:15.932Z</updated>
+  <updated>2021-01-02T12:25:46.150Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,68 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>OpenGL实现视图变换和投影</title>
+    <link href="http://example.com/jsblog/4c654785.html"/>
+    <id>http://example.com/jsblog/4c654785.html</id>
+    <published>2021-01-02T05:08:59.000Z</published>
+    <updated>2021-01-02T12:25:46.150Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用OpenGL实现视图的变换和投影操作。<a id="more"></a>为了完成这个操作，它可能来自一个单独的函数也可能来自多个函数的组合。视图变换和投影操作应该分开。</p><p>定义场景的投影如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_PROJECTION);</span><br><span class="line">glLoadIdentity();</span><br><span class="line">gluPerspective(fovy,aspect,zNear,zFar);</span><br></pre></td></tr></table></figure><p>定义场景的视图如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_MODELVIEW);</span><br><span class="line">glLoadIdentity();</span><br></pre></td></tr></table></figure><p>定义视点，观察方向以及向上方向使用gluLookAt()函数:</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluLookAt(ex,ey,ez,lx,ly,lz,upx,upy,upz);</span><br></pre></td></tr></table></figure><p>glMatrixMode()用来选择操作模式，投影还是模型视图，然后在定义具体的操作前先调用glLoadIdentity()函数，该函数对紧接的操作初始化，最后调用具体的函数来设置投影或视图变换操作所需的信息，而不与过去的操作数据冲突。</p><p>定义窗口和视口：</p><p>通过函数定义窗口，这些函数对窗口的大小和位置进行初始化，然后创建窗口。在OpenGL中，创建窗口最简单的方法是使用GLUT工具包，这些函数通常在main()中调用：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glutInitWindowSize(width,height);</span><br><span class="line">glutInitWindowPosition(topleftX,topleftY);</span><br><span class="line">WindowHandle &#x3D; glutCreateWindow(titile);</span><br></pre></td></tr></table></figure><p>glutCreateWindow()函数返回的是整数值windowHandle,它是窗口的句柄，通过这个句柄可以对这个窗口进行操作，设置为活动窗口，使用glutSetWindow()函数：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glutSetWindow(windowHandle); <span class="comment">//设置windowHandle表示的窗口为活动窗口</span></span><br><span class="line">windowHandle = glutGetWindow();<span class="comment">//获取当前活动窗口的句柄</span></span><br></pre></td></tr></table></figure><p>视口通过glViewport函数定义，它指定了窗口中用来显示的左下角坐标和右上角坐标，如果视口比图像窗口小，可以在程序的我初始函数中调用；<br>glViewport(VPLowerLX,VPLowerLY,VPWidthX,VPHeightY),</p><p>可以看到创建属于同一窗口的用于显示两幅独立图像的视口。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;使用OpenGL实现视图的变换和投影操作。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="OpenGL" scheme="http://example.com/tags/OpenGL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>视图的其他方面</title>
+    <link href="http://example.com/jsblog/cb0c4e9b.html"/>
+    <id>http://example.com/jsblog/cb0c4e9b.html</id>
+    <published>2021-01-01T12:20:19.000Z</published>
+    <updated>2021-01-01T12:58:02.452Z</updated>
+    
+    <content type="html"><![CDATA[<p>定义观看模型的基本特性，一些其他因素也会影响图像的创建和显示。<a id="more"></a>下面来看一下隐藏面和双缓冲区技术。</p><p><strong>隐藏面</strong></p><p>世界上大多数东西是不透明的，所以我们只能看到最近的物体。然而对计算机产生图像来说却是个挑战，因为图形系统是按照人们指定的顺序来绘制物体。为了创建一幅“显示最近的物体”的图像，需要使用看到场景一些合适的工具。</p><p>在图像系统中可以使用场景中几何的深度信息来决定哪些物体是离的最近的，并且只绘制物体的前面部分，这个技术叫做深度缓冲。如果深度信息是基于场景中的z坐标，那么也称为z缓冲。在深度缓冲中每个像素都有一个值，他的尺寸和窗口是一样大的，并且它的颜色值是和已经测试的点中离的最近的颜色是一样的。深度值是通过对场景中物体的z值或者眼坐标中国视点到场景中点的距离计算得到的。它的值是经过视图变换后的值，每个顶点的Z值在投影变换中被保留。</p><p>当在几何流水线中处理多边形的时候，要保存深度值。在渲染多边形的时候，需要对每个顶点的深度值进行插值来得到每个像素的深度。对计算机来说，处理整数比较要比浮点数比较速度快，所以深度值一般保存为无符号整数，并且分布在视域体的近平面和远平面之间。最大正整数值表示远平面。当浮点深度值转换为整数的时候，会引起锯齿现象。它会导致视点相同的物体深度值不同。解决这个问题的办法是使近平面和远平面在包含显示物体的空间里尽可能得接近，里一个办法使避免在建模的时候使两个物体共面，这使得每一个整数深度单位表示更小的实数，使得连个实数表示同一个深度的可能性更小。</p><p>如果直接把z值直接从三维眼空间转化为深度值，值的分布空间并不是线性的。如果近距离和远距离的差别很大，那么z插值过程中的非线性会引起z缓冲的分布偏向近距离的物体，远处的物体更容易产生锯齿现象。使用w-bufffer的缓存即用1/z代替z存储，因为1/z插值更线性，对远距离物体效果更好。还可以使用画家算法来保证只显示场景中确实要显示的部分。</p><p><strong>双缓存</strong></p><p>缓存时用来存储计算结果的一块内存，在图形屏幕上用来存储像素值。如果只用一块缓存，那么它就是颜色缓存。当产生图像的时候，需要逐个像素的写入缓存。大部分图像API允许使用两个图像缓存来保存计算的结果，它们称为前缓存和后缓存。因为创建一幅图像需要一些时间，而显示一帧图像的速度很快。如果只用一个缓存时不足够，除非只需要创建一幅图像。大部分时候是把图像画到后缓存中，而不是前缓存中，当图像创建完成，把两个缓存进行交换，这样后缓存就变成了前缓存，就可以显示新的图像。这样能够让用户比较满意，如果使用单缓存，在切换图像的时候可能会存在闪烁感。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;定义观看模型的基本特性，一些其他因素也会影响图像的创建和显示。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="OpenGL" scheme="http://example.com/tags/OpenGL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>视域体</title>
+    <link href="http://example.com/jsblog/4ad3a775.html"/>
+    <id>http://example.com/jsblog/4ad3a775.html</id>
+    <published>2020-12-31T13:04:51.000Z</published>
+    <updated>2020-12-31T13:05:08.656Z</updated>
+    
+    <content type="html"><![CDATA[<p>投影操作需要考虑视域体，即空间中经过投影后可以看到的区域。<a id="more"></a>事实上不管使用什么投影方法，在显示设备上观看到的图像已经限定了场景的上下和左右边界。这与空间的顶面，地面和左右侧面都是对应的。观看对象不包括离视点太近或太远的物体，这就相当于限定了观看区域的前后边界，分别用ZNEAR和ZFAR表示前后边界，其中0&lt;=ZNEAR&lt;=ZFAR。</p><p>视域体是包含所有三维空间中经过投影后可以看到的物体的空间。视域体是非常重要的，只有视域体中的物体才能显示，任何视域体外面的物体都将被去除，也就是在投影操作中不可见，不会被图形系统处理。任何物体如果部分在视域体中部分在外面，都会进行裁剪，只有视域体内的部分才能被看到。视域体的远近平面则限制了投影中可见的最近和最远空间。这抱在了图像中只出现想要显示的部分，防止出现眼睛后面或者过分远的物体。</p><p><strong>正交投影</strong></p><p>要定义正交投影，必须指定视域体的上下，左右和远近平面。每个平面按照下面的等式定义：</p><p>​                                    coordinate（坐标） = value（值）</p><p>每个平面用一个实数定义。改变坐标中的每一个值都会改变视域体在每个平面的大小。对于每个坐标的左边的值来说，减少值相当于增大视域体的空间，增大值相当于缩小视域体的空间。对于右边情况与坐标相反。减少值导致空间变小，增大值导致空间变大。</p><p><strong>透视投影</strong></p><p>透视投影比平行投影复杂。透视投影以Z轴为中心，它的大小取决于观察的范围（水平向上，用角度衡量）和高宽比（垂直方向）。高宽比是指观察空间的宽度和高度之比。如果投影的高宽比和窗口的高宽比是相等的，那么所看到的图像就准确地反映了模型。透视投影的另外一个参数是近平面和远平面，如果减少近平面的值，那么靠近视点的物体就不会被切除；同样如果增大远平面的值，那么远离视点的物体也不会被切除。</p><p>透视投影的视域体的远端比近端大，所以离得较远得物体投影到窗口上得时候缩小也比较多，它们占图形得比例也比较小。所以在屏幕上看到得也越小。透视画法包括一点透视，两点透视和三点透视。一点透视是两个坐标轴方向和观察面平行，另一个和它相交，物体只有沿着那个坐标轴移动，才能改变它的投影大小。这一组平行线在观察平面上相交的点称为灭点。两点透视是指一个坐标轴和观察面平行，另外两个和它相交，那么物体在两个坐标轴上的任意一个移动都会改变大小，同样它拥有两个灭点。三点透视就是坐标轴都和观察main相交，就会产生三个灭点。</p><p>透视投影的计算非常值观，它的变换可以用下面式子表示：<br>$$<br>\left[\begin{matrix}<br>x’ \ y’ \ 1<br>\end{matrix}\right]<br>=<br>\left[\begin{matrix}<br>1/z &amp; 0 &amp; 0 \<br>0 &amp; 1/z &amp; 0 \<br>0 &amp; 0 &amp; 1 \<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>x \ y \ 1<br>\end{matrix}\right]<br>$$<br>这个矩阵变换表示从三维空间到三维空间的变换，称为透视变换，因为矩阵元素的分母中含有变量，所以这个变换不是线性映射。当对对象的某些属性进行插值时必须进行透视校正。如果X’和Y’是变换过的值，并且Z值已知，那么就可以重新计算原先的X和Y。所以要在投影计算过程中应该保留深度值。在实际的操作中，可以先进行透视视域体的剪裁，然后再进行透视变换；或者先对整个场景进行透视变换，再进行平行投影，然后在变换后得空间上进行简单得裁剪。</p><p><strong>视域体裁剪</strong></p><p>在场景进行显示之前，要把在视域体外面得图像部分进行裁剪或者移除。对正交投影进行裁剪很简单，因为正交投影得包围平面通过坐标常量来定义：X=Xleft,X=Xright,Y=YBottom,Y=Ytop,Z=Znear,Z=Zfar。对于一直直线，如果直线在这个范围内，就保留，超出这个范围的部分就被丢弃。对透视投影的视域体进行剪裁要比较难一点，它要求对倾斜的包围平面进行剪裁。不过可以先进行透视变换，通过透视变换，把透视视域体的倾斜面变换成与Z轴平行，就和正交视域体一样，然后就可以进行正常的剪裁。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;投影操作需要考虑视域体，即空间中经过投影后可以看到的区域。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="OpenGL" scheme="http://example.com/tags/OpenGL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>场景因素</title>
     <link href="http://example.com/jsblog/7edcb58c.html"/>
     <id>http://example.com/jsblog/7edcb58c.html</id>
     <published>2020-12-30T12:58:28.000Z</published>
-    <updated>2020-12-30T13:52:15.932Z</updated>
+    <updated>2020-12-30T13:57:33.893Z</updated>
     
     <content type="html"><![CDATA[<p>本部分主要定义场景的四个因素即建立视图环境，定义投影，定义窗口和定义视口。<a id="more"></a></p><p><strong>建立视图环境</strong></p><p>场景是通过在世界空间中建立一系列的原始模型，并对他们进行变换来建立的。为了把视点摆放到标准位置，把世界空间通过视图变换到另一个三维空间，需要定义三个关键元素：视点的位置，眼睛看的方向以及眼睛的垂直方向。定义好在这三个元素，可对场景中的模型进行视图变换。图形API提供了定义视图的工具，根据计算来变换整个场景。OpenGL在右手坐标系建模，然后将整个场景中的几何模型变换到以视点为原点的坐标系中。该变换时在左手坐标系中，取以视点看向Z轴的负方向。</p><p>定义视图所需要的信息包括：</p><ul><li>视点位置的（x,y,z)坐标</li><li>视点面向的方向或者正对的目标点的坐标，该方向将成为眼坐标系的Z方向</li><li>在世界空间中视点的“向上”方向将成为眼坐标系的Y方向</li></ul><p>一般图形API都会提供函数来设置视点和观察方向。视图变换操作针对定义在世界空间中的物体，并且把眼睛变换到标准模型位置。视图变换的关键就是旋转世界空间，使得向上方向和Y轴方向一致，视线方向和Z轴方向一致，然后移动世界空间，把视点位置移动到原点，最后缩放世界空间。使得目标掉或目标向量的值为（0，0，-1），这些操作是把视点从标准位置移动到API函数中定义的点的逆模型变换操作。</p><p><strong>定义投影</strong></p><p>视图变换定义了三维眼空间，这个空间还不能在标准设备上显示，必须把场景映射到和显示设备对应的二维空间。这种把三维空间中的物体映射到二维空间的技术称为投影操作。光线经过眼睛的凸透镜，远处的平行光在地平线上汇聚，所以对于观察者来说，相对远的物体比近处的小。实际上物体汇聚的方式取决于投影观看的范围宽度。通过把物体投影到观察平面上或汇聚到点上的投影称为透视投影。</p><p>正交投影把场景中所有的物体通过平行光线投影到观察平面上。在正交投影中，不管物体离眼睛有多远，它的大小和原来物体的大小相同。对于正交投影而言，只考虑所有三维眼空间中的点的X和Y坐标，所有点映射到XY平面上。如果（x,y,z）映射到（x’,y’），那么x’=x且y’=y。每一个二维空间中的点都是和Z轴平行的指向在观察平面上的投影，所以又称正交投影为平行投影。</p><p>透视投影是将每一个点都映射到三维眼空间Z=1的平面上，它是这个点和原点的连线与Z=1平面上的交点。二维眼空间中的每个点表示该点与三维眼空间的原点生成的直线。如果点（x,y,z）映射到点 （x’,y’），则通过相似三角形又x’ = x/z,且y’=y/z。</p><p><strong>定义窗口和视口</strong></p><p>在实际显示图像的显示空间依赖于定义的窗口和视口。对于图形系统而言，窗口时观察空间中的一个矩形区域，在这个区域中程序进行具体的绘制。窗口的定义和显示设备的坐标系有关，而且他还有自己的内部坐标系统。图形API提供图形窗口和管理设备窗口的接口，图形窗口中的空间称为屏幕空间，使用几何流水线中描述的二维屏幕坐标。屏幕空间中使用的最小显示单位称为像素，是图像单元的简称。</p><p>可以把图像显示在窗口的子举行区域而不是整个窗口中，这个子区域称为视口。视口是图形窗口的一个子矩形区域，它可以限制图形的显示边界。一个窗口可以有多个视口，视口可以相交，每个视口都显示自己的图形。此时的边界是视口边界，而不是窗口边界。</p>]]></content>
     
@@ -336,64 +393,6 @@
     
     
     <category term="OpenCV" scheme="http://example.com/tags/OpenCV/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>直方图均衡化</title>
-    <link href="http://example.com/jsblog/ed8ed8eb.html"/>
-    <id>http://example.com/jsblog/ed8ed8eb.html</id>
-    <published>2020-12-23T12:54:52.000Z</published>
-    <updated>2020-12-23T12:58:40.410Z</updated>
-    
-    <content type="html"><![CDATA[<p>通常我们很难观察一幅非常亮或暗的图像的细节信息，因此对于差异较大的图像，我们可以尝试改变其图像灰度分布来使图像灰度阶分布尽量均匀，进而增强图像细节信息。<a id="more"></a>直方图均衡是拉伸各个像素分布来实现图像增强的，以累计分布函数变换基础，通过特定映射转换成一种更宽的分布，其核心就是把灰度分布映射成均匀分布</p><p>直方图均衡的目的是利用动态范围内的所有灰度阶，因此对于映射函数y=f(x),要求x在（0,1）的灰度是连续的，每一个元素都能得到相应的元素一一对应可得到下式：</p><p>p(x)dx = p(y)dy</p><p>对于均衡化的输出图像p(y) = 1，则同时积分得</p><p><img src="https://pic4.zhimg.com/80/v2-a36ecb40e3de909fde4e7712ec4ead73_720w.png" alt="img"></p><p>即映射函数为：</p><p>y = f(x) = p(x) – p(0)</p><p>直方图均衡化算法的步骤如下：</p><p>（1） 获取输入图像的直方图</p><p>（2） 求累计分布直方图，构建查找表</p><p>（3） 通过图像映射，计算新的图像像素分布</p><p>代码如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::Mat srcImage = cv::imread(<span class="string">&quot;E:/CodeBlocks/data/lena.jpg&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!srcImage.data)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;fail to load image&quot;</span>&lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cv::Mat grayImage,histImage;</span><br><span class="line">    cv::cvtColor(srcImage,grayImage,cv::COLOR_BGR2GRAY);</span><br><span class="line">    cv::equalizeHist(grayImage,histImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;grayImage&quot;</span>,grayImage);</span><br><span class="line">    cv::imshow(<span class="string">&quot;histImage&quot;</span>,histImage);</span><br><span class="line">    cv::waitKey(<span class="number">0</span>);</span><br><span class="line">    cv::destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>结果：</p><p><img src="https://pic4.zhimg.com/80/v2-5acdaf808bdf585165830acd1c26d817_720w.jpg" alt="img"></p><p><img src="https://pic2.zhimg.com/80/v2-679d3c40ab103551f5956c279b43029d_720w.jpg" alt="img"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;通常我们很难观察一幅非常亮或暗的图像的细节信息，因此对于差异较大的图像，我们可以尝试改变其图像灰度分布来使图像灰度阶分布尽量均匀，进而增强图像细节信息。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="OpenCV" scheme="http://example.com/tags/OpenCV/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++之RAII</title>
-    <link href="http://example.com/jsblog/44da37.html"/>
-    <id>http://example.com/jsblog/44da37.html</id>
-    <published>2020-12-23T12:52:56.000Z</published>
-    <updated>2020-12-23T12:58:40.385Z</updated>
-    
-    <content type="html"><![CDATA[<p>以前总是听过学习C++ 不知道RAII那就是不合格的c++程序员，那什么是RAII呢？<a id="more"></a>所谓RAII机制就是（Resource Acquisition Is Initialization，资源获取即初始化），在类的构造里申请资源，然后使用资源，最后在析构函数中释放资源。在计算机中有很多种资源，内存是我们经常使用的资源，此外还有文件描述符，socket以及数据库连接等，在程序中申请这些资源后利用完必须归还，否则会造成未定义的行为。如果对象在栈上创建，那么RAII会正常工作，在离开作用域的时候释放资源。如果是使用new操作符在堆上创建对象，那么就需要程序员手动delete对象，如果程序因为某些错误而无法delete对象，则有可能对系统造成未定义的行为，内存等部分资源就会永久丢失。</p><p>未使用RAII的操作：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::mutex m;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bad</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m.lock();                    <span class="comment">// 请求互斥体</span></span><br><span class="line">    f();                         <span class="comment">// 若 f() 抛异常，则互斥体永远不被释放</span></span><br><span class="line">    <span class="keyword">if</span>(!everything_ok()) <span class="keyword">return</span>; <span class="comment">// 提早返回，互斥体永远不被释放</span></span><br><span class="line">    m.unlock();                  <span class="comment">// 若 bad() 抵达此语句，互斥才被释放</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure><p>无论那一步操作失败都需要自己释放资源，如果使用了RAII则不需要自己关闭文件，在离开函数的时候，会自动释放文件描述符。</p><p>使用RAII机制的代码示例：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">good</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lk</span><span class="params">(m)</span></span>; <span class="comment">// RAII类：互斥体的请求即是初始化</span></span><br><span class="line">    f();                               <span class="comment">// 若 f() 抛异常，则释放互斥体</span></span><br><span class="line">    <span class="keyword">if</span>(!everything_ok()) <span class="keyword">return</span>;       <span class="comment">// 提早返回，互斥体被释放</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure><p>RAII的总结如下（cppreference）：</p><ul><li>将每个资源封装入一个类，其中</li></ul><p>· 构造函数请求资源，并建立所有类不变式，或在它无法完成时抛出异常，</p><p>· 析构函数释放资源并决不抛出异常；</p><ul><li>始终经由 RAII 类的实例使用满足要求的资源，该资源</li></ul><p>· 自身拥有自动存储期或临时生存期，或</p><p>· 具有与自动或临时对象的生存期绑定的生存期</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;以前总是听过学习C++ 不知道RAII那就是不合格的c++程序员，那什么是RAII呢？&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>宏参数#和##</title>
-    <link href="http://example.com/jsblog/b039a98a.html"/>
-    <id>http://example.com/jsblog/b039a98a.html</id>
-    <published>2020-12-23T12:52:10.000Z</published>
-    <updated>2020-12-23T12:58:40.403Z</updated>
-    
-    <content type="html"><![CDATA[<p>作用：</p><p>使用#把宏参数变成一个字符串，使用##则是把两个红参数连接在一起 <a id="more"></a></p><p>用法如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _Str(var) #var</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Str(var) _Str(var)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _StringCat(str1) 123##str1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> StringCat(str1) _StringCat(str1)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,Str(<span class="number">123456</span>));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,StringCat(<span class="number">123</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>注意:当宏参数是另一个宏的时候，需要注意的是宏定义例有用“#”或“##”的地方宏参数是不会再展开。即只有当前的宏生效，参数里的宏不会生效。解决的办法就是增加新的宏定义做一个转换。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;作用：&lt;/p&gt;
-&lt;p&gt;使用#把宏参数变成一个字符串，使用##则是把两个红参数连接在一起&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="cpp" scheme="http://example.com/tags/cpp/"/>
     
   </entry>
   
