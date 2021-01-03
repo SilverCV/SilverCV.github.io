@@ -16,7 +16,7 @@
 <meta property="og:description" content="使用OpenGL实现视图的变换和投影操作。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-02T05:08:59.000Z">
-<meta property="article:modified_time" content="2021-01-02T12:31:29.719Z">
+<meta property="article:modified_time" content="2021-01-03T12:46:51.634Z">
 <meta property="article:author" content="JSL">
 <meta property="article:tag" content="OpenGL">
 <meta name="twitter:card" content="summary">
@@ -259,6 +259,52 @@
 
 <p>视口通过glViewport函数定义，它指定了窗口中用来显示的左下角坐标和右上角坐标，如果视口比图像窗口小，可以在程序的我初始函数中调用；<br>glViewport(VPLowerLX,VPLowerLY,VPWidthX,VPHeightY),</p>
 <p>可以看到创建属于同一窗口的用于显示两幅独立图像的视口。</p>
+<p><strong>设置视图变换的环境</strong></p>
+<p>要设置视图变换的环境，必须使用GL_MODEVIEW矩阵来定义单位矩阵，然后指定两个点和一个向量来定义视图变换的环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_MODELVIEW);</span><br><span class="line">glLoadIdentity();</span><br><span class="line">&#x2F;&#x2F; 视点，观察的视点和向上的方向向量</span><br><span class="line">glLookAt(ex,ey,ez,lx,ly,lz,ux,uy,uz)</span><br></pre></td></tr></table></figure>
+
+<p>定义视点的步骤如下：</p>
+<ol>
+<li>绕Z轴旋转，使得向上方向在观察平面上的投影和Y轴对齐</li>
+<li>进行缩放，使得观察中心位于沿着Z轴负方向上一定距离的点</li>
+<li>移动变换，使得观察中心位于原点</li>
+<li>分别绕X轴和Y轴旋转，把 视点放在相对观察中心的正确位置</li>
+<li>移动变换，把观察中心移到正确位置</li>
+</ol>
+<p>视图变换通过把放置在原点的视点变换到所要的位置的逆变换来实现。而glLookAt()函数应该首先出现在display()函数中，它的变换操作如下：</p>
+<ol>
+<li>把观察中心变换到原点</li>
+<li>绕X,Y轴旋转，使得视点位于Z轴负方向</li>
+<li>把视点变换到原点</li>
+<li>进行缩放，把观察中心变换到(0,0,-1)</li>
+<li>绕Z轴旋转，使得向上方向与Z轴对齐</li>
+</ol>
+<p><strong>定义透视投影</strong></p>
+<p>透视透视投影需要指定工作在GL_PROJECTION矩阵，然后设置单位矩阵，最好指定透视变换的属性。顺序如下：</p>
+<ol>
+<li>观看的范围，用弧度表示宽度</li>
+<li>高宽比</li>
+<li>zNear的值</li>
+<li>zFar的值</li>
+</ol>
+<p>如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">glMatrixMode(GL_PROJECTION)</span><br><span class="line">glLoadIdentity()</span><br><span class="line"><span class="comment">//指定透视投影的范围，高宽比，zNear,ZFar</span></span><br><span class="line">gluPerspectve(fovy,aspect,zNear,zFar)</span><br></pre></td></tr></table></figure>
+
+<p>也可以是使用函数glFrustum()函数定义透视投影，它的参数是视域体的六个参数，形式如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glFrustum(left,right,bottom,near,far);</span><br></pre></td></tr></table></figure>
+
+<p><strong>定义正交投影</strong></p>
+<p>正交投影和透视投影的很相似，除了函数参数以外，要定义正交投影的视域体，只要定义边界就好，使用下main的函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glOrtho(xLow,Xhigh,yLow,yHigh,zNear,zFar);</span><br></pre></td></tr></table></figure>
+
+<p><strong>隐藏面的处理以及设置双缓存</strong></p>
+<p>隐藏面的处理不需要我们自己去处理，只要在使用glutInitDisplayMode()函数中指定GLUT_DEPTH,那么就可以处理隐藏面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);</span><br></pre></td></tr></table></figure>
+
+<p>必须启用深度测试。启用是OpenGL的标准特性，许多系统的功能需要通过调用glEnable函数启用后才能用.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glEnable(GL_DEPTH_TEST);</span><br></pre></td></tr></table></figure>
+
+<p>如果不想启用可以使用glDisable()函数禁用。深度测试启用后，绘制过程会自动进行。使用glDepthFunc(value)函数可以更改当前的z值。设置双缓存也是在glutInitDisplayMode()函数中指定GLUT_DOUBLE属性，同时在dispaly()函数中是使用glutSwapBuffers()函数用来交换前缓存和后缓存，使得后缓存的内容可以被显示。</p>
 
       
 
